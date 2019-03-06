@@ -1,0 +1,304 @@
+@prefix rr:     <http://www.w3.org/ns/r2rml#> .
+@prefix rml:    <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql:     <http://semweb.mmlab.be/ns/ql#> .
+@prefix carml:  <http://carml.taxonic.com/carml/> .
+@prefix fno:    <http://semweb.datasciencelab.be/ns/function#> .
+@prefix fnml:   <http://semweb.mmlab.be/ns/fnml#> .
+@prefix dec:    <http://semantics.id/ns/declare#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix nvd: <http://sepses.ifs.tuwien.ac.at/vocab/ref/NVDSchema#> .
+@prefix cvss: <http://sepses.ifs.tuwien.ac.at/vocab/ref/cvss#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cve: <http://sepses.ifs.tuwien.ac.at/vocab/ref/cve#> .
+@prefix cpe: <http://sepses.ifs.tuwien.ac.at/vocab/ref/cpe#> .
+      
+     <#CVEMapping>
+     
+     rml:logicalSource [
+         rml:source [
+             a carml:Stream;
+              carml:declaresNamespace [
+                carml:namespacePrefix "vuln";
+                carml:namespaceName "http://scap.nist.gov/schema/vulnerability/0.4" ;
+              ] ;
+                 carml:declaresNamespace [
+                carml:namespacePrefix "cpe-lang";
+                carml:namespaceName "http://cpe.mitre.org/language/2.0" ;
+              ] ;
+         ];
+      
+         rml:referenceFormulation ql:XPath;
+		 rml:iterator "/nvd/entry"
+     ];
+     
+     rr:subjectMap [
+         rr:template "http://example.org/sepses/cve#{@id}";
+      ];
+	 rr:predicateObjectMap [
+        rr:predicate rdf:type;
+        rr:objectMap [ rr:template "http://sepses.ifs.tuwien.ac.at/vocab/ref/cve#CVE" ];
+     ];
+     rr:predicateObjectMap [
+        rr:predicate cve:CVEId;
+        rr:objectMap [ rml:reference  "@id" ];
+        rr:datatype xsd:string ;
+     ];
+       rr:predicateObjectMap [
+        rr:predicate cve:description;
+        rr:objectMap [ rml:reference  "vuln:summary" ];
+        rr:datatype xsd:string ;
+     ];
+     
+      rr:predicateObjectMap [
+        rr:predicate cve:hasCPE;
+        rr:objectMap [ carml:multiTemplate  "http://example.org/sepses/cpe#{vuln:vulnerable-software-list/vuln:product}" ];
+     ];
+     
+      rr:predicateObjectMap [
+        rr:predicate cve:hasVulnerableConfiguration;
+         rr:objectMap [ 
+          rr:parentTriplesMap <#CVEVulnerableConfigurationMapping>;
+          carml:multiJoinCondition [
+	        rr:child "vuln:vulnerable-configuration/cpe-lang:logical-test/concat(ancestor::entry/@id,cpe-lang:fact-ref[1]/@name)" ;
+	        rr:parent "concat(ancestor::entry/@id,cpe-lang:fact-ref[1]/@name)" ;
+	      ] 
+	     ];
+       ];
+       
+     
+       
+      rr:predicateObjectMap [
+        rr:predicate cve:datePublished;
+        rr:objectMap [ rml:reference  "vuln:published-datetime" ];
+        rr:datatype xsd:dateTime ;
+     ];
+     
+       rr:predicateObjectMap [
+        rr:predicate cve:dateLastModified;
+        rr:objectMap [ rml:reference  "vuln:last-modified-datetime" ];
+        rr:datatype xsd:dateTime ;
+     ];
+    
+      rr:predicateObjectMap [
+        rr:predicate cve:hasReference;
+        rr:objectMap [ 
+          rr:parentTriplesMap <#CVEReferenceMapping>;
+          carml:multiJoinCondition [
+	        rr:child "vuln:references/concat(concat(ancestor::entry/@id,vuln:source),vuln:reference)" ;
+	        rr:parent "concat(concat(ancestor::entry/@id,vuln:source),vuln:reference)" ;
+	      ]; 
+         ];
+        ]; 
+           
+     rr:predicateObjectMap [
+        rr:predicate cve:hasCPE;
+        rr:objectMap [ carml:multiTemplate  "http://example.org/sepses/cpe#{vuln:vulnerable-software-list/vuln:product}" ];
+     ];
+        
+      rr:predicateObjectMap [
+        rr:predicate cve:hasCWE;
+        rr:objectMap [ 
+        	carml:multiTemplate "http://example.org/sepses/cwe#{vuln:cwe/@id}"		
+        	 ]
+     ];
+     rr:predicateObjectMap [
+        rr:predicate cve:hasCVSS2BaseMetric;
+        rr:objectMap [ 
+          rr:parentTriplesMap <#CVSS2BaseMetricMapping> ]
+        ];
+     
+     .
+     <#CVEReferenceMapping>
+     rml:logicalSource [
+         rml:source [
+             a carml:Stream;
+            
+         ];
+      
+         rml:referenceFormulation ql:XPath;
+		 rml:iterator "/nvd/entry/vuln:references"
+     ];
+     
+      rr:subjectMap [
+         rr:template "http://example.org/sepses/cve/reference#{concat(concat(ancestor::entry/@id,vuln:source),translate(vuln:reference,translate(vuln:reference,'0123456789',''),''))}";
+      ];
+	 rr:predicateObjectMap [
+        rr:predicate rdf:type;
+        rr:objectMap [ rr:template "http://sepses.ifs.tuwien.ac.at/vocab/ref/cve#Reference" ];
+     ];
+     rr:predicateObjectMap [
+        rr:predicate cve:referenceType;
+        rr:objectMap [ rml:reference "@reference_type" ];
+     ];
+     rr:predicateObjectMap [
+        rr:predicate cve:referenceSource;
+        rr:objectMap [ rml:reference "vuln:source" ];
+     ];
+     rr:predicateObjectMap [
+        rr:predicate cve:referenceUrl;
+        rr:objectMap [ rml:reference "vuln:reference" ];
+     ];
+     
+     
+     .
+     <#CVEVulnerableConfigurationMapping> 
+      
+      rml:logicalSource [
+         rml:source [
+             a carml:Stream;
+            
+         ];
+      
+         rml:referenceFormulation ql:XPath;
+		 rml:iterator "/nvd/entry/vuln:vulnerable-configuration/cpe-lang:logical-test"
+     ];
+     
+      rr:subjectMap [
+         rr:template "http://example.org/sepses/cpe/logicalTest#{concat(ancestor::entry/@id,translate(descendant-or-self::cpe-lang:fact-ref[1]/@name,translate(descendant-or-self::cpe-lang:fact-ref[1]/@name,'0123456789',''),''))}";
+      ];
+	 rr:predicateObjectMap [
+        rr:predicate rdf:type;
+        rr:objectMap [ rr:template "http://sepses.ifs.tuwien.ac.at/vocab/ref/cpe#LogicalTest" ];
+     ];
+     
+     rr:predicateObjectMap [
+        rr:predicate cpe:logicalTestOperator;
+        rr:objectMap [ rml:reference "@operator" ];
+         rr:datatype xsd:string ;
+     ];
+     rr:predicateObjectMap [
+        rr:predicate cpe:logicalTestNegate;
+        rr:objectMap [ rml:reference "@negate" ];
+         rr:datatype xsd:string ;
+     ];
+     
+   	 rr:predicateObjectMap [
+        rr:predicate cpe:logicalTestFactRef;
+        rr:objectMap [ carml:multiTemplate "http://example.org/sepses/cpe#{cpe-lang:fact-ref/@name}" ];
+     ];
+     
+     
+      rr:predicateObjectMap [
+        rr:predicate cpe:hasLogicalTest;
+        rr:objectMap [ 
+        rr:parentTriplesMap <#CPELogicalTestMapping>;
+           carml:multiJoinCondition [
+	        rr:child "cpe-lang:logical-test/concat(ancestor::entry/@id,cpe-lang:fact-ref[1]/@name)" ;
+	        rr:parent "concat(ancestor::entry/@id,cpe-lang:fact-ref[1]/@name)" ;
+	      ];
+         ];
+     ];
+     .
+        
+     <#CPELogicalTestMapping> 
+      
+      rml:logicalSource [
+         rml:source [
+             a carml:Stream;
+            
+         ];
+      
+         rml:referenceFormulation ql:XPath;
+		 rml:iterator "/nvd/entry/vuln:vulnerable-configuration/cpe-lang:logical-test/cpe-lang:logical-test"
+     ];
+     
+      rr:subjectMap [
+         rr:template "http://example.org/sepses/cpe/logicalTest#{concat(concat(ancestor::entry/@id,translate(cpe-lang:fact-ref[1]/@name,translate(cpe-lang:fact-ref[1]/@name,'0123456789',''),'')),translate(cpe-lang:fact-ref[1]/@name,translate(cpe-lang:fact-ref[1]/@name,'0123456789',''),''))}";
+      ];
+      
+      	 rr:predicateObjectMap [
+        rr:predicate rdf:type;
+        rr:objectMap [ rr:template "http://sepses.ifs.tuwien.ac.at/vocab/ref/cpe#LogicalTest" ];
+     ];
+     
+     
+     rr:predicateObjectMap [
+        rr:predicate cpe:logicalTestOperator;
+        rr:objectMap [ rml:reference "@operator" ];
+         rr:datatype xsd:string ;
+     ];
+     rr:predicateObjectMap [
+        rr:predicate cpe:logicalTestNegate;
+        rr:objectMap [ rml:reference "@negate" ];
+         rr:datatype xsd:boolean ;
+     ];
+     
+   	 rr:predicateObjectMap [
+        rr:predicate cpe:logicalTestFactRef;
+        rr:objectMap [ carml:multiTemplate "http://example.org/sepses/cpe#{cpe-lang:fact-ref/@name}" ];
+     ];
+     .
+     
+     <#CVSS2BaseMetricMapping> 
+      
+      rml:logicalSource [
+         rml:source [
+             a carml:Stream;
+             carml:declaresNamespace [
+                carml:namespacePrefix "cvss";
+                carml:namespaceName "http://scap.nist.gov/schema/cvss-v2/0.2" ;
+              ] ;
+         ];
+      
+         rml:referenceFormulation ql:XPath;
+		 rml:iterator "/nvd/entry"
+     ];
+     
+      rr:subjectMap [
+         rr:template "http://example.org/sepses/cvss/CVSS2BaseMetric#{@id}";
+      ];
+	 rr:predicateObjectMap [
+        rr:predicate rdf:type;
+        rr:objectMap [ rr:template "http://sepses.ifs.tuwien.ac.at/vocab/ref/cvss#CVSS2BaseMetric" ];
+     ];
+     rr:predicateObjectMap [
+        rr:predicate cvss:accessVector;
+        rr:objectMap [ rml:reference "vuln:cvss/cvss:base_metrics/cvss:access-vector" ];
+        rr:datatype xsd:string ;
+     ];
+      rr:predicateObjectMap [
+        rr:predicate cvss:accessComplexity;
+        rr:objectMap [ rml:reference "vuln:cvss/cvss:base_metrics/cvss:access-complexity" ];
+        rr:datatype xsd:string ;
+     ];
+     rr:predicateObjectMap [
+        rr:predicate cvss:authentication;
+        rr:objectMap [ rml:reference "vuln:cvss/cvss:base_metrics/cvss:uthentication" ];
+        rr:datatype xsd:string ;
+     ];
+     rr:predicateObjectMap [
+        rr:predicate cvss:confidentialityImpact;
+        rr:objectMap [ rml:reference "vuln:cvss/cvss:base_metrics/cvss:confidentiality-impact" ];
+        rr:datatype xsd:string ;
+     ];
+         rr:predicateObjectMap [
+        rr:predicate cvss:integrityImpact;
+        rr:objectMap [ rml:reference "vuln:cvss/cvss:base_metrics/cvss:integrity-impact" ];
+        rr:datatype xsd:string ;
+     ];
+      rr:predicateObjectMap [
+        rr:predicate cvss:availabilityImpact;
+        rr:objectMap [ rml:reference "vuln:cvss/cvss:base_metrics/cvss:availability-impact" ];
+        rr:datatype xsd:string ;
+     ];
+     
+     rr:predicateObjectMap [
+        rr:predicate cvss:baseScore;
+        rr:objectMap [ rml:reference "vuln:cvss/cvss:base_metrics/cvss:score" ];
+        rr:datatype xsd:decimal ;
+     ];
+     rr:predicateObjectMap [
+        rr:predicate cvss:dateGenerated;
+        rr:objectMap [ rml:reference "vuln:cvss/cvss:base_metrics/cvss:generated-on-datetime" ];
+        rr:datatype xsd:dateTime ;
+     ];
+     rr:predicateObjectMap [
+        rr:predicate cvss:source;
+        rr:objectMap [ rml:reference "vuln:cvss/cvss:base_metrics/cvss:source" ];
+        rr:datatype xsd:dateTime ;
+     ];
+     
+     
+.
+

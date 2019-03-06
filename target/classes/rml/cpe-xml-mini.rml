@@ -1,0 +1,120 @@
+@prefix rr:     <http://www.w3.org/ns/r2rml#> .
+@prefix rml:    <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql:     <http://semweb.mmlab.be/ns/ql#> .
+@prefix carml:  <http://carml.taxonic.com/carml/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cpe: <http://w3id.org/sepses/vocab/ref/cpe#> .
+
+<#CPEMapping>
+     rml:logicalSource [
+         rml:source [
+             a carml:Stream;  
+             carml:declaresNamespace [
+                carml:namespacePrefix "cpe-23";
+                carml:namespaceName "http://scap.nist.gov/schema/cpe-extension/2.3" ;
+              ] ;         
+         ];
+      
+         rml:referenceFormulation ql:XPath;
+		 rml:iterator "/cpe-list/cpe-item"
+     ];
+     rr:subjectMap [
+         rr:template "http://w3id.org/sepses/resource/cpe/{translate(@name,':/_.~-%','')}";
+     ];
+     rr:predicateObjectMap [
+        rr:predicate rdf:type;
+        rr:objectMap [ rr:template "http://w3id.org/sepses/vocab/ref/cpe#CPE" ];
+     ];
+      rr:predicateObjectMap [
+        rr:predicate cpe:title;
+        rr:objectMap [ carml:multiReference "title" ];
+        rr:datatype xsd:string ;
+     ];
+     
+      rr:predicateObjectMap [
+        rr:predicate cpe:id;
+        rr:objectMap [ rml:reference "@name" ];
+        rr:datatype xsd:string ;
+     ];
+     
+      rr:predicateObjectMap [
+        rr:predicate cpe:cpe23;
+        rr:objectMap [ rml:reference "cpe-23:cpe23-item/@name" ];
+        rr:datatype xsd:string ;
+     ];
+     rr:predicateObjectMap [
+        rr:predicate cpe:hasVendor;
+        rr:objectMap [ 
+        rr:template "http://w3id.org/sepses/resource/cpe/vendor/{substring-before(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':')}";
+         ]
+     ];
+             rr:predicateObjectMap [
+        rr:predicate cpe:hasProduct;
+        rr:objectMap [ 
+         rr:template "http://w3id.org/sepses/resource/cpe/product/{substring-before(substring-after(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':'),':')}";
+		 ]
+     ];
+             rr:predicateObjectMap [
+        rr:predicate cpe:hasReference;
+        rr:objectMap [ carml:multiReference "references/reference/@href" ]
+     ];
+     .
+      <#CPEVendorMapping> 
+     rml:logicalSource [
+         rml:source [
+             a carml:Stream;
+             
+         ];
+      
+        rml:referenceFormulation ql:XPath;
+		rml:iterator "/cpe-list/cpe-item"
+     ];
+     
+     rr:subjectMap [
+         rr:template "http://w3id.org/sepses/resource/cpe/vendor/{substring-before(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':')}";
+      ];
+      
+      rr:predicateObjectMap [
+        rr:predicate rdf:type;
+        rr:objectMap [ rr:template "http://w3id.org/sepses/vocab/ref/cpe#Vendor" ];
+     ];
+   rr:predicateObjectMap [
+        rr:predicate cpe:vendorName;
+        rr:objectMap [ rml:reference "substring-before(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':')"];
+        rr:datatype xsd:string ;
+     ];
+	 .
+     
+     <#CPEProductMapping> 
+     rml:logicalSource [
+         rml:source [
+             a carml:Stream;
+             
+         ];
+      
+        rml:referenceFormulation ql:XPath;
+		rml:iterator "/cpe-list/cpe-item"
+     ];
+     
+     rr:subjectMap [
+         rr:template "http://w3id.org/sepses/resource/cpe/product/{substring-before(substring-after(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':'),':')}";
+        ];
+      
+      rr:predicateObjectMap [
+        rr:predicate rdf:type;
+        rr:objectMap [ rr:template "http://w3id.org/sepses/vocab/ref/cpe#Product" ];
+     ];
+   rr:predicateObjectMap [
+        rr:predicate cpe:productName;
+        rr:objectMap [ rml:reference "substring-before(substring-after(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':'),':')"];
+           rr:datatype xsd:string ;
+     ];
+      rr:predicateObjectMap [
+        rr:predicate cpe:hasVendor;
+        rr:objectMap [   rr:template "http://w3id.org/sepses/resource/cpe/vendor/{substring-before(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':')}"];
+
+     ];
+.
+

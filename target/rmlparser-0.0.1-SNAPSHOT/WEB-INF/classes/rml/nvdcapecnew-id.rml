@@ -1,0 +1,47 @@
+@prefix rr:     <http://www.w3.org/ns/r2rml#> .
+@prefix rml:    <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql:     <http://semweb.mmlab.be/ns/ql#> .
+@prefix carml:  <http://carml.taxonic.com/carml/> .
+@prefix fno:    <http://semweb.datasciencelab.be/ns/function#> .
+@prefix fnml:   <http://semweb.mmlab.be/ns/fnml#> .
+@prefix dec:    <http://semantics.id/ns/declare#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix nvd: <http://w3id.org/sepses/vocab/ref/NVDSchema#> .
+@prefix cvss: <http://w3id.org/sepses/vocab/ref/cvss#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cwe: <http://w3id.org/sepses/vocab/ref/cwe#> .
+@prefix capec: <http://w3id.org/sepses/vocab/ref/capec#> .
+@prefix dcterm: <http://purl.org/dc/terms/> .
+
+ <#CWEMapping>
+     rml:logicalSource [
+         rml:source [
+             a carml:Stream;  
+                  
+         ];
+      
+         rml:referenceFormulation ql:XPath;
+		 rml:iterator "/Attack_Pattern_Catalog/Attack_Patterns/Attack_Pattern"
+     ];
+     rr:subjectMap [
+         rr:template "http://w3id.org/sepses/resource/capec/CAPEC-{@ID}";
+     ];
+     rr:predicateObjectMap [
+        rr:predicate rdf:type;
+        rr:objectMap [ rr:template "http://w3id.org/sepses/vocab/ref/capec#CAPEC" ];
+     ];
+     
+     rr:predicateObjectMap [
+        rr:predicate dcterm:issued;
+        rr:objectMap [ rml:reference "Content_History/Submission/Submission_Date" ];
+        rr:datatype xsd:string ;
+     ]; 
+     
+     rr:predicateObjectMap [
+        rr:predicate dcterm:modified;
+        rr:objectMap [ carml:multiReference "Content_History/Modification/Modification_Date" ];
+        rr:datatype xsd:string ;
+     ]; 
+     
+.

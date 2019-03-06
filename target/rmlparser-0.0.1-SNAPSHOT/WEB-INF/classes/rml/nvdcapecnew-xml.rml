@@ -1,0 +1,451 @@
+@prefix rr:     <http://www.w3.org/ns/r2rml#> .
+@prefix rml:    <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql:     <http://semweb.mmlab.be/ns/ql#> .
+@prefix carml:  <http://carml.taxonic.com/carml/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cwe: <http://w3id.org/sepses/vocab/ref/cwe#> .
+@prefix capec: <http://w3id.org/sepses/vocab/ref/capec#> .
+@prefix dcterm: <http://purl.org/dc/terms/> .
+
+ <#CAPECCatalogMapping>
+     rml:logicalSource [
+         rml:source [
+             a carml:Stream;  
+         ];
+      
+         rml:referenceFormulation ql:XPath;
+		 rml:iterator "/Attack_Pattern_Catalog"
+     ];
+     rr:subjectMap [
+         rr:template "http://w3id.org/sepses/resource/capec/catalog/{concat(translate(@Version,'.',''),translate(@Date,'-',''))}";
+         rr:class capec:AttackPatternCatalog
+     ];
+       rr:predicateObjectMap [
+        rr:predicate capec:catalogVersion;
+        rr:objectMap [ rml:reference "@Version" ];
+        rr:datatype xsd:string ;
+     ];
+        rr:predicateObjectMap [
+        rr:predicate capec:catalogDate;
+        rr:objectMap [ rml:reference "@Date" ];
+        rr:datatype xsd:dateTime ;
+     ];
+        rr:predicateObjectMap [
+        rr:predicate capec:catalogName;
+        rr:objectMap [ rml:reference "@Name" ];
+        rr:datatype xsd:dateTime ;
+     ];
+     .
+ 
+ <#CAPECMapping>
+     rml:logicalSource [
+         rml:source [
+             a carml:Stream;  
+                  
+         ];
+      
+         rml:referenceFormulation ql:XPath;
+		 rml:iterator "/Attack_Pattern_Catalog/Attack_Patterns/Attack_Pattern"
+     ];
+     rr:subjectMap [
+         rr:template "http://w3id.org/sepses/resource/capec/CAPEC-{@ID}";
+     ];
+     rr:predicateObjectMap [
+        rr:predicate rdf:type;
+        rr:objectMap [ rr:template "http://w3id.org/sepses/vocab/ref/capec#CAPEC" ];
+     ];
+      rr:predicateObjectMap [
+        rr:predicate capec:id;
+        rr:objectMap [ rml:reference "@ID" ];
+        rr:datatype xsd:string ;
+     ];
+     
+    rr:predicateObjectMap [
+        rr:predicate capec:name;
+        rr:objectMap [ rml:reference  "@Name" ];
+        rr:datatype xsd:string ;
+     ];
+    rr:predicateObjectMap [
+        rr:predicate capec:abstraction;
+        rr:objectMap [ rml:reference  "@Abstraction" ];
+        rr:datatype xsd:string ;
+     ];
+    rr:predicateObjectMap [
+        rr:predicate capec:structure;
+        rr:objectMap [ rml:reference "@Structure" ];
+        rr:datatype xsd:string ;
+     ];
+     
+     rr:predicateObjectMap [
+        rr:predicate capec:status;
+        rr:objectMap [ rml:reference  "@Status" ];
+        rr:datatype xsd:string ;
+     ];
+      rr:predicateObjectMap [
+        rr:predicate dcterm:description;
+        rr:objectMap [ rml:reference "Description" ];
+        rr:datatype xsd:string ;
+     ];
+     
+        rr:predicateObjectMap [
+        rr:predicate capec:likelihoodOfAttack;
+        rr:objectMap [ rml:reference "Likelihood_Of_Attack" ; 
+      ];  
+     ];
+     
+            rr:predicateObjectMap [
+        rr:predicate capec:typicalSeverity;
+        rr:objectMap [ rml:reference "Typical_Severity" ; 
+      ];  
+     ];
+     
+     
+      rr:predicateObjectMap [
+        rr:predicate capec:hasSubmissionHistory;
+        rr:objectMap [ rr:template "http://w3id.org/sepses/resource/capec/submissionHistory/{concat(@ID,translate(Content_History/Submission/Submission_Date,'-',''))}" ; 
+         ];  
+     ];
+     
+     
+rr:predicateObjectMap [
+        rr:predicate capec:indicators;
+        rr:objectMap [ carml:multiReference "Indicators/Indicator" ];
+     ];  
+     
+     rr:predicateObjectMap [
+        rr:predicate capec:hasModificationHistory;
+        rr:objectMap [ rr:parentTriplesMap <#CAPECModificationHistory> ; 
+	     carml:multiJoinCondition [
+	        rr:child "Content_History/Modification/concat(ancestor::Attack_Pattern/@ID,translate(Modification_Date,'-',''))" ;
+	        rr:parent "concat(ancestor::Attack_Pattern/@ID,translate(Modification_Date,'-',''))" ;
+	         ];  
+     	];
+	];
+    
+     
+     rr:predicateObjectMap [
+        rr:predicate capec:hasRelatedAttackPattern;
+        rr:objectMap [ rr:parentTriplesMap <#CAPECRelatedAttackPatternMapping> ; 
+	     carml:multiJoinCondition [
+	        rr:child "Related_Attack_Patterns/Related_Attack_Pattern/concat(concat(concat(@CAPEC_ID,@Nature),@View_ID),ancestor::Attack_Pattern/@ID)" ;
+	        rr:parent "concat(concat(concat(@CAPEC_ID,@Nature),@View_ID),ancestor::Attack_Pattern/@ID)" ;
+	      ] 
+      ];  
+     ];
+     
+      rr:predicateObjectMap [
+        rr:predicate capec:hasExecutionFlow;
+        rr:objectMap [ rr:parentTriplesMap <#CAPECExecutionFlowMapping> ; 
+	     carml:multiJoinCondition [
+	        rr:child "Execution_Flow/Attack_Step/concat(ancestor::Attack_Pattern/@ID,string-length())" ;
+	        rr:parent "concat(ancestor::Attack_Pattern/@ID,string-length())" ;
+	      ] 
+      ];  
+     ];
+     
+      
+        rr:predicateObjectMap [
+        rr:predicate capec:prerequisites;
+        rr:objectMap [ carml:multiReference "Prerequisites/Prerequisite" ; 
+	    
+      ];  
+     ];
+     
+      rr:predicateObjectMap [
+        rr:predicate capec:resourceRequired;
+        rr:objectMap [ carml:multiReference "Resources_Required/Resource" ; 
+	    
+      ];  
+     ];
+     
+      rr:predicateObjectMap [
+        rr:predicate capec:hasConsequence;
+        rr:objectMap [ rr:parentTriplesMap <#CAPECConsequenceMapping> ; 
+	     carml:multiJoinCondition [
+	        rr:child "Consequences/Consequence/concat(ancestor::Attack_Pattern/@ID,string-length())" ;
+	        rr:parent "concat(ancestor::Attack_Pattern/@ID,string-length())" ;
+	      ] 
+      ];  
+     ];
+      rr:predicateObjectMap [
+        rr:predicate capec:hasSkillRequired;
+        rr:objectMap [ rr:parentTriplesMap <#CAPECSkillRequiredMapping> ; 
+	     carml:multiJoinCondition [
+	        rr:child "Skills_Required/Skill/concat(ancestor::Attack_Pattern/@ID,string-length())" ;
+	        rr:parent "concat(ancestor::Attack_Pattern/@ID,string-length())" ;
+	      ] 
+      ];  
+     ];
+     
+      rr:predicateObjectMap [
+        rr:predicate capec:hasMitigation;
+        rr:objectMap [ carml:multiReference "Mitigations/Mitigation" ; 
+	     
+      ];  
+     ];
+           
+     
+     rr:predicateObjectMap [
+        rr:predicate capec:hasRelatedWeakness;
+        rr:objectMap [ carml:multiTemplate "http://w3id.org/sepses/resource/cwe/CWE-{Related_Weaknesses/Related_Weakness/@CWE_ID}" ; 
+	      
+      ];  
+     ];
+       
+   rr:predicateObjectMap [
+        rr:predicate capec:hasReference;
+        rr:objectMap [ carml:multiTemplate "http://w3id.org/sepses/resource/capec/reference/{References/Reference/@External_Reference_ID}" ];
+        rr:datatype xsd:string ;
+     ];
+  .  
+  <#CAPECSkillRequiredMapping>
+	rml:logicalSource [
+		  rml:source [
+		    a carml:Stream ;
+		  ] ;  
+         rml:referenceFormulation ql:XPath;
+		 rml:iterator "Attack_Pattern_Catalog/Attack_Patterns/Attack_Pattern/Skills_Required/Skill"
+		] ;
+		
+	rr:subjectMap [
+		  rr:template "http://w3id.org/sepses/resource/capec/skillRequired/{concat(ancestor::Attack_Pattern/@ID,string-length())}";
+       ] ;
+       
+    rr:predicateObjectMap [
+        rr:predicate rdf:type;
+        rr:objectMap [ rr:template "http://w3id.org/sepses/vocab/ref/capec#SkillRequired" ];
+     ];
+     
+    rr:predicateObjectMap [
+        rr:predicate capec:skillLevel;
+        rr:objectMap [ rml:reference "@Level" ];
+     ];
+     
+     rr:predicateObjectMap [
+        rr:predicate capec:skillDescription;
+        rr:objectMap [ rml:reference "text()" ];
+     ];        
+     .
+    <#CAPECRelatedAttackPatternMapping>
+	rml:logicalSource [
+		  rml:source [
+		    a carml:Stream ;
+		  ] ;  
+         rml:referenceFormulation ql:XPath;
+		 rml:iterator "Attack_Pattern_Catalog/Attack_Patterns/Attack_Pattern/Related_Attack_Patterns/Related_Attack_Pattern"
+		] ;
+		
+	rr:subjectMap [
+		  rr:template "http://w3id.org/sepses/resource/capec/relatedAttackPattern/{concat(concat(concat(ancestor::Attack_Pattern/@ID,@Nature),@CAPEC_ID),@View_ID)}";
+       ] ;
+       
+    rr:predicateObjectMap [
+        rr:predicate rdf:type;
+        rr:objectMap [ rr:template "http://w3id.org/sepses/vocab/ref/capec#RelatedAttackPattern" ];
+     ];
+     
+    rr:predicateObjectMap [
+        rr:predicate capec:relatedAttackPatternCAPECId;
+        rr:objectMap [ rr:template "http://w3id.org/sepses/resource/capec/CAPEC-{@CAPEC_ID}" ];
+        rr:datatype xsd:string ;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate capec:relatedAttackPatternNature;
+        rr:objectMap [ rml:reference "@Nature" ];
+        rr:datatype xsd:string ;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate capec:relatedAttackPatternViewId;
+        rr:objectMap [ rml:reference "@View_ID" ];
+        rr:datatype xsd:string ;
+    ];
+   
+   .
+     <#CAPECConsequenceMapping>
+  rml:logicalSource [
+		  rml:source [
+		    a carml:Stream ;
+		  ] ;  
+         rml:referenceFormulation ql:XPath;
+		 rml:iterator "Attack_Pattern_Catalog/Attack_Patterns/Attack_Pattern/Consequences/Consequence"
+		] ;
+		
+	rr:subjectMap [
+		  rr:template "http://w3id.org/sepses/resource/capec/Consequence/{concat(ancestor::Attack_Pattern/@ID,string-length())}";
+       ] ;
+       
+    rr:predicateObjectMap [
+        rr:predicate rdf:type;
+        rr:objectMap [ rr:template "http://w3id.org/sepses/vocab/ref/capec#Consequence" ];
+     ];
+     
+    rr:predicateObjectMap [
+        rr:predicate capec:consequenceScope;
+        rr:objectMap [ carml:multiReference "Scope" ];
+     ];
+    rr:predicateObjectMap [
+        rr:predicate capec:consequenceImpact;
+        rr:objectMap [ carml:multiReference "Impact" ];
+     ];
+    rr:predicateObjectMap [
+        rr:predicate capec:consequenceNote;
+        rr:objectMap [ carml:multiReference "Note" ];
+     ];
+   .
+   <#CAPECExecutionFlowMapping>
+  rml:logicalSource [
+		  rml:source [
+		    a carml:Stream ;
+		  ] ;  
+         rml:referenceFormulation ql:XPath;
+		 rml:iterator "Attack_Pattern_Catalog/Attack_Patterns/Attack_Pattern/Execution_Flow/Attack_Step"
+		] ;
+		
+	rr:subjectMap [
+		  rr:template "http://w3id.org/sepses/resource/capec/ExecutionFlow/{concat(ancestor::Attack_Pattern/@ID,Step)}";
+       ] ;
+       
+    rr:predicateObjectMap [
+        rr:predicate rdf:type;
+        rr:objectMap [ rr:template "http://w3id.org/sepses/vocab/ref/capec#AttackStep" ];
+     ];
+     
+    rr:predicateObjectMap [
+        rr:predicate capec:attackStep;
+        rr:objectMap [ rml:reference "Step" ];
+     ];
+    rr:predicateObjectMap [
+        rr:predicate capec:attackStepPhase;
+        rr:objectMap [ carml:multiReference "Phase" ];
+     ];
+    rr:predicateObjectMap [
+        rr:predicate capec:attackStepDescription;
+        rr:objectMap [ carml:multiReference "Description" ];
+     ];
+rr:predicateObjectMap [
+        rr:predicate capec:attackStepTechnique;
+        rr:objectMap [ carml:multiReference "Technique" ];
+     ];  
+     
+        
+     .
+ <#CAPECReference>
+	rml:logicalSource [
+		  rml:source [
+		    a carml:Stream ;
+		  ] ;  
+         rml:referenceFormulation ql:XPath;
+		 rml:iterator "/Attack_Pattern_Catalog/External_References/External_Reference"
+		] ;
+		
+	rr:subjectMap [
+		  rr:template "http://w3id.org/sepses/resource/capec/reference/{@Reference_ID}";
+       	  rr:class capec:Reference
+       ] ;
+    rr:predicateObjectMap [
+        rr:predicate capec:referenceAuthor;
+        rr:objectMap [ carml:multiReference "Author" ];
+        rr:datatype xsd:string ;
+    ];
+        rr:predicateObjectMap [
+        rr:predicate capec:referenceTitle;
+        rr:objectMap [ carml:multiReference "Title" ];
+        rr:datatype xsd:string ;
+    ];
+     rr:predicateObjectMap [
+        rr:predicate capec:referencePublicationYear;
+        rr:objectMap [ rml:reference "Publication_Year"];
+        rr:datatype xsd:integer ;
+    ];
+         rr:predicateObjectMap [
+        rr:predicate capec:referencePublicationMonth;
+        rr:objectMap [ rml:reference "substring(Publication_Month,3)"];
+        rr:datatype xsd:integer ;
+    ];
+         rr:predicateObjectMap [
+        rr:predicate capec:referencePublicationDay;
+        rr:objectMap [ rml:reference "substring(Publication_Day,4)"];
+        rr:datatype xsd:integer ;
+    ];
+    
+             rr:predicateObjectMap [
+        rr:predicate capec:referenceEdition;
+        rr:objectMap [ rml:reference "Edition"];
+        rr:datatype xsd:integer ;
+    ];
+    
+                 rr:predicateObjectMap [
+        rr:predicate capec:referencePublisher;
+        rr:objectMap [ rml:reference "Publisher"];
+        rr:datatype xsd:integer ;
+    ];
+    
+           rr:predicateObjectMap [
+        rr:predicate capec:referenceUrl;
+        rr:objectMap [ rml:reference "URL"];
+        rr:datatype xsd:integer ;
+    ];
+   .
+   <#CAPECModificationHistory>
+      rml:logicalSource [
+		  rml:source [
+		    a carml:Stream ;
+		  ] ;  
+         rml:referenceFormulation ql:XPath;
+		 rml:iterator "Attack_Pattern_Catalog/Attack_Patterns/Attack_Pattern/Content_History/Modification"
+		] ;
+		
+	rr:subjectMap [
+		  rr:template "http://w3id.org/sepses/resource/capec/modificationHistory/{concat(ancestor::Attack_Pattern/@ID,translate(Modification_Date,'-',''))}";
+       	  rr:class capec:ModificationHistory
+       ] ;
+       
+           rr:predicateObjectMap [
+        rr:predicate capec:modificationName;
+        rr:objectMap [ rml:reference "Modification_Name" ];
+     ];
+     
+                rr:predicateObjectMap [
+        rr:predicate capec:modificationOrganization;
+        rr:objectMap [ rml:reference "Modification_Organization" ];
+     ];
+                rr:predicateObjectMap [
+        rr:predicate capec:modificationDate;
+        rr:objectMap [ rml:reference "Modification_Date" ];
+     ];
+                rr:predicateObjectMap [
+        rr:predicate capec:modificationComment;
+        rr:objectMap [ rml:reference "Modification_Comment" ];
+     ];
+     .
+  
+   <#CAPECSubmissionHistory>
+      rml:logicalSource [
+		  rml:source [
+		    a carml:Stream ;
+		  ] ;  
+         rml:referenceFormulation ql:XPath;
+		 rml:iterator "Attack_Pattern_Catalog/Attack_Patterns/Attack_Pattern/Content_History/Submission"
+		] ;
+		
+		rr:subjectMap [
+		  rr:template "http://w3id.org/sepses/resource/capec/submissionHistory/{concat(ancestor::Attack_Pattern/@ID,translate(Submission_Date,'-',''))}" ; 
+          rr:class capec:SubmissionHistory 	
+       ] ;
+       
+                  rr:predicateObjectMap [
+        rr:predicate capec:submissionName;
+        rr:objectMap [ rml:reference "Submission_Name" ];
+     ];
+     
+                rr:predicateObjectMap [
+        rr:predicate capec:submissionOrganization;
+        rr:objectMap [ rml:reference "Submission_Organization" ];
+     ];
+                rr:predicateObjectMap [
+        rr:predicate capec:submissionDate;
+        rr:objectMap [ rml:reference "Submission_Date" ];
+     ];
+		
+		
+    .

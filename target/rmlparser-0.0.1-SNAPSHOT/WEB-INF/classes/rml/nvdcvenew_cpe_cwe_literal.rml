@@ -1,0 +1,58 @@
+@prefix rr:     <http://www.w3.org/ns/r2rml#> .
+@prefix rml:    <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql:     <http://semweb.mmlab.be/ns/ql#> .
+@prefix carml:  <http://carml.taxonic.com/carml/> .
+@prefix fno:    <http://semweb.datasciencelab.be/ns/function#> .
+@prefix fnml:   <http://semweb.mmlab.be/ns/fnml#> .
+@prefix dec:    <http://semantics.id/ns/declare#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix nvd: <http://sepses.ifs.tuwien.ac.at/vocab/ref/NVDSchema#> .
+@prefix cvss: <http://sepses.ifs.tuwien.ac.at/vocab/ref/cvss#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cve: <http://sepses.ifs.tuwien.ac.at/vocab/ref/cve#> .
+@prefix cpe: <http://sepses.ifs.tuwien.ac.at/vocab/ref/cpe#> .
+      
+     <#CVEMapping>
+     
+     rml:logicalSource [
+         rml:source [
+             a carml:Stream;
+              carml:declaresNamespace [
+                carml:namespacePrefix "vuln";
+                carml:namespaceName "http://scap.nist.gov/schema/vulnerability/0.4" ;
+              ] ;
+                 carml:declaresNamespace [
+                carml:namespacePrefix "cpe-lang";
+                carml:namespaceName "http://cpe.mitre.org/language/2.0" ;
+              ] ;
+         ];
+      
+         rml:referenceFormulation ql:XPath;
+		 rml:iterator "/nvd/entry"
+     ];
+     
+     rr:subjectMap [
+         rr:template "http://example.org/sepses/cve#{@id}";
+      ];
+     
+   rr:predicateObjectMap [
+        rr:predicate rdf:type;
+        rr:objectMap [ rr:template "http://sepses.ifs.tuwien.ac.at/vocab/ref/cve#CVE" ];
+     ];
+      
+      rr:predicateObjectMap [
+        rr:predicate cve:CPEId;
+        rr:objectMap [ carml:multiReference  "vuln:vulnerable-software-list/vuln:product" ];
+     ];
+     
+       
+      rr:predicateObjectMap [
+        rr:predicate cve:CWEId;
+        rr:objectMap [ 
+        	carml:multiReference "vuln:cwe/@id"		
+        	 ]
+     ];
+          
+.
+
