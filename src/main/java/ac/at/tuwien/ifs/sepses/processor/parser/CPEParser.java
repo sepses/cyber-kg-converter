@@ -1,9 +1,9 @@
-package ac.at.tuwien.ifs.sepses.update.parser;
+package ac.at.tuwien.ifs.sepses.processor.parser;
 
-import ac.at.tuwien.ifs.sepses.rml.XMLParserJena;
-import ac.at.tuwien.ifs.sepses.update.CPEUpdate;
-import ac.at.tuwien.ifs.sepses.update.helper.Curl;
-import ac.at.tuwien.ifs.sepses.update.helper.DownloadUnzip;
+import ac.at.tuwien.ifs.sepses.rml.XMLParser;
+import ac.at.tuwien.ifs.sepses.processor.updater.CPEUpdate;
+import ac.at.tuwien.ifs.sepses.processor.helper.Curl;
+import ac.at.tuwien.ifs.sepses.processor.helper.DownloadUnzip;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.util.Properties;
 
-public class CPEXMLContinuesParser {
+public class CPEParser {
 
     public static void main(String[] args) throws Exception {
         Properties prop = new Properties();
@@ -111,11 +111,13 @@ public class CPEXMLContinuesParser {
             }
             System.out.println("Done!");
 
-            //4.0 Checking ac.at.tuwien.ifs.sepses.update...
-            System.out.println("Checking ac.at.tuwien.ifs.sepses.update from " + CyberKnowledgeEp + " using graphname " + namegraph);
+            //4.0 Checking ac.at.tuwien.ifs.sepses.processor...
+            System.out.println(
+                    "Checking ac.at.tuwien.ifs.sepses.processor from " + CyberKnowledgeEp + " using graphname "
+                            + namegraph);
             String c = CPEUpdate.checkExistingTriple(CyberKnowledgeEp, namegraph);
             System.out.println("existing cpe = " + c);
-            org.apache.jena.rdf.model.Model CPEModelTemp = XMLParserJena.Parse(CPEXML, RMLFileTemp);
+            org.apache.jena.rdf.model.Model CPEModelTemp = XMLParser.Parse(CPEXML, RMLFileTemp);
             boolean sameVersion = CPEUpdate.checkingCPEVersion(CPEModelTemp, CyberKnowledgeEp, namegraph);
             if (sameVersion) {
                 System.out.println("CPE is up-to-date!!");
@@ -139,8 +141,8 @@ public class CPEXMLContinuesParser {
                     System.out.println("insert initial data");
                     Curl.storeInitData(output, namegraph);
                 } else {
-                    System.out.println("ac.at.tuwien.ifs.sepses.update data");
-                    //ac.at.tuwien.ifs.sepses.update the generator
+                    System.out.println("ac.at.tuwien.ifs.sepses.processor data");
+                    //ac.at.tuwien.ifs.sepses.processor the generator
                     //System.out.println("delete old generator..!");
                     Curl.storeData(output, namegraph);
                 }
@@ -161,7 +163,7 @@ public class CPEXMLContinuesParser {
         }
         //System.out.println(fileName);
 
-        org.apache.jena.rdf.model.Model CPEModel = XMLParserJena.Parse(CPEXMLFile, RMLFile);
+        org.apache.jena.rdf.model.Model CPEModel = XMLParser.Parse(CPEXMLFile, RMLFile);
         String cpe = CPEUpdate.countCPE(CPEModel);
         org.apache.jena.rdf.model.Model addCPEModel = CPEUpdate.generateAdditionalTriples(CPEModel);
         System.out.println("CPE parsed: " + cpe.toString());
@@ -178,13 +180,13 @@ public class CPEXMLContinuesParser {
 
         //System.exit(0);
         if (c.equals("0")) {
-            //dont ac.at.tuwien.ifs.sepses.update cpe model
+            //dont ac.at.tuwien.ifs.sepses.processor cpe model
             //get an output file out of the model
             System.out.println("produce turtle output file");
             Curl.produceOutputFile(allCPE, outputDir, fileName);
             return true;
         } else {
-            //ac.at.tuwien.ifs.sepses.update cpe model
+            //ac.at.tuwien.ifs.sepses.processor cpe model
             //System.out.print("generateAdditionalCPE");//System.exit(0);
             //org.apache.jena.rdf.model.Model CPEModelx = CPEUpdate.generateAdditionalCPE(CPEModel,CyberKnowledgeEp, CPEGraphName);
             //System.exit(0);

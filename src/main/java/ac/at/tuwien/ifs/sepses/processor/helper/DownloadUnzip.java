@@ -1,4 +1,4 @@
-package ac.at.tuwien.ifs.sepses.update.helper;
+package ac.at.tuwien.ifs.sepses.processor.helper;
 
 import org.apache.jena.atlas.logging.Log;
 
@@ -73,7 +73,9 @@ public class DownloadUnzip {
     private static void downloadUsingNIO(String urlStr, String file) throws IOException {
         URL url = new URL(urlStr);
         ReadableByteChannel rbc = Channels.newChannel(url.openStream());
-        FileOutputStream fos = new FileOutputStream(file);
+        File f = new File(file);
+        f.getParentFile().mkdirs();
+        FileOutputStream fos = new FileOutputStream(f);
         fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
         fos.close();
         rbc.close();

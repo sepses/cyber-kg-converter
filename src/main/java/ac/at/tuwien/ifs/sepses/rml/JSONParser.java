@@ -18,7 +18,7 @@ public class JSONParser {
 
     public static org.apache.jena.rdf.model.Model Parse(String jsonFileName) throws IOException {
         // load RML file and all supporting functions
-        InputStream is = CsvParser.class.getClassLoader().getResourceAsStream("rml/nvdcve-json.rml");
+        InputStream is = JSONParser.class.getClassLoader().getResourceAsStream("rml/nvdcve-json.rml");
         Set<TriplesMap> mapping = RmlMappingLoader.build().load(RDFFormat.TURTLE, is);
         RmlMapper mapper =
                 RmlMapper.newBuilder().setLogicalSourceResolver(Rdf.Ql.JsonPath, new JsonPathResolver()).build();

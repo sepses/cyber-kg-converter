@@ -1,13 +1,13 @@
-package ac.at.tuwien.ifs.sepses.update.parser;
+package ac.at.tuwien.ifs.sepses.processor.parser;
 
-import ac.at.tuwien.ifs.sepses.linking.CVELinking3;
-import ac.at.tuwien.ifs.sepses.update.CVEUpdate;
-import ac.at.tuwien.ifs.sepses.update.helper.Curl;
-import ac.at.tuwien.ifs.sepses.update.helper.DownloadUnzip;
+import ac.at.tuwien.ifs.sepses.linking.CVELinking;
+import ac.at.tuwien.ifs.sepses.rml.XMLParser;
+import ac.at.tuwien.ifs.sepses.processor.updater.CVEUpdate;
+import ac.at.tuwien.ifs.sepses.processor.helper.Curl;
+import ac.at.tuwien.ifs.sepses.processor.helper.DownloadUnzip;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
-import ac.at.tuwien.ifs.sepses.rml.XMLParserJena;
 
 import java.io.FileInputStream;
 import java.io.FileWriter;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 
-public class CVEXMLContinuesParser {
+public class CVEParser {
 
     public static void main(String[] args) throws Exception {
         Properties prop = new Properties();
@@ -40,7 +40,7 @@ public class CVEXMLContinuesParser {
         String urlCVEMeta = prop.getProperty("CVEMetaUrl");
         String destDir = prop.getProperty("InputDir") + "/cve";
         String outputDir = prop.getProperty("OutputDir") + "/cve";
-        ;
+
         String RMLFileTemp = prop.getProperty("CVERMLTempFile");
         String RMLFile = prop.getProperty("CVERMLFile");
         String CyberKnowledgeEp = prop.getProperty("SparqlEndpoint");
@@ -104,8 +104,8 @@ public class CVEXMLContinuesParser {
                 //System.exit(0);
                 // System.out.println("Done!");
 
-                //4.0 Checking ac.at.tuwien.ifs.sepses.update...
-                System.out.println("Checking ac.at.tuwien.ifs.sepses.update... ");
+                //4.0 Checking ac.at.tuwien.ifs.sepses.processor...
+                System.out.println("Checking ac.at.tuwien.ifs.sepses.processor... ");
 
                 parseTempCVE(CVEXML, RMLFileTemp, CyberKnowledgeEp, namegraph);
                 System.out.println("Done!");
@@ -137,7 +137,7 @@ public class CVEXMLContinuesParser {
             fileName = CVEXMLFile.substring(CVEXMLFile.lastIndexOf("\\") + 1);
         }
         //System.out.println(fileName);System.exit(0);
-        org.apache.jena.rdf.model.Model CVEModelTemp = XMLParserJena.Parse(CVEXMLFile, RMLFileTemp);
+        org.apache.jena.rdf.model.Model CVEModelTemp = XMLParser.Parse(CVEXMLFile, RMLFileTemp);
         //CVEModelTemp.write(System.out,"TURTLE");
         ArrayList<String>[] CVEArray = CVEUpdate.checkExistingCVE(CVEModelTemp, CyberKnowledgeEp, CVEGraphName);
         System.out.println("Done!");
@@ -161,16 +161,16 @@ public class CVEXMLContinuesParser {
             fileName = CVEXMLFile.substring(CVEXMLFile.lastIndexOf("\\") + 1);
         }
         //System.out.println(fileName);System.exit(0);
-        org.apache.jena.rdf.model.Model CVEModel = XMLParserJena.Parse(CVEXMLFile, RMLFile);
-        //act to ac.at.tuwien.ifs.sepses.update
+        org.apache.jena.rdf.model.Model CVEModel = XMLParser.Parse(CVEXMLFile, RMLFile);
+        //act to ac.at.tuwien.ifs.sepses.processor
 
         System.out.println("Generate ac.at.tuwien.ifs.sepses.linking...");
         //System.exit(0);
         //CVEModel.write(System.out,"TURTLE");System.exit(0);    
         org.apache.jena.rdf.model.Model CVETOCPE =
-                CVELinking3.generateLinkingCVETOCPE(CVEModel, CyberKnowledgeEp, CPEGraphName, fileName, outputDir);
+                CVELinking.generateLinkingCVETOCPE(CVEModel, CyberKnowledgeEp, CPEGraphName, fileName, outputDir);
         org.apache.jena.rdf.model.Model CVETOCWE =
-                CVELinking3.generateLinkingCVETOCWE(CVEModel, CyberKnowledgeEp, CWEGraphName, fileName, outputDir);
+                CVELinking.generateLinkingCVETOCWE(CVEModel, CyberKnowledgeEp, CWEGraphName, fileName, outputDir);
         //remove unnecessary triples (literal cpeId & cweId)
         Property cpeId = CVEModel.createProperty("http://w3id.org/sepses/vocab/ref/cve#cpeId");
         Property cweId = CVEModel.createProperty("http://w3id.org/sepses/vocab/ref/cve#cweId");

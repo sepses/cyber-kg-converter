@@ -1,4 +1,4 @@
-package ac.at.tuwien.ifs.sepses.update;
+package ac.at.tuwien.ifs.sepses.processor.updater;
 
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.*;
@@ -41,14 +41,14 @@ public class CVEUpdate {
             //Integer co = 0;
 
             if (!co.equals("0^^http://www.w3.org/2001/XMLSchema#integer")) {
-                //if yes check if CVE need ac.at.tuwien.ifs.sepses.update
+                //if yes check if CVE need ac.at.tuwien.ifs.sepses.processor
                 //System.out.println("checkCVENeedUpdate");
                 String co2 =
                         checkCVENeedUpdate(CyberKnowledgeEp, cveId.toString(), modifiedDate.toString(), CVEGraphName);
 
                 if (co2.equals("0^^http://www.w3.org/2001/XMLSchema#integer")) {
                     //System.out.println("CVENeedUpdate");
-                    //need ac.at.tuwien.ifs.sepses.update
+                    //need ac.at.tuwien.ifs.sepses.processor
                     CVEUpdate.add(cveId.toString());
                     //	System.out.println("delete existing CVE...");
                     deleteCVE(CyberKnowledgeEp, cveRes.toString(), CVEGraphName);

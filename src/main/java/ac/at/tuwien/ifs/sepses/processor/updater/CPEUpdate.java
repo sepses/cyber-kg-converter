@@ -1,4 +1,4 @@
-package ac.at.tuwien.ifs.sepses.update;
+package ac.at.tuwien.ifs.sepses.processor.updater;
 
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.*;
@@ -162,7 +162,7 @@ public class CPEUpdate {
         Property cpe_version = addCPEModel.createProperty(prefix + "cpe_version");
         Property part = addCPEModel.createProperty(prefix + "part");
         Property version = addCPEModel.createProperty(prefix + "version");
-        Property update = addCPEModel.createProperty(prefix + "ac/at/tuwien/ifs/sepses/update");
+        Property update = addCPEModel.createProperty(prefix + "ac/at/tuwien/ifs/sepses/processor");
         Property edition = addCPEModel.createProperty(prefix + "edition");
         Property language = addCPEModel.createProperty(prefix + "language");
         Property softwareEdition = addCPEModel.createProperty(prefix + "softwareEdition");

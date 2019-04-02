@@ -1,5 +1,6 @@
-package ac.at.tuwien.ifs.sepses.update.helper;
+package ac.at.tuwien.ifs.sepses.processor.helper;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -28,14 +29,13 @@ public class Curl {
     public static void produceOutputFile(org.apache.jena.rdf.model.Model model, String outputDir, String fileName)
             throws IOException {
         String CPEfileName = outputDir + "/" + fileName + "-output.ttl";
-        //String cpeModelfileName = "output/"+fileName+"-output-basic.ttl";
-        FileWriter out = new FileWriter(CPEfileName);
-        // FileWriter out = new FileWriter(cpeModelfileName);
+        File outputFile = new File(CPEfileName);
+        outputFile.getParentFile().mkdirs();
+        FileWriter out = new FileWriter(outputFile);
         try {
             model.write(out, "TURTLE");
         } finally {
             // model.close();
-
         }
     }
 

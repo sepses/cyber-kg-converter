@@ -9,94 +9,66 @@ import java.util.ArrayList;
 
 public class CWELinking {
 
-    public static Model generateLinking(Model CWEModel, Model CAPECModel, String fileName) throws IOException {
+    public static Model generateLinking(Model CWEModel, String CyberKnowledgeEp, String CAPECGraphName,
+            String fileName, String outputDir) throws IOException {
 
-        //load and read the rdf snort Rule
+        ArrayList<String>[] CAPECResArray = getAllCAPEC(CyberKnowledgeEp, CAPECGraphName);
+        //System.out.println(CAPECResArray[0].size());System.exit(0);
 
-        //find the ac.at.tuwien.ifs.sepses.linking, if it exists generate ac.at.tuwien.ifs.sepses.linking otherwise make a log
+        String sidQuery =
+                "select ?s where {\r\n" + "    	?s a <http://w3id.org/sepses/vocab/ref/cwe#CWE>.\r\n" + "}";
 
-        //query to get cveId property from snort alert
-        String sidQuery = "select distinct ?capecId where {\r\n"
-                + "    	?s a <http://sepses.ifs.tuwien.ac.at/vocab/ref/cwe#CWE>.\r\n"
-                + "		?s <http://sepses.ifs.tuwien.ac.at/vocab/ref/cwe#capecId> ?capecId.\r\n" + "}";
-
-        String sidQuery2 =
-                "select ?s ?capecId where {\r\n" + "    	?s a <http://sepses.ifs.tuwien.ac.at/vocab/ref/cwe#CWE>.\r\n"
-                        + "		?s <http://sepses.ifs.tuwien.ac.at/vocab/ref/cwe#capecId> ?capecId.\r\n" + "}";
-
-        //generate filter for CVE query
         Query sidQ = QueryFactory.create(sidQuery);
         QueryExecution sidQex = QueryExecutionFactory.create(sidQ, CWEModel);
         ResultSet sidQResult = sidQex.execSelect();
-        String filterStatement = "";
-        while (sidQResult.hasNext()) {
-            QuerySolution sidQS = sidQResult.nextSolution();
-            // RDFNode snortRuleRes = sidQS.get("s");
-            RDFNode CWECAPEC = sidQS.get("capecId");
-            filterStatement = filterStatement + "?capecId = \"" + CWECAPEC + "\" || ";
-
-        }
-
-        System.out.println(filterStatement);
-        System.exit(0);
-
-        ArrayList<String>[] CAPECResArray =
-                getCAPECResourceFilterStatement(filterStatement + "?capecId = \"0\"", CAPECModel);
-        //System.out.println(CVEResArray);System.exit(0);
-
-        Query sidQ2 = QueryFactory.create(sidQuery2);
-        QueryExecution sidQex2 = QueryExecutionFactory.create(sidQ2, CWEModel);
-        ResultSet sidQResult2 = sidQex2.execSelect();
 
         Model linkingModel = ModelFactory.createDefaultModel();
-        Property hasCAPEC = linkingModel.createProperty("http://sepses.ifs.tuwien.ac.at/vocab/ref/cwe#hasCAPEC");
         Model NolinkingModel = ModelFactory.createDefaultModel();
-        Property hasNoCAPEC = linkingModel.createProperty("http://sepses.ifs.tuwien.ac.at/vocab/ref/cwe#hasNoCAPEC");
+        while (sidQResult.hasNext()) {
+            QuerySolution sidQS = sidQResult.nextSolution();
+            RDFNode CWEId = sidQS.get("s");
+            //2. for each subject result, select all CAPEC that the subject connect to
+            String Query2 = "select ?capecId where {  \r\n"
+                    + "?s <http://w3id.org/sepses/vocab/ref/cwe#capecId> ?capecId. \r\n" + "filter (?s = <" + CWEId
+                    + ">) . \r\n" + "}";
 
-        //String nolinking = "";
-        int CAPECFound = 0;
-        int CAPECNotFound = 0;
-        while (sidQResult2.hasNext()) {
-            QuerySolution sidQS2 = sidQResult2.nextSolution();
-            RDFNode CWERes2 = sidQS2.get("s");
-            RDFNode CWECAPEC2 = sidQS2.get("capecId");
-            int CAPECfound = 0;
+            //System.out.println(Query2);System.exit(0);
+
+            Query Q2 = QueryFactory.create(Query2);
+            QueryExecution Qex2 = QueryExecutionFactory.create(Q2, CWEModel);
+            ResultSet QResult2 = Qex2.execSelect();
+            Property hasCAPEC = linkingModel.createProperty("http://w3id.org/sepses/vocab/ref/cwe#hasCAPEC");
+            Property hasNoCAPEC = linkingModel.createProperty("http://w3id.org/sepses/vocab/ref/cwe#hasNoCAPEC");
             int i = 0;
-            while (CAPECResArray[1].size() > i) {
-
-                // i++;
-                if (CAPECResArray[1].get(i).equals(CWECAPEC2.toString().substring(4))) {
-                    //System.out.print(CWEResArray[1].get(i)+"|");System.out.println(CVECWE4.toString().substring(4));
-                    Resource resS = linkingModel.createResource(CWERes2.toString());
-                    Resource resO = linkingModel.createResource(CAPECResArray[0].get(i));
+            int capecGiven = 0;
+            int capecFound = 0;
+            int capecNotFound = 0;
+            while (QResult2.hasNext()) {
+                QuerySolution QS2 = QResult2.nextSolution();
+                RDFNode capecId = QS2.get("?capecId");
+                // System.out.println(CAPECResArray[1].get(i));
+                //check in foundCPE array
+                if (CAPECResArray[1].contains(capecId.toString())) {
+                    int key = CAPECResArray[1].indexOf(capecId.toString());
+                    Resource resS = linkingModel.createResource(CWEId.toString());
+                    Resource resO = linkingModel.createResource(CAPECResArray[0].get(key));
                     resS.addProperty(hasCAPEC, resO);
-                    CAPECfound++;
-                    System.out.println(
-                            "CAPEC Found, generate ac.at.tuwien.ifs.sepses.linking " + CWERes2.toString() + "to " + CAPECResArray[0].get(i));
-                    // System.out.println(CWERes2.toString()+" "+lista);
-
+                    capecFound++;
+                } else {
+                    Resource resSn = NolinkingModel.createResource(CWEId.toString());
+                    resSn.addProperty(hasNoCAPEC, capecId);
+                    capecNotFound++;
                 }
-                i++;
-                //  System.exit(0);
+                capecGiven++;
             }
-            if (CAPECfound < 1) {
-                Resource resSno = NolinkingModel.createResource(CWERes2.toString());
-                resSno.addProperty(hasNoCAPEC, CWECAPEC2.toString());
-                System.out.println(
-                        "CAPEC Not Found, generate No ac.at.tuwien.ifs.sepses.linking " + CWERes2.toString() + "to " + CWECAPEC2.toString());
-                CAPECNotFound++;
-            } else {
-                CAPECFound++;
-            }
+
+            System.out.println(
+                    "CAPEC Found :" + capecFound + ", CAPEC Not Found : " + capecNotFound + ", CAPEC Given :"
+                            + capecGiven);
 
         }
-        System.out.println("CAPEC Found :" + CAPECFound + ", CAPEC Not Found : " + CAPECNotFound);
-        //System.exit(0);
-
-        //linkingModel.write(System.out,"TURTLE");
-
-        //String fileName = "output/ac.at.tuwien.ifs.sepses.linking/snortRuleToCVE.ttl";
-        String fileNameNL = "output/ac.at.tuwien.ifs.sepses.linking/CWETOCAPEC_" + fileName + "_NoLinking.log.ttl";
+        String fileNameNL =
+                outputDir + "/ac/at/tuwien/ifs/sepses/linking/CWETOCAPEC_" + fileName + "_NoLinking.log.ttl";
         // FileWriter rdfLinking = new FileWriter(fileName);
         FileWriter nolinkingCVECWELog = new FileWriter(fileNameNL);
 
@@ -113,43 +85,39 @@ public class CWELinking {
 
     }
 
-    public static ArrayList<String>[] getCAPECResourceFilterStatement(String filterStatement, Model CAPECModel) {
+    public static ArrayList<String>[] getAllCAPEC(String CyberKnowledgeEp, String CAPECGraphName) {
 
-        //query to get cveId property from snort rule
-        String sidQuery = "select ?CAPECId ?s where {\r\n"
-                + "    ?s a <http://sepses.ifs.tuwien.ac.at/vocab/ref/capec#CAPEC>.\r\n"
-                + "    ?s <http://sepses.ifs.tuwien.ac.at/vocab/ref/capec#CAPECId> ?capecId .\r\n" + "    filter ("
-                + filterStatement + ")\r\n" + "} \r\n";
+        //0. Select all capecId and capec resource from CAPEC
+        String QueryCAPEC = "select distinct ?s ?id from <" + CAPECGraphName + "> where {\r\n"
+                + "    ?s a <http://w3id.org/sepses/vocab/ref/capec#CAPEC>.\r\n"
+                + "    ?s <http://w3id.org/sepses/vocab/ref/capec#id> ?id .\r\n" + "  } ";
 
-        System.out.println(sidQuery);
-        System.exit(0);
-
-        Query sidQ = QueryFactory.create(sidQuery);
-        QueryExecution sidQex = QueryExecutionFactory.create(sidQ, CAPECModel);
-        ResultSet sidQResult = sidQex.execSelect();
+        //System.out.println(QueryCAPEC);System.exit(0);
+        Query qfQueryCAPEC = QueryFactory.create(QueryCAPEC);
+        QueryExecution qeQueryCAPEC = QueryExecutionFactory.sparqlService(CyberKnowledgeEp, qfQueryCAPEC);
+        //((QueryEngineHTTP)qeQueryCAPEC).addParam("timeout", "10000");
+        ResultSet rsQueryCAPEC = qeQueryCAPEC.execSelect();
 
         //System.exit(0);
         ArrayList<String> CAPECResArray = new ArrayList<String>();
         ArrayList<String> CAPECIdArray = new ArrayList<String>();
         ArrayList<String>[] CAPECArrayOfList = new ArrayList[2];
 
-        while (sidQResult.hasNext()) {
-            QuerySolution sidQS = sidQResult.nextSolution();
-            RDFNode CAPECRes = sidQS.get("s");
-            RDFNode CAPECId = sidQS.get("CAPECId");
+        while (rsQueryCAPEC.hasNext()) {
+            QuerySolution qsQueryCAPEC = rsQueryCAPEC.nextSolution();
+            RDFNode CAPECRes = qsQueryCAPEC.get("s");
+            RDFNode CAPECId = qsQueryCAPEC.get("id");
             CAPECResArray.add(CAPECRes.toString());
             CAPECIdArray.add(CAPECId.toString());
-            //System.out.println(CVERes.toString());
+
+            //System.out.println(CAPECRes.toString());
         }
-        //System.out.println(CVEResArray);
+        //System.out.println(CAPECResArray);
         CAPECArrayOfList[0] = CAPECResArray;
         CAPECArrayOfList[1] = CAPECIdArray;
-        CAPECModel.close();
+
+        //CAPECModel.close();
         // System.exit(0);
-        //return CAPECResArray;
         return CAPECArrayOfList;
     }
-
-    //store additional generated ac.at.tuwien.ifs.sepses.linking triple to rdf snort alert
-
 }

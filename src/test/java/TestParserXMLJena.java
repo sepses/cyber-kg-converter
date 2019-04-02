@@ -1,4 +1,4 @@
-import ac.at.tuwien.ifs.sepses.rml.XMLParserJena;
+import ac.at.tuwien.ifs.sepses.rml.XMLParser;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,7 +9,7 @@ public class TestParserXMLJena {
 
         String xmlFileName = "./input/cveyear/nvdcve-2.0-2003.xml";
         String RMLFile = "rml/nvdcvenew-complete.rml";
-        org.apache.jena.rdf.model.Model testModel = XMLParserJena.Parse(xmlFileName, RMLFile);
+        org.apache.jena.rdf.model.Model testModel = XMLParser.Parse(xmlFileName, RMLFile);
         testModel.write(System.out, "TURTLE");
         String fileName = "output/cveyear/nvdcve-2.0-2003.ttl";
         FileWriter out = new FileWriter(fileName);

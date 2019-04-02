@@ -5,19 +5,21 @@ import com.taxonic.carml.logical_source_resolver.XPathResolver;
 import com.taxonic.carml.model.TriplesMap;
 import com.taxonic.carml.util.RmlMappingLoader;
 import com.taxonic.carml.vocab.Rdf;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
 import org.eclipse.rdf4j.model.Model;
 import org.eclipse.rdf4j.rio.RDFFormat;
+import org.eclipse.rdf4j.rio.Rio;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Set;
 
 public class XMLParser {
 
-    public static org.eclipse.rdf4j.model.Model Parse(String xmlFileName) throws IOException {
+    public static org.apache.jena.rdf.model.Model Parse(String xmlFileName, String rmlFile) throws IOException {
         // load RML file and all supporting functions
-        InputStream is = XMLParser.class.getClassLoader().getResourceAsStream("rml/nvdcpe-xml.rml");
+        // InputStream is = XMLParser.class.getClassLoader().getResourceAsStream("rml/nvdcvenew-complete.rml");
+        InputStream is = XMLParser.class.getClassLoader().getResourceAsStream(rmlFile);
         Set<TriplesMap> mapping = RmlMappingLoader.build().load(RDFFormat.TURTLE, is);
         RmlMapper mapper = RmlMapper.newBuilder().setLogicalSourceResolver(Rdf.Ql.XPath, new XPathResolver()).build();
 
@@ -29,14 +31,12 @@ public class XMLParser {
         Model sesameModel = mapper.map(mapping);
 
         // //create a temp file and return jena model
-        //  File file = File.createTempFile("model1", ".ttl");
-        // file.deleteOnExit();
-        // Rio.write(sesameModel, new FileOutputStream(file), RDFFormat.TURTLE); // write mapping
-        // org.apache.jena.rdf.model.Model jenaModel = org.apache.jena.rdf.model.ModelFactory.createDefaultModel();
-        // RDFDataMgr.read(jenaModel, new FileInputStream(file), Lang.TURTLE);
-        //jenaModel.write(System.out,"TURTLE");  
+        File file = File.createTempFile("model3", ".ttl");
+        file.deleteOnExit();
+        Rio.write(sesameModel, new FileOutputStream(file), RDFFormat.TURTLE); // write mapping
+        org.apache.jena.rdf.model.Model jenaModel = org.apache.jena.rdf.model.ModelFactory.createDefaultModel();
+        RDFDataMgr.read(jenaModel, new FileInputStream(file), Lang.TURTLE);
 
-        //return jenaModel;
-        return sesameModel;
+        return jenaModel;
     }
 }

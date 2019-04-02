@@ -1,5 +1,6 @@
-package ac.at.tuwien.ifs.sepses.update;
+package ac.at.tuwien.ifs.sepses.processor.updater;
 
+import ac.at.tuwien.ifs.sepses.rml.XMLParser;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
@@ -7,19 +8,55 @@ import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import org.apache.jena.update.UpdateRequest;
-import ac.at.tuwien.ifs.sepses.rml.XMLParserJena;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class CWEUpdate {
+public class CAPECUpdate {
 
-    public static void updateCWE(Model cWEModel, String cyberKnowledgeEp, String graphname) {
+    public static boolean checkIsUptodate(String RMLTemp, String XML, String CyberKnowledgeEp, String graphname)
+            throws IOException {
+        Model TempModel = XMLParser.Parse(XML, RMLTemp);
+        String Query1 = "select ?s from <" + graphname + "> where {\r\n"
+                + "?s a <http://w3id.org/sepses/vocab/ref/capec#AttackPatternCatalog>\r\n" + "}";
+        //System.out.println(Query1);System.exit(0);
+        Query qfQuery1 = QueryFactory.create(Query1);
+        QueryExecution qeQuery1 = QueryExecutionFactory.sparqlService(CyberKnowledgeEp, qfQuery1);
+        ResultSet rsQuery1 = qeQuery1.execSelect();
+        String s = "";
+        while (rsQuery1.hasNext()) {
+            QuerySolution qsQuery1 = rsQuery1.nextSolution();
+            RDFNode cat = qsQuery1.get("?s");
+            s = cat.toString();
+        }
+
+        String Query2 =
+                "select ?s where {\r\n" + "?s a <http://w3id.org/sepses/vocab/ref/capec#AttackPatternCatalog>\r\n"
+                        + "}";
+        //System.out.println(Query1);System.exit(0);
+        Query qfQuery2 = QueryFactory.create(Query2);
+        QueryExecution qeQuery2 = QueryExecutionFactory.create(qfQuery2, TempModel);
+        ResultSet rsQuery2 = qeQuery2.execSelect();
+        String s2 = "";
+        while (rsQuery2.hasNext()) {
+            QuerySolution qsQuery2 = rsQuery2.nextSolution();
+            RDFNode cat2 = qsQuery2.get("?s");
+            s2 = cat2.toString();
+        }
+        if (s.equals(s2)) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public static void updateCAPEC(Model cWEModel, String cyberKnowledgeEp, String graphname) {
         //select cwe from triple store => save to array (1)
-        ArrayList<String>[] CWEResArray = getAllExistingCWE(cyberKnowledgeEp, graphname);
+        ArrayList<String>[] CWEResArray = getAllExistingCAPEC(cyberKnowledgeEp, graphname);
         //select cwe from cwemodel  (2)
         String sidQuery = "select  ?s (count(?mdate) as ?dc) where {\r\n"
-                + "    ?s a <http://w3id.org/sepses/vocab/ref/cwe#CWE>.\r\n"
+                + "    ?s a <http://w3id.org/sepses/vocab/ref/capec#CAPEC>.\r\n"
                 + "    ?s <http://purl.org/dc/terms/modified> ?mdate.\r\n" + "} \r\n" + "GROUP BY ?s";
 
         //	System.out.println(sidQuery);System.exit(0);
@@ -55,7 +92,7 @@ public class CWEUpdate {
 
             //System.out.println(CPERes.toString());
         }
-        System.out.println("updated CPE= " + del);
+        System.out.println("updated CAPEC= " + del);
 
         //if yes => leave it
         //if no, => log it as new cwe
@@ -93,11 +130,11 @@ public class CWEUpdate {
 
     }
 
-    private static ArrayList<String>[] getAllExistingCWE(String cyberKnowledgeEp, String graphname) {
+    private static ArrayList<String>[] getAllExistingCAPEC(String cyberKnowledgeEp, String graphname) {
 
         //query to get cveId property from snort rule
         String sidQuery = "select ?s (count(?mdate) as ?dc) from <" + graphname + "> where {\r\n"
-                + "    ?s a <http://w3id.org/sepses/vocab/ref/cwe#CWE>.\r\n"
+                + "    ?s a <http://w3id.org/sepses/vocab/ref/capec#CAPEC>.\r\n"
                 + "    ?s <http://purl.org/dc/terms/modified> ?mdate.\r\n" + "} \r\n" + "GROUP BY ?s";
 
         //System.out.println(sidQuery);System.exit(0);
@@ -128,48 +165,10 @@ public class CWEUpdate {
         return CWEArrayOfList;
     }
 
-    public static boolean checkIsUptodate(String RMLTemp, String CWEXML, String CyberKnowledgeEp, String graphname)
-            throws IOException {
-
-        Model CWETemp = XMLParserJena.Parse(CWEXML, RMLTemp);
-
-        String Query1 = "select ?s from <" + graphname + "> where {\r\n"
-                + "?s a <http://w3id.org/sepses/vocab/ref/cwe#WeaknessCatalog>\r\n" + "}";
-        //System.out.println(Query1);System.exit(0);
-        Query qfQuery1 = QueryFactory.create(Query1);
-        QueryExecution qeQuery1 = QueryExecutionFactory.sparqlService(CyberKnowledgeEp, qfQuery1);
-        ResultSet rsQuery1 = qeQuery1.execSelect();
-        String s = "";
-        while (rsQuery1.hasNext()) {
-            QuerySolution qsQueryCPE = rsQuery1.nextSolution();
-            RDFNode cat = qsQueryCPE.get("?s");
-            s = cat.toString();
-        }
-
-        String Query2 =
-                "select ?s where {\r\n" + "?s a <http://w3id.org/sepses/vocab/ref/cwe#WeaknessCatalog>\r\n" + "}";
-        //System.out.println(Query1);System.exit(0);
-        Query qfQuery2 = QueryFactory.create(Query2);
-        QueryExecution qeQuery2 = QueryExecutionFactory.create(qfQuery2, CWETemp);
-        ResultSet rsQuery2 = qeQuery2.execSelect();
-        String s2 = "";
-        while (rsQuery2.hasNext()) {
-            QuerySolution qsQueryCPE2 = rsQuery2.nextSolution();
-            RDFNode cat2 = qsQueryCPE2.get("?s");
-            s2 = cat2.toString();
-        }
-        if (s.equals(s2)) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-
     public static String checkExistingTriple(String CyberKnowledgeEp, String graphname) {
         //select if resource is not empty
         String Query1 = "select (str(count(?s)) as ?c) from <" + graphname + "> where {\r\n"
-                + "?s a <http://w3id.org/sepses/vocab/ref/cwe#CWE>\r\n" + "}";
+                + "?s a <http://w3id.org/sepses/vocab/ref/capec#CAPEC>\r\n" + "}";
         //System.out.println(Query1);System.exit(0);
         Query qfQuery1 = QueryFactory.create(Query1);
         QueryExecution qeQuery1 = QueryExecutionFactory.sparqlService(CyberKnowledgeEp, qfQuery1);
@@ -184,14 +183,13 @@ public class CWEUpdate {
 
     }
 
-    public static String countCWE(Model CWEModel) {
+    public static String countCAPEC(Model CAPECModel) {
         //select if resource is not empty
-        String Query1 =
-                "select (str(count(?s)) as ?c) where {\r\n" + "?s a <http://w3id.org/sepses/vocab/ref/cwe#CWE>\r\n"
-                        + "}";
+        String Query1 = "select (str(count(?s)) as ?c) where {\r\n"
+                + "?s a <http://w3id.org/sepses/vocab/ref/capec#CAPEC>\r\n" + "}";
         //System.out.println(Query1);System.exit(0);
         Query qfQuery1 = QueryFactory.create(Query1);
-        QueryExecution qeQuery1 = QueryExecutionFactory.create(qfQuery1, CWEModel);
+        QueryExecution qeQuery1 = QueryExecutionFactory.create(qfQuery1, CAPECModel);
         ResultSet rsQuery1 = qeQuery1.execSelect();
         String c = "";
         while (rsQuery1.hasNext()) {

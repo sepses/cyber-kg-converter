@@ -1,5 +1,5 @@
-import org.apache.jena.rdf.model.Model;
 import ac.at.tuwien.ifs.sepses.rml.JSONParser;
+import org.apache.jena.rdf.model.Model;
 
 import java.io.FileWriter;
 import java.io.IOException;

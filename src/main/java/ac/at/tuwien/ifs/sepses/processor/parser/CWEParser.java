@@ -1,11 +1,10 @@
-package ac.at.tuwien.ifs.sepses.update.parser;
+package ac.at.tuwien.ifs.sepses.processor.parser;
 
-import ac.at.tuwien.ifs.sepses.linking.CWELinking2;
-import ac.at.tuwien.ifs.sepses.update.CWEUpdate;
-import ac.at.tuwien.ifs.sepses.update.helper.Curl;
-import ac.at.tuwien.ifs.sepses.update.helper.DownloadUnzip;
+import ac.at.tuwien.ifs.sepses.rml.XMLParser;
+import ac.at.tuwien.ifs.sepses.processor.updater.CWEUpdate;
+import ac.at.tuwien.ifs.sepses.processor.helper.Curl;
+import ac.at.tuwien.ifs.sepses.processor.helper.DownloadUnzip;
 import org.apache.jena.rdf.model.Property;
-import ac.at.tuwien.ifs.sepses.rml.XMLParserJena;
 
 import java.io.FileInputStream;
 import java.nio.charset.Charset;
@@ -16,7 +15,7 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.util.Properties;
 
-public class CWEXMLContinuesParser {
+public class CWEParser {
 
     public static void main(String[] args) throws Exception {
         Properties prop = new Properties();
@@ -86,7 +85,9 @@ public class CWEXMLContinuesParser {
             // System.out.println("Done!");
 
             //4.0 Checking is uptodate...
-            System.out.println("Checking ac.at.tuwien.ifs.sepses.update from " + CyberKnowledgeEp + " using graphname " + namegraph);
+            System.out.println(
+                    "Checking ac.at.tuwien.ifs.sepses.processor from " + CyberKnowledgeEp + " using graphname "
+                            + namegraph);
             boolean cat = CWEUpdate.checkIsUptodate(RMLFileTemp, CWEXML, CyberKnowledgeEp, namegraph);
             if (cat) {
                 System.out.println("CWE is up-to-date...! ");
@@ -111,8 +112,8 @@ public class CWEXMLContinuesParser {
 				    		System.out.println("insert initial data");
 				    		 Curl.storeInitData(output,namegraph);
 				    	}else {
-				    		System.out.println("ac.at.tuwien.ifs.sepses.update data");
-				    		 //ac.at.tuwien.ifs.sepses.update the generator
+				    		System.out.println("ac.at.tuwien.ifs.sepses.processor data");
+				    		 //ac.at.tuwien.ifs.sepses.processor the generator
 				    	    // Curl.storeData(output,namegraph);
 				    		 Curl.storeInitData(output,namegraph);
 				    	}*/
@@ -133,10 +134,10 @@ public class CWEXMLContinuesParser {
         }
         //System.out.println(fileName);
 
-        org.apache.jena.rdf.model.Model CWEModel = XMLParserJena.Parse(CWEXMLFile, RMLFile);
+        org.apache.jena.rdf.model.Model CWEModel = XMLParser.Parse(CWEXMLFile, RMLFile);
 
-        org.apache.jena.rdf.model.Model CWELinking =
-                CWELinking2.generateLinking(CWEModel, CyberKnowledgeEp, CAPECGraphName, fileName, outputDir);
+        org.apache.jena.rdf.model.Model CWELinking = ac.at.tuwien.ifs.sepses.linking.CWELinking
+                .generateLinking(CWEModel, CyberKnowledgeEp, CAPECGraphName, fileName, outputDir);
 
         CWEModel = CWEModel.union(CWELinking);
         Property capecId = CWEModel.createProperty("http://w3id.org/sepses/vocab/ref/cwe#capecId");

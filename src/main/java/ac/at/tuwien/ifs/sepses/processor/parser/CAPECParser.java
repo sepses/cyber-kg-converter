@@ -1,9 +1,9 @@
-package ac.at.tuwien.ifs.sepses.update.parser;
+package ac.at.tuwien.ifs.sepses.processor.parser;
 
-import ac.at.tuwien.ifs.sepses.rml.XMLParserJena;
-import ac.at.tuwien.ifs.sepses.update.CAPECUpdate;
-import ac.at.tuwien.ifs.sepses.update.helper.Curl;
-import ac.at.tuwien.ifs.sepses.update.helper.DownloadUnzip;
+import ac.at.tuwien.ifs.sepses.rml.XMLParser;
+import ac.at.tuwien.ifs.sepses.processor.updater.CAPECUpdate;
+import ac.at.tuwien.ifs.sepses.processor.helper.Curl;
+import ac.at.tuwien.ifs.sepses.processor.helper.DownloadUnzip;
 
 import java.io.FileInputStream;
 import java.nio.charset.Charset;
@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.util.Properties;
 
-public class CAPECXMLContinuesParser {
+public class CAPECParser {
 
     public static void main(String[] args) throws Exception {
         Properties prop = new Properties();
@@ -86,7 +86,9 @@ public class CAPECXMLContinuesParser {
             // System.out.println("Done!");
 
             //4.0 Checking is uptodate...
-            System.out.println("Checking ac.at.tuwien.ifs.sepses.update from " + CyberKnowledgeEp + " using graphname " + namegraph);
+            System.out.println(
+                    "Checking ac.at.tuwien.ifs.sepses.processor from " + CyberKnowledgeEp + " using graphname "
+                            + namegraph);
             boolean cat = CAPECUpdate.checkIsUptodate(RMLFileTemp, CAPECXML, CyberKnowledgeEp, namegraph);
             if (cat) {
                 System.out.println("CAPEC is up-to-date...! ");
@@ -121,7 +123,7 @@ public class CAPECXMLContinuesParser {
         if (fileName.indexOf("\\") >= 0) {
             fileName = CAPECXMLFile.substring(CAPECXMLFile.lastIndexOf("\\") + 1);
         }
-        org.apache.jena.rdf.model.Model CAPECModel = XMLParserJena.Parse(CAPECXMLFile, RMLFile);
+        org.apache.jena.rdf.model.Model CAPECModel = XMLParser.Parse(CAPECXMLFile, RMLFile);
 
         // CAPECModel.write(System.out,"TURTLE"); //System.exit(0);
 
