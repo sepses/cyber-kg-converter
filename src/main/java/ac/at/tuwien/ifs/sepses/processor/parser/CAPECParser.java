@@ -1,9 +1,12 @@
 package ac.at.tuwien.ifs.sepses.processor.parser;
 
-import ac.at.tuwien.ifs.sepses.rml.XMLParser;
-import ac.at.tuwien.ifs.sepses.processor.updater.CAPECUpdate;
 import ac.at.tuwien.ifs.sepses.processor.helper.Curl;
 import ac.at.tuwien.ifs.sepses.processor.helper.DownloadUnzip;
+import ac.at.tuwien.ifs.sepses.processor.helper.QueryUtility;
+import ac.at.tuwien.ifs.sepses.rml.XMLParser;
+import ac.at.tuwien.ifs.sepses.vocab.CAPEC;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
 import java.nio.charset.Charset;
@@ -16,6 +19,8 @@ import java.util.Properties;
 
 public class CAPECParser {
 
+    private static final Logger log = LoggerFactory.getLogger(CAPECParser.class);
+
     public static void main(String[] args) throws Exception {
         Properties prop = new Properties();
         FileInputStream ip = new FileInputStream("config.properties");
@@ -25,114 +30,96 @@ public class CAPECParser {
 
     public static void parseCAPEC(Properties prop) throws Exception {
 
-        //String urlCAPEC ="http://localhost/nvd/capec01/1000.xml.zip";
-        //String urlCAPEC ="http://localhost/nvd/capec02/1000.xml.zip";
-        //String urlCAPEC ="https://capec.mitre.org/data/xml/views/1000.xml.zip";
         String urlCAPEC = prop.getProperty("CAPECUrl");
-        //	String destDir = "D:/GDriveUndip/SEPSES/cyber-knowledgebase/jar/input/capecupdate";
         String destDir = prop.getProperty("InputDir") + "/capec";
-        //String outputDir = "D:/GDriveUndip/SEPSES/cyber-knowledgebase/jar/output/capec";
         String outputDir = prop.getProperty("OutputDir") + "/capec";
-        ;
-        //String RMLFileTemp = "rml/nvdcapecnew-idc.rml";
         String RMLFileTemp = prop.getProperty("CAPECRMLTempFile");
-
-        //String RMLFile = "rml/nvdcapecnew-xml.rml";
         String RMLFile = prop.getProperty("CAPECRMLFile");
-        //System.out.println(RMLFile);
-        //String CyberKnowledgeEp = "http://localhost:8890/sparql";
-        String CyberKnowledgeEp = prop.getProperty("SparqlEndpoint");
-        //String namegraph = "http://localhost:8890/sepses/capec";
+        String sparqlEndpoint = prop.getProperty("SparqlEndpoint");
         String namegraph = prop.getProperty("CAPECNamegraph");
         String active = prop.getProperty("CAPECActive");
 
+        Boolean isUseAuth = Boolean.parseBoolean(prop.getProperty("UseAuth"));
+        String user = prop.getProperty("EndpointUser");
+        String pass = prop.getProperty("EndpointPass");
+
         //===========================================
-        //0. Check if the system active
-        System.out.println("time_start: " + new Date());
+        // TIMER
+        long start = System.currentTimeMillis() / 1000;
+        long end;
+
+        // Step 0 - Check if the system active
+        log.info("time_start: " + new Date());
         if (!active.equals("Yes")) {
-            System.out.println("Sorry, CAPEC Parser is inactive.. please activate it in the config file !");
+            log.warn("Sorry, CAPEC Parser is inactive.. please activate it in the config file !");
 
         } else {
-
-            //1. Downloading CAPEC resource from the internet...
-            System.out.print("Downloading resource from " + urlCAPEC);
-            String capecfileName = urlCAPEC.substring(urlCAPEC.lastIndexOf("/") + 1);
-            String destCAPECFile = destDir + "/" + capecfileName;
+            // Step 1 - Downloading CAPEC resource from the internet...
+            log.info("Downloading CAPEX file from " + urlCAPEC);
+            String capecFileName = urlCAPEC.substring(urlCAPEC.lastIndexOf("/") + 1);
+            String destCAPECFile = destDir + "/" + capecFileName;
             String CAPECZipFile = DownloadUnzip.downloadResource(urlCAPEC, destCAPECFile);
-            System.out.println("  Done!");
+            log.info("CAPEX file downloaded");
 
-            //2. Unziping resource...
-            System.out.print("Unzipping resource to...  ");
+            // Step 2 - Unziping resource...
+            log.info("Unzipping CAPEX file into ");
             String UnzipFile = DownloadUnzip.unzip(CAPECZipFile, destDir);
-            //System.exit(0);
-            System.out.println(UnzipFile + "  Done!");
+            log.info(UnzipFile + " - Done!");
 
-            //3. Injecting xml file...
-            // System.out.print("Injecting xml file...  ");
-            String CAPECXML = UnzipFile;
-            String fileName = CAPECXML.substring(CAPECXML.lastIndexOf("/") + 1);
+            // Step 3 - Injecting xml file...
+            String capecXML = UnzipFile;
+            String fileName = capecXML.substring(capecXML.lastIndexOf("/") + 1);
             if (fileName.indexOf("\\") >= 0) {
-                fileName = CAPECXML.substring(CAPECXML.lastIndexOf("\\") + 1);
+                fileName = capecXML.substring(capecXML.lastIndexOf("\\") + 1);
             }
-            System.out.println(fileName);
-            Path path = Paths.get(CAPECXML);
+            log.info("adjusting filename: " + fileName);
+            Path path = Paths.get(capecXML);
             Charset charset = StandardCharsets.UTF_8;
             String content = new String(Files.readAllBytes(path), charset);
             content = content.replaceAll("xmlns=\"http://capec.mitre.org/capec-3\"",
                     "xmlns:1=\"http://capec.mitre.org/capec-3\"");
             Files.write(path, content.getBytes(charset));
-            //System.exit(0);
 
-            // System.out.println("Done!");
-
-            //4.0 Checking is uptodate...
-            System.out.println(
-                    "Checking ac.at.tuwien.ifs.sepses.processor from " + CyberKnowledgeEp + " using graphname "
-                            + namegraph);
-            boolean cat = CAPECUpdate.checkIsUptodate(RMLFileTemp, CAPECXML, CyberKnowledgeEp, namegraph);
+            // Step 4 - Checking whether CAPEC is up-to-date ...
+            log.info("Checking updates from " + sparqlEndpoint + " using graphname " + namegraph);
+            Boolean cat = QueryUtility
+                    .checkIsUpToDate(RMLFileTemp, capecXML, sparqlEndpoint, namegraph, CAPEC.ATTACK_PATTERN_CATALOG);
             if (cat) {
-                System.out.println("CAPEC is up-to-date...! ");
-                System.out.println("time_end: " + new Date());
+                log.info("CAPEC is up-to-date...! ");
+
             } else {
-                System.out.print("CAPEC is new...! ");
+                log.info("CAPEC is new...! ");
 
                 //4. Parsing xml to rdf......
-                System.out.println("Parsing xml to rdf...  ");
-                parseCAPEC(CAPECXML, RMLFile, CyberKnowledgeEp, namegraph, outputDir);
-                System.out.println("Done!");
-                //System.exit(0);
+                String ttlFile = parseCAPEC(capecXML, RMLFile, outputDir);
 
-                //5. Storing data to triple store....
-                System.out
-                        .println("Storing data to triple store " + CyberKnowledgeEp + " using graphname" + namegraph);
-                String output = outputDir + "/" + fileName + "-output.ttl";
-                System.out.println(output);
-                Curl.storeInitData(output, namegraph);
-                System.out.println("Done!");
-                //Finish
-                System.out.println("time_end: " + new Date());
+                //5. Delete old data ...
+                log.info("delete old CAPEC data from " + sparqlEndpoint + " on graph" + namegraph);
+                Curl.dropGraph(namegraph, sparqlEndpoint);
+
+                //6. Store new CAPEC data to triple store....
+                log.info("Store data to " + sparqlEndpoint + " using graph" + namegraph);
+                Curl.storeData(ttlFile, namegraph, sparqlEndpoint, isUseAuth, user, pass);
             }
+
+            end = System.currentTimeMillis() / 1000;
+            log.info("CAPEC processing finished in " + (end - start) + " seconds");
         }
     }
 
-    public static void parseCAPEC(String CAPECXMLFile, String RMLFile, String CyberKnowledgeEp, String graphname,
-            String outputDir) throws Exception {
+    public static String parseCAPEC(String CAPECXMLFile, String RMLFile, String outputDir) throws Exception {
+        log.info("Parsing xml to rdf...  ");
 
         String fileName = CAPECXMLFile.substring(CAPECXMLFile.lastIndexOf("/") + 1);
-        //System.out.println(fileName);System.exit(0);
         if (fileName.indexOf("\\") >= 0) {
             fileName = CAPECXMLFile.substring(CAPECXMLFile.lastIndexOf("\\") + 1);
         }
         org.apache.jena.rdf.model.Model CAPECModel = XMLParser.Parse(CAPECXMLFile, RMLFile);
+        Integer countCAPEC = QueryUtility.countInstance(CAPECModel, CAPEC.CAPEC);
+        log.info("The number of CAPEC instances parsed: " + countCAPEC);
+        log.info("Parsing done..!");
 
-        // CAPECModel.write(System.out,"TURTLE"); //System.exit(0);
-
-        String CAPEC = CAPECUpdate.countCAPEC(CAPECModel);
-        System.out.println("CAPEC parsed: " + CAPEC.toString());
-
-        Curl.produceOutputFile(CAPECModel, outputDir, fileName);
-
-        System.out.println("Parsing done..!");
+        return Curl.produceOutputFile(CAPECModel, outputDir, fileName);
     }
 
 }

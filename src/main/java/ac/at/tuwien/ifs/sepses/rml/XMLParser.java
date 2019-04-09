@@ -17,8 +17,8 @@ import java.util.Set;
 public class XMLParser {
 
     public static org.apache.jena.rdf.model.Model Parse(String xmlFileName, String rmlFile) throws IOException {
+
         // load RML file and all supporting functions
-        // InputStream is = XMLParser.class.getClassLoader().getResourceAsStream("rml/nvdcvenew-complete.rml");
         InputStream is = XMLParser.class.getClassLoader().getResourceAsStream(rmlFile);
         Set<TriplesMap> mapping = RmlMappingLoader.build().load(RDFFormat.TURTLE, is);
         RmlMapper mapper = RmlMapper.newBuilder().setLogicalSourceResolver(Rdf.Ql.XPath, new XPathResolver()).build();

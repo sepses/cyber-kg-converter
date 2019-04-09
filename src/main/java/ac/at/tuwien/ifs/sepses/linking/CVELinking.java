@@ -3,7 +3,10 @@ package ac.at.tuwien.ifs.sepses.linking;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.vocabulary.RDF;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -11,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class CVELinking {
+
+    private static final Logger log = LoggerFactory.getLogger(CVELinking.class);
 
     public static Model generateLinkingCVETOCPE(Model CVEModel, String CyberKnowledgeEp, String CPEGraphName,
             String fileName, String outputDir) throws IOException {
@@ -21,7 +26,6 @@ public class CVELinking {
         //1. select all CVE subject
         String Query1 = "\r\n" + "select ?s where {\r\n" + "    ?s a <http://w3id.org/sepses/vocab/ref/cve#CVE> .\r\n"
                 + "}\r\n" + "";
-        //System.out.println(Query1);System.exit(0);
 
         Query Q1 = QueryFactory.create(Query1);
         QueryExecution Qex1 = QueryExecutionFactory.create(Q1, CVEModel);
@@ -33,15 +37,12 @@ public class CVELinking {
         while (QResult1.hasNext()) {
             QuerySolution QS1 = QResult1.nextSolution();
             RDFNode cveId = QS1.get("?s");
-            //System.out.println(cveId.toString());
 
             //generating CVE to CPE
             //2. for each subject result, select all CPE that the subject connect to
             String Query2 =
                     "select ?cpeId where {  \r\n" + "?s <http://w3id.org/sepses/vocab/ref/cve#cpeId> ?cpeId. \r\n"
                             + "filter (?s = <" + cveId + ">) . \r\n" + "}";
-
-            //System.out.println(Query2);
 
             Query Q2 = QueryFactory.create(Query2);
             QueryExecution Qex2 = QueryExecutionFactory.create(Q2, CVEModel);
@@ -54,26 +55,27 @@ public class CVELinking {
             while (QResult2.hasNext()) {
                 QuerySolution QS2 = QResult2.nextSolution();
                 RDFNode cpeId = QS2.get("?cpeId");
-                // System.out.println(CPEArrayofList[1].size());
+
                 //check in foundCPE array
                 if (foundCPE.contains(cpeId.toString())) {
-                    // System.out.println("found in local!");
+                    // log.info("found in local!");
                     int keyFoundCPE = foundCPE.indexOf(cpeId.toString());
                     Resource resS = linkingModelCVECPE.createResource(cveId.toString());
                     Resource resO = linkingModelCVECPE.createResource(foundCPERes.get(keyFoundCPE));
                     resS.addProperty(hasCPE, resO);
                     cpeFound++;
+
                     //if not
                 } else {
                     //check in CPEArrayOfList
                     if (CPEArrayofList[1].contains(cpeId.toString())) {
-                        //System.out.println("found in endpoint!");
+                        //log.info("found in endpoint!");
 
                         int key = CPEArrayofList[1].indexOf(cpeId.toString());
                         //save found cpe
                         foundCPE.add(CPEArrayofList[1].get(key));
                         foundCPERes.add(CPEArrayofList[0].get(key));
-                        //System.out.println("CPE found in local= "+foundCPE.size());
+                        //log.info("CPE found in local= "+foundCPE.size());
                         Resource resS = linkingModelCVECPE.createResource(cveId.toString());
                         Resource resO = linkingModelCVECPE.createResource(CPEArrayofList[0].get(key));
                         resS.addProperty(hasCPE, resO);
@@ -97,7 +99,7 @@ public class CVELinking {
                     + "	 ?vc <http://w3id.org/sepses/vocab/ref/cpe#logicalTestNegate> ?n.\r\n" + "filter (?s = <"
                     + cveId + ">) . \r\n" + "}";
 
-            // System.out.println(Query3);System.exit(0);
+            // log.info(Query3);System.exit(0);
 
             Query Q3 = QueryFactory.create(Query3);
             QueryExecution Qex3 = QueryExecutionFactory.create(Q3, CVEModel);
@@ -123,10 +125,10 @@ public class CVELinking {
                 RDFNode vc = QS3.get("?vc");
                 RDFNode op = QS3.get("?op");
                 RDFNode n = QS3.get("?n");
-                // System.out.println(CPEArrayofList[1].size());
+                // log.info(CPEArrayofList[1].size());
                 //check in foundCPE array
                 if (foundCPE.contains(cpeId.toString())) {
-                    // System.out.println("found in local!");
+                    // log.info("found in local!");
                     int keyFoundCPE = foundCPE.indexOf(cpeId.toString());
                     Resource resCVE = linkingModelCVECPE.createResource(cveId.toString());
                     Resource resS = linkingModelCVECPE.createResource(vc.toString());
@@ -144,13 +146,13 @@ public class CVELinking {
                 } else {
                     //check in CPEArrayOfList
                     if (CPEArrayofList[1].contains(cpeId.toString())) {
-                        //System.out.println("found in endpoint!");
+                        //log.info("found in endpoint!");
 
                         int key = CPEArrayofList[1].indexOf(cpeId.toString());
                         //save found cpe
                         foundCPE.add(CPEArrayofList[1].get(key));
                         foundCPERes.add(CPEArrayofList[0].get(key));
-                        //System.out.println("CPE found in local= "+foundCPE.size());
+                        //log.info("CPE found in local= "+foundCPE.size());
                         Resource resCVE = linkingModelCVECPE.createResource(cveId.toString());
                         Resource resS = linkingModelCVECPE.createResource(vc.toString());
                         Resource resO = linkingModelCVECPE.createResource(CPEArrayofList[0].get(key));
@@ -193,7 +195,7 @@ public class CVELinking {
                     + "	 ?lt <http://w3id.org/sepses/vocab/ref/cpe#logicalTestNegate> ?n.\r\n" + "filter (?s = <"
                     + cveId + ">) . \r\n" + "}";
 
-            // System.out.println(Query4);System.exit(0);
+            // log.info(Query4);System.exit(0);
 
             Query Q4 = QueryFactory.create(Query4);
             QueryExecution Qex4 = QueryExecutionFactory.create(Q4, CVEModel);
@@ -210,10 +212,10 @@ public class CVELinking {
                 RDFNode lt = QS4.get("?lt");
                 RDFNode op = QS4.get("?op");
                 RDFNode n = QS4.get("?n");
-                // System.out.println(CPEArrayofList[1].size());
+                // log.info(CPEArrayofList[1].size());
                 //check in foundCPE array
                 if (foundCPE.contains(cpeId.toString())) {
-                    // System.out.println("found in local!");
+                    // log.info("found in local!");
                     int keyFoundCPE = foundCPE.indexOf(cpeId.toString());
                     Resource resCVE = linkingModelCVECPE.createResource(cveId.toString());
                     Resource resSv = linkingModelCVECPE.createResource(vc.toString());
@@ -235,12 +237,12 @@ public class CVELinking {
                 } else {
                     //check in CPEArrayOfList
                     if (CPEArrayofList[1].contains(cpeId.toString())) {
-                        //System.out.println("found in endpoint!");
+                        //log.info("found in endpoint!");
                         int key = CPEArrayofList[1].indexOf(cpeId.toString());
                         //save found cpe
                         foundCPE.add(CPEArrayofList[1].get(key));
                         foundCPERes.add(CPEArrayofList[0].get(key));
-                        //System.out.println("CPE found in local= "+foundCPE.size());
+                        //log.info("CPE found in local= "+foundCPE.size());
                         Resource resCVE = linkingModelCVECPE.createResource(cveId.toString());
                         Resource resSv = linkingModelCVECPE.createResource(vc.toString());
                         Resource resS = linkingModelCVECPE.createResource(lt.toString());
@@ -281,31 +283,27 @@ public class CVELinking {
 
             //end of generating CPE to vulnConfiguration
 
-            System.out.println(cveId + " CPE found= " + cpeFound + " & CPE Not Found=" + cpeNotFound + " , given CPE="
+            log.info(cveId + " CPE found= " + cpeFound + " & CPE Not Found=" + cpeNotFound + " , given CPE="
                     + (cpeGiven));
-            System.out.println(
-                    cveId + " CPEfr found= " + frFound + " & CPEfr Not Found=" + frNotFound + " , given CPEfr="
-                            + (frGiven));
-            System.out.println(
-                    cveId + " CPEfr2 found= " + fr2Found + " & Ffr2 Not Found=" + fr2NotFound + " ,given CPEfr2="
-                            + (fr2Given));
+            log.info(cveId + " CPEfr found= " + frFound + " & CPEfr Not Found=" + frNotFound + " , given CPEfr="
+                    + (frGiven));
+            log.info(cveId + " CPEfr2 found= " + fr2Found + " & Ffr2 Not Found=" + fr2NotFound + " ,given CPEfr2="
+                    + (fr2Given));
 
         }
-        System.out.println("Total CPE found and saved in memory= " + foundCPE.size());
+        log.info("Total CPE found and saved in memory= " + foundCPE.size());
 
         String currentDate = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
-        String fileNameNL = outputDir + "/ac/at/tuwien/ifs/sepses/linking/CVETOCPE_" + fileName + currentDate
-                + "_NoLinking.log.ttl";
+        String fileNameNL = outputDir + "/update/linking/CVETOCPE_" + fileName + currentDate + "_NoLinking.log.ttl";
         // FileWriter rdfLinking = new FileWriter(fileName);
-        FileWriter nolinkingCVECPELog = new FileWriter(fileNameNL);
+        File f = new File(fileNameNL);
+        f.getParentFile().mkdirs();
+        FileWriter noLinkingCVECPELog = new FileWriter(f);
 
         try {
-
-            //nolinkingCVECPELog.write(nolinking_cve_cpe);
-            NolinkingModelCVECPE.write(nolinkingCVECPELog, "TURTLE");
-        } finally {
-            //linkingModel.close();
-
+            NolinkingModelCVECPE.write(noLinkingCVECPELog, "TURTLE");
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
         }
 
         // System.exit(0);
@@ -321,7 +319,7 @@ public class CVELinking {
         //CVEModel.write(System.out,"TURTLE");System.exit(0);
         //find the ac.at.tuwien.ifs.sepses.linking, if it exists generate ac.at.tuwien.ifs.sepses.linking otherwise make a log
         ArrayList<String>[] CWEArrayofList = getAllCWE(CyberKnowledgeEp, CWEGraphName);
-        //System.out.print(CWEArrayofList[1].size());	System.exit(0);
+        //log.info(CWEArrayofList[1].size());	System.exit(0);
         //query to get cweId property from CVE per year
 
         String CWEQuery =
@@ -347,62 +345,53 @@ public class CVELinking {
             QuerySolution qsCWEQuery = rsCWEQuery.nextSolution();
             RDFNode cveId = qsCWEQuery.get("s");
             RDFNode cweId = qsCWEQuery.get("cweId");
-            //System.out.println(cveId.toString().substring(4));
-            // System.out.println(cweId.toString());
+            //log.info(cveId.toString().substring(4));
+            // log.info(cweId.toString());
             //check in foundCPE array
             if (foundCWE.contains(cweId.toString().substring(4))) {
-                // System.out.println("found in local!");
+                // log.info("found in local!");
                 int keyFoundCWE = foundCWE.indexOf(cweId.toString().substring(4));
                 Resource resS = linkingModel.createResource(cveId.toString());
                 Resource resO = linkingModel.createResource(foundCWERes.get(keyFoundCWE));
                 resS.addProperty(hasCWE, resO);
                 cweFound++;
-                System.out.println(cveId + ", CWE Found !");
+                log.info(cveId + ", CWE Found !");
                 //if not
             } else {
                 //check in CPEArrayOfList
                 if (CWEArrayofList[1].contains(cweId.toString().substring(4))) {
-                    //System.out.println("found in endpoint!");
+                    //log.info("found in endpoint!");
 
                     int key = CWEArrayofList[1].indexOf(cweId.toString().substring(4));
                     //save found cwe
                     foundCWE.add(CWEArrayofList[1].get(key));
                     foundCWERes.add(CWEArrayofList[0].get(key));
-                    //System.out.println("CWE found in local= "+foundCWE.size());
+                    //log.info("CWE found in local= "+foundCWE.size());
                     Resource resS = linkingModel.createResource(cveId.toString());
                     Resource resO = linkingModel.createResource(CWEArrayofList[0].get(key));
                     resS.addProperty(hasCWE, resO);
                     cweFound++;
-                    System.out.println(cveId + ", CWE Found !");
+                    log.info(cveId + ", CWE Found !");
                 } else {
                     Resource resSn = NolinkingModel.createResource(cveId.toString());
                     resSn.addProperty(hasNoCWE, cweId);
                     cweNotFound++;
-                    System.out.print(cveId + ", CWE Not Found!");
-                    System.out.println(cweId);
+                    log.info(cveId + ", CWE " + cweId + "Not Found!");
                 }
             }
             cweGiven++;
         }
-        System.out.println("CWE Found :" + cweFound + ", CWE Not Found : " + cweNotFound + " Given CWE:" + cweGiven);
-        //System.exit(0);
+        log.info("CWE Found :" + cweFound + ", CWE Not Found : " + cweNotFound + " Given CWE:" + cweGiven);
 
-        //linkingModel.write(System.out,"TURTLE");
         String currentDate = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
-        //String fileName = "output/ac.at.tuwien.ifs.sepses.linking/snortRuleToCVE.ttl";
-        String fileNameNL = outputDir + "/ac/at/tuwien/ifs/sepses/linking/CVETOCWE_" + fileName + currentDate
-                + "_NoLinking.log.ttl";
-        // FileWriter rdfLinking = new FileWriter(fileName);
+        String fileNameNL = outputDir + "/update/linking/CVETOCWE_" + fileName + currentDate + "_NoLinking.log.ttl";
         FileWriter nolinkingCVECWELog = new FileWriter(fileNameNL);
 
         try {
             NolinkingModel.write(nolinkingCVECWELog, "TURTLE");
-            //	nolinkingCVECWELog.write(nolinking_cve_cwe);
-        } finally {
-            //linkingModel.close();
+        } catch(Exception e){
+            log.error(e.getMessage(), e);
         }
-
-        //CWEModel.close();
 
         return linkingModel;
 
@@ -415,7 +404,7 @@ public class CVELinking {
                 + "    ?s a <http://w3id.org/sepses/vocab/ref/cwe#CWE>.\r\n"
                 + "    ?s <http://w3id.org/sepses/vocab/ref/cwe#id> ?cweId .\r\n" + "} \r\n";
 
-        //	System.out.println(sidQuery);System.exit(0);
+        //	log.info(sidQuery);System.exit(0);
 
         Query sidQ = QueryFactory.create(sidQuery);
         QueryExecution sidQex = QueryExecutionFactory.sparqlService(CyberKnowledgeEp, sidQ);
@@ -434,9 +423,9 @@ public class CVELinking {
             CWEResArray.add(CWERes.toString());
             CWEIdArray.add(CWEId.toString());
 
-            //System.out.println(CPERes.toString());
+            //log.info(CPERes.toString());
         }
-        //System.out.println(CVEResArray);
+        //log.info(CVEResArray);
         CWEArrayOfList[0] = CWEResArray;
         CWEArrayOfList[1] = CWEIdArray;
 
@@ -470,9 +459,9 @@ public class CVELinking {
             CPEResArray.add(CPERes.toString());
             CPEIdArray.add(CPEId.toString());
 
-            //System.out.println(CPERes.toString());
+            //log.info(CPERes.toString());
         }
-        //System.out.println(CVEResArray);
+        //log.info(CVEResArray);
         CPEArrayOfList[0] = CPEResArray;
         CPEArrayOfList[1] = CPEIdArray;
 
@@ -480,7 +469,5 @@ public class CVELinking {
         // System.exit(0);
         return CPEArrayOfList;
     }
-
-    //store additional generated ac.at.tuwien.ifs.sepses.linking triple to rdf snort alert
 
 }

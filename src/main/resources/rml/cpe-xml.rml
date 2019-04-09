@@ -7,207 +7,196 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix cpe: <http://w3id.org/sepses/vocab/ref/cpe#> .
 
-
 <#CPEGeneratorMapping>
-
-     rml:logicalSource [
-         rml:source [
-             a carml:Stream;        
-         ];
-      
-         rml:referenceFormulation ql:XPath;
-		 rml:iterator "/cpe-list/generator"
-     ];
-     rr:subjectMap [
-         rr:template "http://w3id.org/sepses/resource/cpe/generator/{translate(timestamp,':/_.~-%','')}";
-     ];
-     rr:predicateObjectMap [
+    rml:logicalSource [
+        rml:source [
+            a carml:Stream;
+        ];
+        rml:referenceFormulation ql:XPath;
+        rml:iterator "/cpe-list/generator"
+    ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/sepses/resource/cpe/generator/{translate(timestamp,':/_.~-%','')}";
+    ];
+    rr:predicateObjectMap [
         rr:predicate rdf:type;
         rr:objectMap [ rr:template "http://w3id.org/sepses/vocab/ref/cpe#Generator" ];
-     ];
-     rr:predicateObjectMap [
+    ];
+    rr:predicateObjectMap [
         rr:predicate cpe:generatorProductName;
         rr:objectMap [ rml:reference "product_name"];
         rr:datatype xsd:string ;
-     ];
-     rr:predicateObjectMap [
+    ];
+    rr:predicateObjectMap [
         rr:predicate cpe:generatorProductVersion;
         rr:objectMap [ rml:reference "product_version"];
         rr:datatype xsd:string ;
-     ];
-     rr:predicateObjectMap [
+    ];
+    rr:predicateObjectMap [
         rr:predicate cpe:generatorSchemaVersion;
         rr:objectMap [ rml:reference "schema_version"];
         rr:datatype xsd:string ;
-     ];
-	  rr:predicateObjectMap [
+    ];
+    rr:predicateObjectMap [
         rr:predicate cpe:generatorTimeStamp;
         rr:objectMap [ rml:reference "timestamp"];
         rr:datatype xsd:dateTime ;
-     ];
-     
-
+    ];
 .
 
 
 <#CPEMapping>
-     rml:logicalSource [
-         rml:source [
-             a carml:Stream;  
-             carml:declaresNamespace [
+    rml:logicalSource [
+        rml:source [
+            a carml:Stream;  
+            carml:declaresNamespace [
                 carml:namespacePrefix "cpe-23";
                 carml:namespaceName "http://scap.nist.gov/schema/cpe-extension/2.3" ;
-              ] ;         
-         ];
-      
-         rml:referenceFormulation ql:XPath;
-		 rml:iterator "/cpe-list/cpe-item"
-     ];
-     rr:subjectMap [
-         rr:template "http://w3id.org/sepses/resource/cpe/{translate(@name,':/_.~-%','')}";
-     ];
-     rr:predicateObjectMap [
+            ] ;         
+        ];
+        rml:referenceFormulation ql:XPath;
+        rml:iterator "/cpe-list/cpe-item"
+    ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/sepses/resource/cpe/{translate(@name,':/_.~-%','')}";
+    ];
+    rr:predicateObjectMap [
         rr:predicate rdf:type;
         rr:objectMap [ rr:template "http://w3id.org/sepses/vocab/ref/cpe#CPE" ];
-     ];
-      rr:predicateObjectMap [
+    ];
+    rr:predicateObjectMap [
         rr:predicate cpe:title;
         rr:objectMap [ carml:multiReference "title" ];
         rr:datatype xsd:string ;
-     ];
-     
-      rr:predicateObjectMap [
+    ];     
+    rr:predicateObjectMap [
         rr:predicate cpe:id;
         rr:objectMap [ rml:reference "@name" ];
         rr:datatype xsd:string ;
-     ];
-     
-      rr:predicateObjectMap [
+    ];
+    rr:predicateObjectMap [
         rr:predicate cpe:cpe23;
         rr:objectMap [ rml:reference "cpe-23:cpe23-item/@name" ];
         rr:datatype xsd:string ;
-     ];
-      rr:predicateObjectMap [
+    ];
+#    rr:predicateObjectMap [
+#        rr:predicate cpe:cpe_version;
+#        rr:objectMap [ rml:reference "substring-before(substring-after(cpe-23:cpe23-item/@name,':'),':')"];
+#        rr:datatype xsd:string ;
+#    ];
+    rr:predicateObjectMap [
         rr:predicate cpe:cpe_version;
-        rr:objectMap [ rml:reference "substring-before(substring-after(cpe-23:cpe23-item/@name,':'),':')"];
+        rr:objectMap [ rml:reference "tokenize(cpe-23:cpe23-item/@name,':')[2]"];
         rr:datatype xsd:string ;
-     ];
-      rr:predicateObjectMap [
+    ];
+    rr:predicateObjectMap [
         rr:predicate cpe:part;
-        rr:objectMap [ rml:reference "substring-before(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':')"];
+        rr:objectMap [ rml:reference "tokenize(cpe-23:cpe23-item/@name,':')[3]"];
         rr:datatype xsd:string ;
-     ];
-     rr:predicateObjectMap [
+    ];
+    rr:predicateObjectMap [
         rr:predicate cpe:version;
-        rr:objectMap [ rml:reference "substring-before(substring-after(substring-after(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':'),':'),':')"];
+        rr:objectMap [ rml:reference "tokenize(cpe-23:cpe23-item/@name,':')[6]"];
         rr:datatype xsd:string ;
-     ];
-     rr:predicateObjectMap [
+    ];
+    rr:predicateObjectMap [
         rr:predicate cpe:ac.at.tuwien.ifs.sepses.processor;
-        rr:objectMap [ rml:reference "substring-before(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':'),':'),':'),':')"];
+        rr:objectMap [ rml:reference "tokenize(cpe-23:cpe23-item/@name,':')[7]"];
         rr:datatype xsd:string ;
-     ];
-     rr:predicateObjectMap [
+    ];
+    rr:predicateObjectMap [
         rr:predicate cpe:edition;
-        rr:objectMap [ rml:reference "substring-before(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':'),':'),':'),':'),':')"];
+        rr:objectMap [ rml:reference "tokenize(cpe-23:cpe23-item/@name,':')[8]"];
         rr:datatype xsd:string ;
-     ];
-     rr:predicateObjectMap [
+    ];
+    rr:predicateObjectMap [
         rr:predicate cpe:language;
-        rr:objectMap [ rml:reference "substring-before(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':'),':'),':'),':'),':'),':')"];
+        rr:objectMap [ rml:reference "tokenize(cpe-23:cpe23-item/@name,':')[9]"];
         rr:datatype xsd:string ;
-     ];
-      rr:predicateObjectMap [
+    ];
+    rr:predicateObjectMap [
         rr:predicate cpe:softwareEdition;
-        rr:objectMap [ rml:reference "substring-before(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':'),':'),':'),':'),':'),':'),':')"];
+        rr:objectMap [ rml:reference "tokenize(cpe-23:cpe23-item/@name,':')[10]"];
         rr:datatype xsd:string ;
-     ];
-      rr:predicateObjectMap [
+    ];
+    rr:predicateObjectMap [
         rr:predicate cpe:targetSoftware;
-        rr:objectMap [ rml:reference "substring-before(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':'),':'),':'),':'),':'),':'),':'),':')"];
+        rr:objectMap [ rml:reference "tokenize(cpe-23:cpe23-item/@name,':')[11]"];
         rr:datatype xsd:string ;
-     ];
-      rr:predicateObjectMap [
+    ];
+    rr:predicateObjectMap [
         rr:predicate cpe:targetHardware;
-        rr:objectMap [ rml:reference "substring-before(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':'),':'),':'),':'),':'),':'),':'),':'),':')"];
+        rr:objectMap [ rml:reference "tokenize(cpe-23:cpe23-item/@name,':')[12]"];
         rr:datatype xsd:string ;
-     ];
-      rr:predicateObjectMap [
+    ];
+    rr:predicateObjectMap [
         rr:predicate cpe:other;
-        rr:objectMap [ rml:reference "substring-before(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':'),':'),':'),':'),':'),':'),':'),':'),':'),':')"];
+        rr:objectMap [ rml:reference "tokenize(cpe-23:cpe23-item/@name,':')[13]"];
         rr:datatype xsd:string ;
-     ];
-        rr:predicateObjectMap [
+    ];
+    rr:predicateObjectMap [
         rr:predicate cpe:hasVendor;
-        rr:objectMap [ 
-        rr:template "http://w3id.org/sepses/resource/cpe/vendor/{substring-before(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':')}";
-         ]
-     ];
-             rr:predicateObjectMap [
+        rr:objectMap [
+            rr:template "http://w3id.org/sepses/resource/cpe/vendor/{tokenize(cpe-23:cpe23-item/@name,':')[4]}";
+        ]
+    ];
+    rr:predicateObjectMap [
         rr:predicate cpe:hasProduct;
-        rr:objectMap [ 
-         rr:template "http://w3id.org/sepses/resource/cpe/product/{substring-before(substring-after(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':'),':')}";
-		 ]
-     ];
-             rr:predicateObjectMap [
+        rr:objectMap [
+            rr:template "http://w3id.org/sepses/resource/cpe/product/{tokenize(cpe-23:cpe23-item/@name,':')[5]}";
+        ]
+    ];
+    rr:predicateObjectMap [
         rr:predicate cpe:hasReference;
         rr:objectMap [ carml:multiReference "references/reference/@href" ]
-     ];
-     .
-      <#CPEVendorMapping> 
-     rml:logicalSource [
-         rml:source [
-             a carml:Stream;
-             
-         ];
-      
-        rml:referenceFormulation ql:XPath;
-		rml:iterator "/cpe-list/cpe-item"
-     ];
-     
-     rr:subjectMap [
-         rr:template "http://w3id.org/sepses/resource/cpe/vendor/{substring-before(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':')}";
-      ];
-      
-      rr:predicateObjectMap [
-        rr:predicate rdf:type;
-        rr:objectMap [ rr:template "http://w3id.org/sepses/vocab/ref/cpe#Vendor" ];
-     ];
-   rr:predicateObjectMap [
-        rr:predicate cpe:vendorName;
-        rr:objectMap [ rml:reference "substring-before(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':')"];
-        rr:datatype xsd:string ;
-     ];
-	 .
-     
-     <#CPEProductMapping> 
-     rml:logicalSource [
-         rml:source [
-             a carml:Stream;
-             
-         ];
-      
-        rml:referenceFormulation ql:XPath;
-		rml:iterator "/cpe-list/cpe-item"
-     ];
-     
-     rr:subjectMap [
-         rr:template "http://w3id.org/sepses/resource/cpe/product/{substring-before(substring-after(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':'),':')}";
-        ];
-      
-      rr:predicateObjectMap [
-        rr:predicate rdf:type;
-        rr:objectMap [ rr:template "http://w3id.org/sepses/vocab/ref/cpe#Product" ];
-     ];
-   rr:predicateObjectMap [
-        rr:predicate cpe:productName;
-        rr:objectMap [ rml:reference "substring-before(substring-after(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':'),':')"];
-           rr:datatype xsd:string ;
-     ];
-      rr:predicateObjectMap [
-        rr:predicate cpe:hasVendor;
-        rr:objectMap [   rr:template "http://w3id.org/sepses/resource/cpe/vendor/{substring-before(substring-after(substring-after(substring-after(cpe-23:cpe23-item/@name,':'),':'),':'),':')}"];
+    ];
 
-     ];
 .
 
+<#CPEVendorMapping>
+    rml:logicalSource [
+        rml:source [
+            a carml:Stream;
+        ];
+        rml:referenceFormulation ql:XPath;
+        rml:iterator "/cpe-list/cpe-item"
+    ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/sepses/resource/cpe/vendor/{tokenize(cpe-23:cpe23-item/@name,':')[4]}";
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdf:type;
+        rr:objectMap [ rr:template "http://w3id.org/sepses/vocab/ref/cpe#Vendor" ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate cpe:vendorName;
+        rr:objectMap [ rml:reference "tokenize(cpe-23:cpe23-item/@name,':')[4]"];
+        rr:datatype xsd:string ;
+    ];
+.
+
+<#CPEProductMapping>
+    rml:logicalSource [
+        rml:source [
+            a carml:Stream;
+        ];
+        rml:referenceFormulation ql:XPath;
+        rml:iterator "/cpe-list/cpe-item"
+    ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/sepses/resource/cpe/product/{tokenize(cpe-23:cpe23-item/@name,':')[5]}";
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdf:type;
+        rr:objectMap [ rr:template "http://w3id.org/sepses/vocab/ref/cpe#Product" ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate cpe:productName;
+        rr:objectMap [ rml:reference "tokenize(cpe-23:cpe23-item/@name,':')[5]"];
+        rr:datatype xsd:string ;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate cpe:hasVendor;
+        rr:objectMap [   rr:template "http://w3id.org/sepses/resource/cpe/vendor/{tokenize(cpe-23:cpe23-item/@name,':')[4]}"];
+    ];
+.

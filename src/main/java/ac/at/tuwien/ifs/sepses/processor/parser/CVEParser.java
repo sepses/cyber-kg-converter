@@ -1,26 +1,39 @@
 package ac.at.tuwien.ifs.sepses.processor.parser;
 
 import ac.at.tuwien.ifs.sepses.linking.CVELinking;
-import ac.at.tuwien.ifs.sepses.rml.XMLParser;
-import ac.at.tuwien.ifs.sepses.processor.updater.CVEUpdate;
 import ac.at.tuwien.ifs.sepses.processor.helper.Curl;
 import ac.at.tuwien.ifs.sepses.processor.helper.DownloadUnzip;
+import ac.at.tuwien.ifs.sepses.processor.updater.CVEUpdate;
+import ac.at.tuwien.ifs.sepses.rml.XMLParser;
+import ac.at.tuwien.ifs.sepses.vocab.CPE;
+import ac.at.tuwien.ifs.sepses.vocab.CVE;
+import ac.at.tuwien.ifs.sepses.vocab.CVSS;
+import ac.at.tuwien.ifs.sepses.vocab.CWE;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.vocabulary.DCTerms;
 import org.apache.jena.vocabulary.RDF;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 
 public class CVEParser {
+
+    private static final Logger log = LoggerFactory.getLogger(CVEParser.class);
 
     public static void main(String[] args) throws Exception {
         Properties prop = new Properties();
@@ -32,9 +45,6 @@ public class CVEParser {
     public static void parseCVE(Properties prop) throws Exception {
 
         //============Configuration and URL================
-        //date 06/02/2019 @ 14:55
-        //String urlCVE = "https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-modified.xml.zip";
-        //String urlCVEMeta = "https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-modified.meta";
 
         String urlCVE = prop.getProperty("CVEUrl");
         String urlCVEMeta = prop.getProperty("CVEMetaUrl");
@@ -43,53 +53,65 @@ public class CVEParser {
 
         String RMLFileTemp = prop.getProperty("CVERMLTempFile");
         String RMLFile = prop.getProperty("CVERMLFile");
-        String CyberKnowledgeEp = prop.getProperty("SparqlEndpoint");
+        String sparqlEndpoint = prop.getProperty("SparqlEndpoint");
         String namegraph = prop.getProperty("CVENamegraph");
         String CWEGraphName = prop.getProperty("CWENamegraph");
         String CPEGraphName = prop.getProperty("CPENamegraph");
         String active = prop.getProperty("CVEActive");
 
+        Boolean isUseAuth = Boolean.parseBoolean(prop.getProperty("UseAuth"));
+        String username = prop.getProperty("EndpointUser");
+        String password = prop.getProperty("EndpointPass");
+
         //===========================================
-        System.out.println("time_start: " + new Date());
-        //0. Check if the system active
+
+        long start = System.currentTimeMillis() / 1000;
+        long end;
+        log.info("time_start: " + Instant.now());
+        // Step 0a. Check if the system active
         if (!active.equals("Yes")) {
-            System.out.println("Sorry, CVE Parser is inactive.. please activate it in the config file !");
+            log.info("Sorry, CVE Parser is inactive.. please activate it in the config file !");
 
         } else {
-
-            //0. Checking CVE Meta...
-            System.out.println("Checking resource meta from " + urlCVEMeta);
+            // Step 0b. Checking CVE Meta...
+            log.info("Checking resource meta from " + urlCVEMeta);
             String metafileName = urlCVEMeta.substring(urlCVEMeta.lastIndexOf("/") + 1);
             String metaDir = destDir + "/" + metafileName;
             String currentMeta = DownloadUnzip.downloadResource(urlCVEMeta, metaDir);
             Path currentMetaPath = Paths.get(currentMeta);
             String metaSHA = CVEUpdate.readMetaSHA(currentMetaPath.toString());
-            //System.out.println(metaSHA);System.exit(0);
-            boolean checkCVEMeta = CVEUpdate.checkSHAMeta(metaSHA, CyberKnowledgeEp, namegraph);
-            //System.out.println(checkCVEMeta);System.exit(0);
+            boolean checkCVEMeta = CVEUpdate.checkSHAMeta(metaSHA, sparqlEndpoint, namegraph);
+
             if (checkCVEMeta) {
-                System.out.println("  Resource is already up-to-date!");
-                System.out.println("time_end: " + new Date());
+                // --> up to date
+                log.info("  Resource is already up-to-date!");
+                log.info("time_end: " + new Date());
+
             } else {
-                System.out.println("Resource is New!");
+                // --> needs updating
+                log.info("Resource is New!");
                 org.apache.jena.rdf.model.Model CVEMetaModel = CVEUpdate.generateCVEMetaTriple(metaSHA);
-                //CVEMetaModel.write(System.out,"TURTLE");System.exit(0);
-                //DownloadUnzip.downloadResource(urlCVEMeta, lastMeta);
-                //1. Downloading CVE resource from the internet...
-                System.out.print("Downloading resource from internet...  ");
+
+                // Step 1. Downloading CVE resource from the internet...
+                log.info("Downloading resource from internet...  ");
                 String cvefileName = urlCVE.substring(urlCVE.lastIndexOf("/") + 1);
                 String destCVEFile = destDir + "/" + cvefileName;
                 String CVEZipFile = DownloadUnzip.downloadResource(urlCVE, destCVEFile);
-                System.out.println("  Done!");
+                log.info("Downloading resource Done!");
+                end = System.currentTimeMillis() / 1000;
+                log.info(" in " + (end - start) + " seconds");
+                start = end;
 
-                //2. Unziping resource...
-                System.out.print("Unzipping resource to...  ");
+                // Step 2. Unziping resource...
+                log.info("Unzipping resource to...  ");
                 String UnzipFile = DownloadUnzip.unzip(CVEZipFile, destDir);
-                //System.exit(0);
-                System.out.println(UnzipFile + "  Done!");
+                log.info(UnzipFile + " Done!");
+                end = System.currentTimeMillis() / 1000;
+                log.info(" in " + (end - start) + " seconds");
+                start = end;
 
-                //3. Injecting xml file...
-                // System.out.print("Injecting xml file...  ");
+                // Step 3. Injecting xml file...
+                log.info("Injecting xml file...  ");
                 String CVEXML = UnzipFile;
                 String fileName = CVEXML.substring(CVEXML.lastIndexOf("/") + 1);
                 if (fileName.indexOf("\\") >= 0) {
@@ -101,29 +123,43 @@ public class CVEParser {
                 content = content.replaceAll("xmlns=\"http://scap.nist.gov/schema/feed/vulnerability/2.0\"",
                         "xmlns:1=\"http://scap.nist.gov/schema/feed/vulnerability/2.0\"");
                 Files.write(path, content.getBytes(charset));
-                //System.exit(0);
-                // System.out.println("Done!");
+                log.info(" Done!");
+                end = System.currentTimeMillis() / 1000;
+                log.info(" in " + (end - start) + " seconds");
+                start = end;
 
-                //4.0 Checking ac.at.tuwien.ifs.sepses.processor...
-                System.out.println("Checking ac.at.tuwien.ifs.sepses.processor... ");
+                // Checking updates
+                log.info("Checking Updates... ");
+                parseTempCVE(CVEXML, RMLFileTemp, sparqlEndpoint, namegraph);
+                log.info("Done!");
+                end = System.currentTimeMillis() / 1000;
+                log.info(" in " + (end - start) + " seconds");
+                start = end;
 
-                parseTempCVE(CVEXML, RMLFileTemp, CyberKnowledgeEp, namegraph);
-                System.out.println("Done!");
+                // Step 4. Parsing xml to rdf......
+                log.info("Parsing xml to rdf...  ");
+                parseCVE(CVEXML, RMLFile, sparqlEndpoint, CWEGraphName, CPEGraphName, outputDir, CVEMetaModel);
+                log.info("Done!");
+                end = System.currentTimeMillis() / 1000;
+                log.info(" in " + (end - start) + " seconds");
+                start = end;
 
-                //4. Parsing xml to rdf......
-                System.out.print("Parsing xml to rdf...  ");
-                parseCVE(CVEXML, RMLFile, CyberKnowledgeEp, CWEGraphName, CPEGraphName, outputDir, CVEMetaModel);
-                System.out.println("Done!");
-
-                //5. Storing data to triple store....
-                System.out.print("Storing data to triple store....  ");
+                // Step 5. Storing data to triple store....
+                log.info("Storing data to triple store....  ");
                 String output = outputDir + "/" + fileName + "-output.ttl";
-                //delete previous CVEMeta
-                CVEUpdate.deleteCVEMeta(CyberKnowledgeEp, namegraph);
-                Curl.storeData(output, namegraph);
-                System.out.println("Done!");
-                //Finish
-                System.out.println("time_end: " + new Date());
+
+                //                 Step 5a. delete previous CVEMeta
+                CVEUpdate.deleteCVEMeta(sparqlEndpoint, namegraph);
+
+                // Step 5b. store data
+                Curl.storeData(output, namegraph, sparqlEndpoint, isUseAuth, username, password);
+                log.info("Done!");
+                end = System.currentTimeMillis() / 1000;
+                log.info(" in " + (end - start) + " seconds");
+                start = end;
+
+                // Finished!
+                log.info("time_end: " + new Date());
             }
         }
     }
@@ -136,17 +172,15 @@ public class CVEParser {
         if (fileName.indexOf("\\") >= 0) {
             fileName = CVEXMLFile.substring(CVEXMLFile.lastIndexOf("\\") + 1);
         }
-        //System.out.println(fileName);System.exit(0);
+        //log.info(fileName);System.exit(0);
         org.apache.jena.rdf.model.Model CVEModelTemp = XMLParser.Parse(CVEXMLFile, RMLFileTemp);
-        //CVEModelTemp.write(System.out,"TURTLE");
         ArrayList<String>[] CVEArray = CVEUpdate.checkExistingCVE(CVEModelTemp, CyberKnowledgeEp, CVEGraphName);
-        System.out.println("Done!");
-        System.out.println("Found New CVE: " + CVEArray[0].size());
-        System.out.println("Found modified CVE : " + CVEArray[1].size());
-        System.out.println("Found existing CVE : " + CVEArray[2].size());
+        log.info("Done!");
+        log.info("Found New CVE: " + CVEArray[0].size());
+        log.info("Found modified CVE : " + CVEArray[1].size());
+        log.info("Found existing CVE : " + CVEArray[2].size());
         if ((CVEArray[0].size() == 0) && (CVEArray[1].size() == 0)) {
-            System.out.println("CVE is already updated");
-            //System.exit(0);
+            log.info("CVE is already updated");
         }
         CVEModelTemp.close();
 
@@ -155,18 +189,25 @@ public class CVEParser {
     public static void parseCVE(String CVEXMLFile, String RMLFile, String CyberKnowledgeEp, String CWEGraphName,
             String CPEGraphName, String outputDir, org.apache.jena.rdf.model.Model CVEMetaModel) throws Exception {
 
-        //String xmlFileName = "./input/cvedecade/nvdcve-2.0-2018.xml";
         String fileName = CVEXMLFile.substring(CVEXMLFile.lastIndexOf("/") + 1);
         if (fileName.indexOf("\\") >= 0) {
             fileName = CVEXMLFile.substring(CVEXMLFile.lastIndexOf("\\") + 1);
         }
-        //System.out.println(fileName);System.exit(0);
         org.apache.jena.rdf.model.Model CVEModel = XMLParser.Parse(CVEXMLFile, RMLFile);
-        //act to ac.at.tuwien.ifs.sepses.processor
+        String test = outputDir + "/" + fileName + "-output.ttl";
 
-        System.out.println("Generate ac.at.tuwien.ifs.sepses.linking...");
+        CVEModel.setNsPrefix("cve-res", "http://w3id.org/sepses/resource/cve/");
+        CVEModel.setNsPrefix("cvss-res", "http://w3id.org/sepses/resource/cvss/");
+        CVEModel.setNsPrefix("cve", CVE.NS);
+        CVEModel.setNsPrefix("cpe", CPE.NS);
+        CVEModel.setNsPrefix("cvss", CVSS.NS);
+        CVEModel.setNsPrefix("cwe", CWE.NS);
+        CVEModel.setNsPrefix("dct", DCTerms.NS);
+        RDFDataMgr.write(new FileOutputStream(test), CVEModel, Lang.TURTLE);
+
+        log.info("Generate ac.at.tuwien.ifs.sepses.linking...");
         //System.exit(0);
-        //CVEModel.write(System.out,"TURTLE");System.exit(0);    
+        //CVEModel.write(System.out,"TURTLE");System.exit(0);
         org.apache.jena.rdf.model.Model CVETOCPE =
                 CVELinking.generateLinkingCVETOCPE(CVEModel, CyberKnowledgeEp, CPEGraphName, fileName, outputDir);
         org.apache.jena.rdf.model.Model CVETOCWE =
@@ -192,9 +233,6 @@ public class CVEParser {
         CVEModel.removeAll(null, cweId, null);
         CVEModel.removeAll(null, hasVulnerableConfiguration, null);
         CVEModel.removeAll(null, RDF.type, LogicalTest);
-        //join the model
-
-        //delete previous Meta model
 
         org.apache.jena.rdf.model.Model allCVE = CVEModel.union(CVETOCWE).union(CVETOCPE).union(CVEMetaModel);
 
@@ -212,7 +250,6 @@ public class CVEParser {
             CVETOCWE.close();
         }
     }
-
 }
 
 

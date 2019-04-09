@@ -4,13 +4,91 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ac.at.tuwien.ifs.sepses</groupId>
     <artifactId>cyber-kb</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <build>
         <plugins>
+            <!-- generate tbox assessor -->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.jena</groupId>-->
+                <!--<artifactId>jena-maven-tools</artifactId>-->
+                <!--<version>${jena.schemagen.version}</version>-->
+                  <!--<configuration>-->
+                      <!--<includes>-->
+                          <!--<include>src/main/resources/owl/*.ttl</include>-->
+                      <!--</includes>-->
+                      <!--<fileOptions>-->
+                          <!--<source>-->
+                              <!--<input>src/main/resources/owl/CAPEC.ttl</input>-->
+                              <!--<useInf>true</useInf>-->
+                              <!--<namespace>http://w3id.org/sepses/vocab/ref/capec#</namespace>-->
+                              <!--<noIndividuals>true</noIndividuals>-->
+                              <!--<ucNames>true</ucNames>-->
+                          <!--</source>-->
+                          <!--<source>-->
+                              <!--<input>src/main/resources/owl/CPE.ttl</input>-->
+                              <!--<useInf>true</useInf>-->
+                              <!--<namespace>http://w3id.org/sepses/vocab/ref/cpe#</namespace>-->
+                              <!--<noIndividuals>true</noIndividuals>-->
+                              <!--<ucNames>true</ucNames>-->
+                          <!--</source>-->
+                          <!--<source>-->
+                              <!--<input>src/main/resources/owl/CVE.ttl</input>-->
+                              <!--<useInf>true</useInf>-->
+                              <!--<namespace>http://w3id.org/sepses/vocab/ref/cve#</namespace>-->
+                              <!--<noIndividuals>true</noIndividuals>-->
+                              <!--<ucNames>true</ucNames>-->
+                          <!--</source>-->
+                          <!--<source>-->
+                              <!--<input>src/main/resources/owl/CVSS.ttl</input>-->
+                              <!--<useInf>true</useInf>-->
+                              <!--<namespace>http://w3id.org/sepses/vocab/ref/cvss#</namespace>-->
+                              <!--<noIndividuals>true</noIndividuals>-->
+                              <!--<ucNames>true</ucNames>-->
+                          <!--</source>-->
+                          <!--<source>-->
+                              <!--<input>src/main/resources/owl/CWE.ttl</input>-->
+                              <!--<useInf>true</useInf>-->
+                              <!--<namespace>http://w3id.org/sepses/vocab/ref/cwe#</namespace>-->
+                              <!--<noIndividuals>true</noIndividuals>-->
+                              <!--<ucNames>true</ucNames>-->
+                          <!--</source>-->
+                          <!--<source>-->
+                              <!--<input>default</input>-->
+                              <!--<package-name>id.juang.diff.vocab</package-name>-->
+                          <!--</source>-->
+                      <!--</fileOptions>-->
+                  <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                          <!--<id>schemagen</id>-->
+                          <!--<goals>-->
+                                <!--<goal>translate</goal>-->
+                          <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.3</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -24,6 +102,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <carml.version>0.2.3</carml.version>
         <jena.version>3.9.0</jena.version>
+        <jena.schemagen.version>3.0.1</jena.schemagen.version>
     </properties>
 
     <name>SEPSES Cyber KB</name>
@@ -80,6 +159,13 @@
             <groupId>com.taxonic.carml</groupId>
             <artifactId>carml-logical-source-resolver</artifactId>
             <version>${carml.version}</version>
+        </dependency>
+
+        <!-- logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
         </dependency>
     </dependencies>
 </project>

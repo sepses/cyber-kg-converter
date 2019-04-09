@@ -6,6 +6,8 @@ import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import org.apache.jena.update.UpdateRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -14,13 +16,15 @@ import java.util.ArrayList;
 
 public class CVEUpdate {
 
+    private static final Logger log = LoggerFactory.getLogger(CVEUpdate.class);
+
     public static ArrayList<String>[] checkExistingCVE(Model CVEModelTemp, String CyberKnowledgeEp,
             String CVEGraphName) {
         //1. select all CVE on CVEModelTemp
 
         String queryTemp = "select distinct ?s ?id ?m where {" + "?s <http://w3id.org/sepses/vocab/ref/cve#id> ?id."
                 + "?s <http://purl.org/dc/terms/modified> ?m }";
-        //System.out.println(queryTemp);//System.exit(0);
+        //log.info(queryTemp);//System.exit(0);
         Query QTemp = QueryFactory.create(queryTemp);
         QueryExecution QTempEx = QueryExecutionFactory.create(QTemp, CVEModelTemp);
         ResultSet QTempResult = QTempEx.execSelect();
@@ -37,20 +41,20 @@ public class CVEUpdate {
             //check CVE is Exist
 
             String co = checkCVEExist(CyberKnowledgeEp, cveId.toString(), CVEGraphName);
-            //System.out.println(co);//System.exit(0);
+            //log.info(co);//System.exit(0);
             //Integer co = 0;
 
             if (!co.equals("0^^http://www.w3.org/2001/XMLSchema#integer")) {
                 //if yes check if CVE need ac.at.tuwien.ifs.sepses.processor
-                //System.out.println("checkCVENeedUpdate");
+                //log.info("checkCVENeedUpdate");
                 String co2 =
                         checkCVENeedUpdate(CyberKnowledgeEp, cveId.toString(), modifiedDate.toString(), CVEGraphName);
 
                 if (co2.equals("0^^http://www.w3.org/2001/XMLSchema#integer")) {
-                    //System.out.println("CVENeedUpdate");
+                    //log.info("CVENeedUpdate");
                     //need ac.at.tuwien.ifs.sepses.processor
                     CVEUpdate.add(cveId.toString());
-                    //	System.out.println("delete existing CVE...");
+                    //	log.info("delete existing CVE...");
                     deleteCVE(CyberKnowledgeEp, cveRes.toString(), CVEGraphName);
                 } else {
                     //leave it
@@ -58,7 +62,7 @@ public class CVEUpdate {
                 }
             } else {
                 //new cve!!, need insert
-                //System.out.println("CVE is New, NeedInsert");
+                //log.info("CVE is New, NeedInsert");
                 CVEInsert.add(cveId.toString());
 
             }
@@ -69,7 +73,7 @@ public class CVEUpdate {
         CVEArray[2] = CVELeave;
         CVEArray[1] = CVEUpdate;
         CVEArray[0] = CVEInsert;
-        //System.out.println(c);
+        //log.info(c);
         return CVEArray;
     }
 
@@ -77,7 +81,7 @@ public class CVEUpdate {
         String queryCVE = "select (count(?s) as ?c)  from <" + CVEGraphName + "> where {"
                 + "?s  a <http://w3id.org/sepses/vocab/ref/cve#CVE>."
                 + "?s  <http://w3id.org/sepses/vocab/ref/cve#id> \"" + Id + "\"." + "}";
-        //	System.out.println(queryCVE);
+        //	log.info(queryCVE);
         //System.exit(0);
 
         Query QCVE = QueryFactory.create(queryCVE);
@@ -99,12 +103,9 @@ public class CVEUpdate {
         String queryCVE = "select (count(?s) as ?c) from <" + CVEGraphName + "> where {"
                 + "?s  <http://w3id.org/sepses/vocab/ref/cve#id> \"" + Id + "\"."
                 + "?s  <http://purl.org/dc/terms/modified> \"" + Modifdate + "\"." + "}";
-        //System.out.println(queryCVE);
-        //	System.exit(0);
 
         Query QCVE = QueryFactory.create(queryCVE);
         QueryExecution qeQCVE = QueryExecutionFactory.sparqlService(CyberKnowledgeEp, QCVE);
-        //((QueryEngineHTTP)qeQueryCPE).addParam("timeout", "10000");
         ResultSet rsQCVE = qeQCVE.execSelect();
         String c = "";
         while (rsQCVE.hasNext()) {
@@ -130,11 +131,7 @@ public class CVEUpdate {
         String deleteQuery3 =
                 "with <" + CVEGraphName + "> DELETE { ?o1 ?p2 ?o2 }  \r\n" + "WHERE { ?s ?p ?o. " + " ?o ?p1 ?o1. "
                         + " ?o1 ?p2 ?o2. " + "filter (?s = " + cveRes + ")}";
-        //System.out.println(deleteQuery1);
 
-        //System.out.println(deleteQuery2);
-        //System.out.println(deleteQuery3);
-        //System.exit(0);
         UpdateRequest QCVE1 = UpdateFactory.create(deleteQuery3);
         UpdateProcessor qeQCVE1 = UpdateExecutionFactory.createRemote(QCVE1, CyberKnowledgeEp);
         qeQCVE1.execute();
@@ -150,7 +147,7 @@ public class CVEUpdate {
     public static boolean checkSHAMeta(String SHA256, String CyberKnowledgeEp, String namegraph) {
         String Query = "select (count(?s) as ?c) from <" + namegraph + "> where {"
                 + "?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256>  \"" + SHA256 + "\" }";
-        System.out.println(Query);//System.exit(0);
+        log.info(Query);//System.exit(0);
         Query qfQuery = QueryFactory.create(Query);
         QueryExecution qeQuery = QueryExecutionFactory.sparqlService(CyberKnowledgeEp, qfQuery);
         ResultSet rsQuery = qeQuery.execSelect();
@@ -158,7 +155,7 @@ public class CVEUpdate {
         while (rsQuery.hasNext()) {
             QuerySolution qsQuery = rsQuery.nextSolution();
             RDFNode c = qsQuery.get("c");
-            //System.out.println(c.toString());System.exit(0);
+            //log.info(c.toString());System.exit(0);
             if (c.toString().equals("0^^http://www.w3.org/2001/XMLSchema#integer")) {
                 found = false;
             }
@@ -180,8 +177,7 @@ public class CVEUpdate {
                 }
             }
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
         return metaSHA256;
     }
@@ -191,7 +187,6 @@ public class CVEUpdate {
         Property metaSHA256 = CVEMetaModel.createProperty("http://w3id.org/sepses/vocab/ref/cve#metaSHA256");
         Resource CVEMeta1 = CVEMetaModel.createResource("http://w3id.org/sepses/resource/cve/meta/cveMeta1");
         CVEMetaModel.add(CVEMeta1, metaSHA256, metaSHA);
-        //System.out.println(SHA256);
         return CVEMetaModel;
 
     }

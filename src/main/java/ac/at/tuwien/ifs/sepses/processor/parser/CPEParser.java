@@ -1,9 +1,11 @@
 package ac.at.tuwien.ifs.sepses.processor.parser;
 
-import ac.at.tuwien.ifs.sepses.rml.XMLParser;
-import ac.at.tuwien.ifs.sepses.processor.updater.CPEUpdate;
 import ac.at.tuwien.ifs.sepses.processor.helper.Curl;
 import ac.at.tuwien.ifs.sepses.processor.helper.DownloadUnzip;
+import ac.at.tuwien.ifs.sepses.processor.updater.CPEUpdate;
+import ac.at.tuwien.ifs.sepses.rml.XMLParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -14,6 +16,8 @@ import java.util.Date;
 import java.util.Properties;
 
 public class CPEParser {
+
+    private static final Logger log = LoggerFactory.getLogger(CPEParser.class);
 
     public static void main(String[] args) throws Exception {
         Properties prop = new Properties();
@@ -26,49 +30,43 @@ public class CPEParser {
 
         //============Configuration and URL================
 
-        //String urlCPE = "https://nvd.nist.gov/feeds/xml/cpe/dictionary/official-cpe-dictionary_v2.3.xml.zip";
-        //String urlCPE = "http://localhost/nvd/cpe01/official-cpe-dictionary_v2.3.xml.zip";
-        ///String urlCPE = "https://nvd.nist.gov/feeds/xml/cpe/dictionary/archive-official-cpe-dictionary_v2.2-20190201-001524.xml.zip";
-        ///String urlCPE = "https://nvd.nist.gov/feeds/xml/cpe/dictionary/archive-official-cpe-dictionary_v2.2-20190202-001435.xml.zip";
-        ///String urlCPE = "https://nvd.nist.gov/feeds/xml/cpe/dictionary/archive-official-cpe-dictionary_v2.2-20190205-001339.xml.zip";
-        //String urlCPE ="https://nvd.nist.gov/feeds/xml/cpe/dictionary/archive-official-cpe-dictionary_v2.2-20190207-001556.xml.zip";
-        ///String urlCPE ="https://nvd.nist.gov/feeds/xml/cpe/dictionary/archive-official-cpe-dictionary_v2.2-20190208-001606.xml.zip";
-        ///String urlCPE = "https://nvd.nist.gov/feeds/xml/cpe/dictionary/archive-official-cpe-dictionary_v2.2-20190209-001408.xml.zip";
-        ///String urlCPE = "https://nvd.nist.gov/feeds/xml/cpe/dictionary/archive-official-cpe-dictionary_v2.2-20190212-001634.xml.zip";
-
         String urlCPE = prop.getProperty("CPEUrl");
         String destDir = prop.getProperty("InputDir") + "/cpe";
         String outputDir = prop.getProperty("OutputDir") + "/cpe";
-        ;
+
         String RMLFileTemp = prop.getProperty("CPERMLTempFile");
         String RMLFile = prop.getProperty("CPERMLFile");
-        String CyberKnowledgeEp = prop.getProperty("SparqlEndpoint");
+        String sparqlEndpoint = prop.getProperty("SparqlEndpoint");
         String namegraph = prop.getProperty("CPENamegraph");
         String active = prop.getProperty("CPEActive");
 
+        Boolean isUseAuth = Boolean.parseBoolean(prop.getProperty("UseAuth"));
+        String username = prop.getProperty("EndpointUser");
+        String password = prop.getProperty("EndpointPass");
+
         //===========================================
         //0. Check if the system active
-        System.out.println("time_start: " + new Date());
+        log.info("time_start: " + new Date());
         if (!active.equals("Yes")) {
-            System.out.println("Sorry, CPE Parser is inactive.. please activate it in the config file !");
+            log.info("Sorry, CPE Parser is inactive.. please activate it in the config file !");
 
         } else {
 
             //1. Downloading CPE resource from the internet...
-            System.out.print("Downloading resource from " + urlCPE);
+            log.info("Downloading resource from " + urlCPE);
             String cpefileName = urlCPE.substring(urlCPE.lastIndexOf("/") + 1);
             String destCPEFile = destDir + "/" + cpefileName;
             String CPEZipFile = DownloadUnzip.downloadResource(urlCPE, destCPEFile);
-            System.out.println("   Done!");
+            log.info("   Done!");
 
             //2. Unziping resource...
-            System.out.print("Unzipping resource to...  ");
+            log.info("Unzipping resource to...  ");
             String UnzipFile = DownloadUnzip.unzip(CPEZipFile, destDir);
             //System.exit(0);
-            System.out.println(UnzipFile + "  Done!");
+            log.info(UnzipFile + "  Done!");
 
             //3. Injecting xml file...
-            System.out.print("Injecting xml file...  ");
+            log.info("Injecting xml file...  ");
             String CPEXML = UnzipFile;
             String fileName = CPEXML.substring(CPEXML.lastIndexOf("/") + 1);
             if (fileName.indexOf("\\") >= 0) {
@@ -78,7 +76,6 @@ public class CPEParser {
             Charset charset = StandardCharsets.UTF_8;
 
             try {
-
                 BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(CPEXML)));
                 String co = null;
                 StringBuffer inputBuffer = new StringBuffer();
@@ -88,67 +85,70 @@ public class CPEParser {
                     if (c == 2) {
                         co = co.replaceAll("xmlns=\"http://cpe.mitre.org/dictionary/2.0\"",
                                 "xmlns:1=\"http://cpe.mitre.org/dictionary/2.0\"");
-
                     }
                     inputBuffer.append(co);
                     inputBuffer.append('\n');
-
                 }
                 String inputStr = inputBuffer.toString();
                 FileWriter fw = new FileWriter(CPEXML);
                 BufferedWriter bw = new BufferedWriter(fw);
-                System.out.println("write xml file");
+                log.info("write xml file");
                 bw.write(inputStr);
                 try {
                     if (bw != null)
                         bw.close();
                 } catch (Exception ex) {
-                    System.out.println("Error in closing the BufferedWriter" + ex);
+                    log.info("Error in closing the BufferedWriter" + ex);
                 }
             } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                log.error(e.getMessage(), e);
             }
-            System.out.println("Done!");
+            log.info("Done!");
 
             //4.0 Checking ac.at.tuwien.ifs.sepses.processor...
-            System.out.println(
-                    "Checking ac.at.tuwien.ifs.sepses.processor from " + CyberKnowledgeEp + " using graphname "
-                            + namegraph);
-            String c = CPEUpdate.checkExistingTriple(CyberKnowledgeEp, namegraph);
-            System.out.println("existing cpe = " + c);
+            log.info("Checking updates from " + sparqlEndpoint + " using graphname " + namegraph);
+            String c = CPEUpdate.checkExistingTriple(sparqlEndpoint, namegraph);
+            log.info("existing cpe = " + c);
+
+            long start = System.currentTimeMillis() / 1000;
+            long end;
             org.apache.jena.rdf.model.Model CPEModelTemp = XMLParser.Parse(CPEXML, RMLFileTemp);
-            boolean sameVersion = CPEUpdate.checkingCPEVersion(CPEModelTemp, CyberKnowledgeEp, namegraph);
+            end = System.currentTimeMillis() / 1000;
+            log.info(" in " + (end - start) + " seconds");
+            start = end;
+
+            boolean sameVersion = CPEUpdate.checkingCPEVersion(CPEModelTemp, sparqlEndpoint, namegraph);
             if (sameVersion) {
-                System.out.println("CPE is up-to-date!!");
-                System.out.println("time_end: " + new Date());
+                log.info("CPE is up-to-date!!");
+                log.info("time_end: " + new Date());
             } else {
 
-                System.out.println("CPE is NEW!!");
+                log.info("CPE is NEW!!");
                 //4. Parsing xml to rdf......
-                System.out.println("Parsing xml to rdf...  ");
+                log.info("Parsing xml to rdf...  ");
                 boolean emptyTripleStore =
-                        parseCPE(CPEXML, RMLFile, CyberKnowledgeEp, namegraph, outputDir, c, CPEModelTemp);
+                        parseCPE(CPEXML, RMLFile, sparqlEndpoint, namegraph, outputDir, c, CPEModelTemp);
+
+                end = System.currentTimeMillis() / 1000;
+                log.info(" in " + (end - start) + " seconds");
+
                 //delete the generator
-                CPEUpdate.deleteGenerator(CyberKnowledgeEp, namegraph);
-                System.out.println("Done!");
-                // System.exit(0);
+                CPEUpdate.deleteGenerator(sparqlEndpoint, namegraph);
+                log.info("Done!");
 
                 //5. Storing data to triple store....
-                System.out.print("Storing data to triple store....  ");
+                log.info("Storing data to triple store....  ");
                 String output = outputDir + "/" + fileName + "-output.ttl";
                 if (emptyTripleStore) {
-                    System.out.println("insert initial data");
-                    Curl.storeInitData(output, namegraph);
+                    log.info("insert initial data");
+                    Curl.storeData(output, namegraph, sparqlEndpoint, isUseAuth, username, password);
                 } else {
-                    System.out.println("ac.at.tuwien.ifs.sepses.processor data");
-                    //ac.at.tuwien.ifs.sepses.processor the generator
-                    //System.out.println("delete old generator..!");
-                    Curl.storeData(output, namegraph);
+                    log.info("update data");
+                    Curl.storeData(output, namegraph, sparqlEndpoint, isUseAuth, username, password);
                 }
-                System.out.println("Done!");
+                log.info("Done!");
                 //Finish
-                System.out.println("time_end: " + new Date());
+                log.info("time_end: " + new Date());
             }
         }
     }
@@ -156,17 +156,15 @@ public class CPEParser {
     public static boolean parseCPE(String CPEXMLFile, String RMLFile, String CyberKnowledgeEp, String CPEGraphName,
             String outputDir, String c, org.apache.jena.rdf.model.Model cPEModelTemp) throws Exception {
 
-        //String xmlFileName = "./input/cvedecade/nvdcve-2.0-2018.xml";
         String fileName = CPEXMLFile.substring(CPEXMLFile.lastIndexOf("/") + 1);
         if (fileName.indexOf("\\") >= 0) {
             fileName = CPEXMLFile.substring(CPEXMLFile.lastIndexOf("\\") + 1);
         }
-        //System.out.println(fileName);
 
         org.apache.jena.rdf.model.Model CPEModel = XMLParser.Parse(CPEXMLFile, RMLFile);
         String cpe = CPEUpdate.countCPE(CPEModel);
         org.apache.jena.rdf.model.Model addCPEModel = CPEUpdate.generateAdditionalTriples(CPEModel);
-        System.out.println("CPE parsed: " + cpe.toString());
+        log.info("CPE parsed: " + cpe.toString());
 
         org.apache.jena.rdf.model.Model allCPE = CPEModel.union(addCPEModel);
         allCPE = allCPE.union(cPEModelTemp);
@@ -175,40 +173,16 @@ public class CPEParser {
         addCPEModel.close();
         CPEModel.close();
 
-        System.out.println("Parsing done..!");
-        //allCPE.write(System.out,"TURTLE");
+        log.info("Parsing done..!");
 
-        //System.exit(0);
         if (c.equals("0")) {
-            //dont ac.at.tuwien.ifs.sepses.processor cpe model
-            //get an output file out of the model
-            System.out.println("produce turtle output file");
+            log.info("produce turtle output file");
             Curl.produceOutputFile(allCPE, outputDir, fileName);
             return true;
         } else {
-            //ac.at.tuwien.ifs.sepses.processor cpe model
-            //System.out.print("generateAdditionalCPE");//System.exit(0);
-            //org.apache.jena.rdf.model.Model CPEModelx = CPEUpdate.generateAdditionalCPE(CPEModel,CyberKnowledgeEp, CPEGraphName);
-            //System.exit(0);
-            //Curl.produceOutputFile(CPEModelx, outputDir, fileName);
-            System.out.println("produce turtle output file");
+            log.info("produce turtle output file");
             Curl.produceOutputFile(allCPE, outputDir, fileName);
             return false;
         }
-
     }
-
 }
-    
-
-    
- 
-        
-
-    
-
-
-    
-   
-
-

@@ -7,17 +7,15 @@
 @prefix dcterm: <http://purl.org/dc/terms/> .
 
 <#CAPECCatalogMapping>
-     rml:logicalSource [
-         rml:source [
-             a carml:Stream;  
-         ];
-      
-         rml:referenceFormulation ql:XPath;
-		 rml:iterator "/Attack_Pattern_Catalog"
-     ];
-     rr:subjectMap [
-         rr:template "http://w3id.org/sepses/resource/capec/catalog/{concat(translate(@Version,'.',''),translate(@Date,'-',''))}";
-         rr:class capec:AttackPatternCatalog
-     ];
-      
-   .
+    rml:logicalSource [
+        rml:source [
+            a carml:Stream;
+        ];
+        rml:referenceFormulation ql:XPath;
+        rml:iterator "/Attack_Pattern_Catalog"
+    ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/sepses/resource/capec/catalog/{concat(translate(@Version,'.',''),translate(@Date,'-',''))}";
+        rr:class capec:AttackPatternCatalog
+    ];
+.

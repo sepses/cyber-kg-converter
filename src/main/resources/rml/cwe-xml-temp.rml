@@ -14,17 +14,15 @@
 @prefix dcterm: <http://purl.org/dc/terms/> .
 
 <#CWECatalogMapping>
-     rml:logicalSource [
-         rml:source [
-             a carml:Stream;  
-         ];
-      
-         rml:referenceFormulation ql:XPath;
-		 rml:iterator "/Weakness_Catalog"
-     ];
-     rr:subjectMap [
-         rr:template "http://w3id.org/sepses/resource/cwe/catalog/{concat(@version,translate(@Date,'-',''))}";
-         rr:class cwe:WeaknessCatalog
-     ];
-      
-   .
+    rml:logicalSource [
+        rml:source [
+            a carml:Stream;
+        ];
+        rml:referenceFormulation ql:XPath;
+        rml:iterator "/Weakness_Catalog"
+    ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/sepses/resource/cwe/catalog/{concat(@version,translate(@Date,'-',''))}";
+        rr:class cwe:WeaknessCatalog
+    ];
+.

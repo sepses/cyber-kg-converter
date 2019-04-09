@@ -6,16 +6,19 @@ import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import org.apache.jena.update.UpdateRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
 public class CPEUpdate {
 
+    private static final Logger log = LoggerFactory.getLogger(CPEUpdate.class);
+
     public static String checkExistingTriple(String CyberKnowledgeEp, String CPEGraphName) {
         //select if resource is not empty
         String Query1 = "select (str(count(?s)) as ?c) from <" + CPEGraphName + "> where {\r\n"
                 + "?s a <http://w3id.org/sepses/vocab/ref/cpe#CPE>\r\n" + "}";
-        //System.out.println(Query1);System.exit(0);
         Query qfQuery1 = QueryFactory.create(Query1);
         QueryExecution qeQuery1 = QueryExecutionFactory.sparqlService(CyberKnowledgeEp, qfQuery1);
         ResultSet rsQuery1 = qeQuery1.execSelect();
@@ -34,7 +37,6 @@ public class CPEUpdate {
         String Query1 =
                 "select (str(count(?s)) as ?c) where {\r\n" + "?s a <http://w3id.org/sepses/vocab/ref/cpe#CPE>\r\n"
                         + "}";
-        //System.out.println(Query1);System.exit(0);
         Query qfQuery1 = QueryFactory.create(Query1);
         QueryExecution qeQuery1 = QueryExecutionFactory.create(qfQuery1, CPEModel);
         ResultSet rsQuery1 = qeQuery1.execSelect();
@@ -52,8 +54,7 @@ public class CPEUpdate {
 
         //query to cyberknowledge
         String Query1 = "select ?t from <" + CPEGraphName + "> where {"
-                + "?s <http://w3id.org/sepses/vocab/ref/cpe#generatorTimeStamp>  ?t }";
-        //System.out.println(Query1);//System.exit(0);
+                + "?s <http://w3id.org/sepses/vocab/ref/cpe#generatorTimeStamp> ?t }";
         Query qfQuery1 = QueryFactory.create(Query1);
         QueryExecution qeQuery1 = QueryExecutionFactory.sparqlService(CyberKnowledgeEp, qfQuery1);
         ResultSet rsQuery1 = qeQuery1.execSelect();
@@ -66,7 +67,6 @@ public class CPEUpdate {
 
         //select cpe model
         String Query2 = "select ?t where {" + "?s <http://w3id.org/sepses/vocab/ref/cpe#generatorTimeStamp>  ?t }";
-        //System.out.println(Query2);System.exit(0);
 
         Query qfQuery2 = QueryFactory.create(Query2);
         QueryExecution qeQuery2 = QueryExecutionFactory.create(qfQuery2, CPEModelTemp);
@@ -80,8 +80,8 @@ public class CPEUpdate {
         if (timestamp1 == "") {
             timestamp1 = "Unknown!";
         }
-        System.out.println("Existing CPE Update: " + timestamp1);
-        System.out.println("Incoming CPE Update: " + timestamp2);
+        log.info("Existing CPE Update: " + timestamp1);
+        log.info("Incoming CPE Update: " + timestamp2);
 
         if (timestamp1.equals(timestamp2)) {
             return true;
@@ -104,9 +104,10 @@ public class CPEUpdate {
             RDFNode cpe = qsQueryCPE.get("s");
             CPEArray.add(cpe.toString());
         }
-        //System.out.println("jumlah cpe triple store ="+CPEArray.size());
+
         //create temporary model for additional cpe => tempCPEModel
         Model tempCPEModel = null;
+
         //select cpe from cpe model, for each cpe:
         String Query2 = "select ?s where {" + "?s a <http://w3id.org/sepses/vocab/ref/cpe#CPE>." + " }";
         Query qfQuery2 = QueryFactory.create(Query2);
@@ -117,39 +118,24 @@ public class CPEUpdate {
         while (rsQuery2.hasNext()) {
             QuerySolution qsQueryCPE2 = rsQuery2.nextSolution();
             RDFNode cpe2 = qsQueryCPE2.get("s");
+
             //check if cpe in cpe model exists in cpe cyberknowledge, if not:
             if (!CPEArray.contains(cpe2.toString())) {
-                //create (construct) triple and add cpe to tempCPEModel
-                //constructCPE(cpe2)
-                System.out.println(cpe2);
                 i++;
             }
-
-            //join to tempCPEModel;
-
             i2++;
-            //log the new CPE
         }
 
-        System.out.println("New CPE=" + i);
-        System.out.println("All CPE=" + i2);
-        //System.exit(0);
-        //return tempCPEModel
+        log.info("New CPE=" + i);
+        log.info("All CPE=" + i2);
+
         return tempCPEModel;
 
     }
 
-    public static void updateCPE(Model cPEModel, String cyberKnowledgeEp, String cPEGraphName) {
-        // TODO Auto-generated method stub
-
-    }
-
     public static void deleteGenerator(String cyberKnowledgeEp, String cPEGraphName) {
-        // TODO Auto-generated method stub
         String deleteQuery = "with <" + cPEGraphName + "> DELETE { ?s ?p ?o }  \r\n" + "WHERE { ?s ?p ?o. "
                 + "?s a <http://w3id.org/sepses/vocab/ref/cpe#Generator>." + "}";
-        // System.out.println(deleteQuery);
-        // System.exit(0);
         UpdateRequest QCPE = UpdateFactory.create(deleteQuery);
         UpdateProcessor qeQCPE = UpdateExecutionFactory.createRemote(QCPE, cyberKnowledgeEp);
         qeQCPE.execute();
@@ -162,7 +148,7 @@ public class CPEUpdate {
         Property cpe_version = addCPEModel.createProperty(prefix + "cpe_version");
         Property part = addCPEModel.createProperty(prefix + "part");
         Property version = addCPEModel.createProperty(prefix + "version");
-        Property update = addCPEModel.createProperty(prefix + "ac/at/tuwien/ifs/sepses/processor");
+        Property update = addCPEModel.createProperty(prefix + "update");
         Property edition = addCPEModel.createProperty(prefix + "edition");
         Property language = addCPEModel.createProperty(prefix + "language");
         Property softwareEdition = addCPEModel.createProperty(prefix + "softwareEdition");
@@ -171,7 +157,6 @@ public class CPEUpdate {
         Property other = addCPEModel.createProperty(prefix + "other");
 
         String Query1 = "select ?s ?cpe23 where {" + "?s <http://w3id.org/sepses/vocab/ref/cpe#cpe23>  ?cpe23 }";
-        //System.out.println(Query1);System.exit(0);
         Query qfQuery1 = QueryFactory.create(Query1);
         QueryExecution qeQuery1 = QueryExecutionFactory.create(qfQuery1, CPEModel);
         ResultSet rsQuery1 = qeQuery1.execSelect();
@@ -224,5 +209,4 @@ public class CPEUpdate {
     private void parseAllCVE() {
 
     }
-
 }

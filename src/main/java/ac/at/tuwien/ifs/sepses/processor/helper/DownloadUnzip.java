@@ -1,6 +1,8 @@
 package ac.at.tuwien.ifs.sepses.processor.helper;
 
 import org.apache.jena.atlas.logging.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,16 +15,18 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class DownloadUnzip {
+
+    private static final Logger log = LoggerFactory.getLogger(DownloadUnzip.class);
+
     public static String downloadResource(String url, String destFile) {
         //String destZipFile = destDir+"/"+url.substring(url.lastIndexOf("/") + 1);
         try {
             downloadUsingNIO(url, destFile);
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed to download the file...");
+            log.info("Failed to download the file...");
+            log.error(e.getMessage(), e);
             System.exit(1);
         }
-
         return destFile;
 
     }
@@ -44,7 +48,7 @@ public class DownloadUnzip {
             while (ze != null) {
                 String fileName = ze.getName();
                 File newFile = new File(destDir + File.separator + fileName);
-                //System.out.println("Unzipping to "+newFile.getAbsolutePath());
+                //log.info("Unzipping to "+newFile.getAbsolutePath());
                 //create directories for sub directories in zip
                 new File(newFile.getParent()).mkdirs();
                 FileOutputStream fos = new FileOutputStream(newFile);
@@ -63,8 +67,7 @@ public class DownloadUnzip {
             zis.close();
             fis.close();
         } catch (IOException e) {
-            e.printStackTrace();
-            Log.error(e, unzipOutput);
+            log.error(e.getMessage(), e);
             System.exit(0);
         }
         return unzipOutput;
