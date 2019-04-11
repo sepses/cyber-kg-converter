@@ -15,6 +15,8 @@ public class CPE {
     
     /** <p>The namespace of the vocabulary as a string</p> */
     public static final String NS = "http://w3id.org/sepses/vocab/ref/cpe#";
+
+    public static final String NS_INSTANCE = "http://w3id.org/sepses/resource/cpe/";
     
     /** <p>The namespace of the vocabulary as a string</p>
      *  @see #NS */
@@ -22,8 +24,16 @@ public class CPE {
     
     /** <p>The namespace of the vocabulary as a resource</p> */
     public static final Resource NAMESPACE = m_model.createResource( NS );
+
+    public static final Property CPE_VERSION = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/cpe#cpe_version" );
     
     public static final Property EDITION = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/cpe#edition" );
+
+    public static final Property GENERATOR_TIME_STAMP = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/cpe#generatorTimeStamp" );
+
+    public static final Property HAS_LOGICAL_TEST = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/cpe#hasLogicalTest" );
+
+    public static final Property HAS_LOGICAL_TEST_FACT_REF = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/cpe#hasLogicalTestFactRef" );
     
     public static final Property HAS_PRODUCT = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/cpe#hasProduct" );
     

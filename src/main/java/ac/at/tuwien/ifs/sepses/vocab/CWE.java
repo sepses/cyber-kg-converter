@@ -15,6 +15,8 @@ public class CWE {
     
     /** <p>The namespace of the vocabulary as a string</p> */
     public static final String NS = "http://w3id.org/sepses/vocab/ref/cwe#";
+
+    public static final String NS_INSTANCE = "http://w3id.org/sepses/resource/cwe/";
     
     /** <p>The namespace of the vocabulary as a string</p>
      *  @see #NS */
@@ -47,7 +49,7 @@ public class CWE {
     
     public static final Property EXTENDED_DESCRIPTION = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/cwe#extendedDescription" );
     
-    public static final Property HAS_APLICABLE_PLATFORM = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/cwe#hasAplicablePlatform" );
+    public static final Property HAS_APPLICABLE_PLATFORM = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/cwe#hasApplicablePlatform" );
     
     public static final Property HAS_CAPEC = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/cwe#hasCAPEC" );
     
@@ -56,10 +58,14 @@ public class CWE {
     public static final Property HAS_DETECTION_METHOD = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/cwe#hasDetectionMethod" );
     
     public static final Property HAS_MODE_OF_INTRODUCTION = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/cwe#hasModeOfIntroduction" );
+
+    public static final Property HAS_MODIFICATION_HISTORY = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/cwe#hasModificationHistory" );
     
     public static final Property HAS_POTENTIAL_MITIGATION = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/cwe#hasPotentialMitigation" );
-    
+
     public static final Property HAS_RELATED_WEAKNESS = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/cwe#hasRelatedWeakness" );
+
+    public static final Property HAS_SUBMISSION_HISTORY = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/cwe#hasSubmissionHistory" );
     
     public static final Property ID = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/cwe#id" );
     
@@ -102,5 +108,7 @@ public class CWE {
     public static final Resource POTENTIAL_MITIGATION = m_model.createResource( "http://w3id.org/sepses/vocab/ref/cwe#PotentialMitigation" );
     
     public static final Resource RELATED_WEAKNESS = m_model.createResource( "http://w3id.org/sepses/vocab/ref/cwe#RelatedWeakness" );
+
+    public static final Resource WEAKNESS_CATALOG = m_model.createResource( "http://w3id.org/sepses/vocab/ref/cwe#WeaknessCatalog" );
     
 }

@@ -79,11 +79,6 @@
         rr:objectMap [ rml:reference "cpe-23:cpe23-item/@name" ];
         rr:datatype xsd:string ;
     ];
-#    rr:predicateObjectMap [
-#        rr:predicate cpe:cpe_version;
-#        rr:objectMap [ rml:reference "substring-before(substring-after(cpe-23:cpe23-item/@name,':'),':')"];
-#        rr:datatype xsd:string ;
-#    ];
     rr:predicateObjectMap [
         rr:predicate cpe:cpe_version;
         rr:objectMap [ rml:reference "tokenize(cpe-23:cpe23-item/@name,':')[2]"];
@@ -100,7 +95,7 @@
         rr:datatype xsd:string ;
     ];
     rr:predicateObjectMap [
-        rr:predicate cpe:ac.at.tuwien.ifs.sepses.processor;
+        rr:predicate cpe:processor;
         rr:objectMap [ rml:reference "tokenize(cpe-23:cpe23-item/@name,':')[7]"];
         rr:datatype xsd:string ;
     ];

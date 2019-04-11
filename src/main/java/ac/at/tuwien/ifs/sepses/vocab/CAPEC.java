@@ -15,6 +15,8 @@ public class CAPEC {
     
     /** <p>The namespace of the vocabulary as a string</p> */
     public static final String NS = "http://w3id.org/sepses/vocab/ref/capec#";
+
+    public static final String NS_INSTANCE = "http://w3id.org/sepses/resource/capec/";
     
     /** <p>The namespace of the vocabulary as a string</p>
      *  @see #NS */
@@ -44,6 +46,8 @@ public class CAPEC {
     public static final Property HAS_EXECUTION_FLOW = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/capec#hasExecutionFlow" );
     
     public static final Property HAS_MITIGATION = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/capec#hasMitigation" );
+
+    public static final Property HAS_MODIFICATION_HISTORY = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/capec#hasModificationHistory" );
     
     public static final Property HAS_REFERENCE = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/capec#hasReference" );
     
@@ -86,6 +90,8 @@ public class CAPEC {
     public static final Resource EXECUTION_FLOW = m_model.createResource( "http://w3id.org/sepses/vocab/ref/capec#ExecutionFlow" );
     
     public static final Resource MITIGATION = m_model.createResource( "http://w3id.org/sepses/vocab/ref/capec#Mitigation" );
+
+    public static final Resource REFERENCE = m_model.createResource( "http://w3id.org/sepses/vocab/ref/capec#Reference" );
     
     public static final Resource RELATED_ATTACK_PATTERN = m_model.createResource( "http://w3id.org/sepses/vocab/ref/capec#RelatedAttackPattern" );
 

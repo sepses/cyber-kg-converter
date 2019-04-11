@@ -15,6 +15,8 @@ public class CVE {
     
     /** <p>The namespace of the vocabulary as a string</p> */
     public static final String NS = "http://w3id.org/sepses/vocab/ref/cve#";
+
+    public static final String NS_INSTANCE = "http://w3id.org/sepses/resource/cve/";
     
     /** <p>The namespace of the vocabulary as a string</p>
      *  @see #NS */

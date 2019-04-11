@@ -89,11 +89,10 @@
     rr:predicateObjectMap [
         rr:predicate cwe:hasReference;
         rr:objectMap [ carml:multiTemplate "http://w3id.org/sepses/resource/cwe/reference/{References/Reference/@External_Reference_ID}" ];
-        rr:datatype xsd:string ;
     ];
     rr:predicateObjectMap [
-        rr:predicate cwe:capecId;
-        rr:objectMap [ carml:multiReference "Related_Attack_Patterns/Related_Attack_Pattern/@CAPEC_ID" ; ];
+        rr:predicate cwe:hasCAPEC;
+        rr:objectMap [ carml:multiTemplate "http://w3id.org/sepses/resource/capec/CAPEC-{Related_Attack_Patterns/Related_Attack_Pattern/@CAPEC_ID}" ; ];
     ];
     rr:predicateObjectMap [
         rr:predicate cwe:weaknessOrdinality;
@@ -112,7 +111,7 @@
         rr:objectMap [ rr:template "http://w3id.org/sepses/resource/cwe/submissionHistory/{concat(@ID,translate(Content_History/Submission/Submission_Date,'-',''))}" ; ];
     ];
     rr:predicateObjectMap [
-        rr:predicate cwe:hasAplicablePlatform;
+        rr:predicate cwe:hasApplicablePlatform;
         rr:objectMap [ rr:template "http://w3id.org/sepses/resource/cwe/applicablePlatform/CWE-{@ID}"; ];
     ];
 .

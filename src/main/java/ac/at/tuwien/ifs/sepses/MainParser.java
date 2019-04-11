@@ -1,9 +1,9 @@
 package ac.at.tuwien.ifs.sepses;
 
-import ac.at.tuwien.ifs.sepses.processor.parser.CAPECParser;
-import ac.at.tuwien.ifs.sepses.processor.parser.CPEParser;
-import ac.at.tuwien.ifs.sepses.processor.parser.CVEParser;
-import ac.at.tuwien.ifs.sepses.processor.parser.CWEParser;
+import ac.at.tuwien.ifs.sepses.parser.CAPECParser;
+import ac.at.tuwien.ifs.sepses.parser.CPEParser;
+import ac.at.tuwien.ifs.sepses.parser.CVEParser;
+import ac.at.tuwien.ifs.sepses.parser.CWEParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
