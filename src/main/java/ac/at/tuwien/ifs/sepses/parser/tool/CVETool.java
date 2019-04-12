@@ -149,8 +149,8 @@ public class CVETool {
         return metaSHA256;
     }
 
-    public static org.apache.jena.rdf.model.Model generateCVEMetaTriple(String metaSHA, int year) {
-        org.apache.jena.rdf.model.Model CVEMetaModel = ModelFactory.createDefaultModel();
+    public static Model generateCVEMetaTriple(String metaSHA, int year) {
+        Model CVEMetaModel = ModelFactory.createDefaultModel();
         Property metaSHA256 = CVEMetaModel.createProperty("http://w3id.org/sepses/vocab/ref/cve#metaSHA256");
         Resource CVEMeta1 = CVEMetaModel.createResource("http://w3id.org/sepses/resource/cve/meta/cveMeta" + year);
         CVEMetaModel.add(CVEMeta1, metaSHA256, metaSHA);

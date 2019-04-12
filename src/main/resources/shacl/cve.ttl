@@ -1,0 +1,61 @@
+@prefix : <http://w3id.org/semcon/ns/ontology#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterm: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ssr: <http://w3id.org/sepses/resource/> .
+@prefix cve: <http://w3id.org/sepses/vocab/ref/cve#> .
+@prefix cpe: <http://w3id.org/sepses/vocab/ref/cpe#> .
+@prefix cvss: <http://w3id.org/sepses/vocab/ref/cvss#> .
+@prefix capec: <http://w3id.org/sepses/vocab/ref/capec#> .
+@prefix cwe: <http://w3id.org/sepses/vocab/ref/cwe#> .
+
+#################################################################
+#    SHACL validator for cve instances
+#################################################################
+ssr:cveValidator
+    a               sh:NodeShape ;
+    sh:closed       true ;
+    sh:name         "CVE class validation" ;
+    sh:description  "CVE class validation" ;
+    sh:property     [ sh:maxCount  1 ;
+                      sh:minCount  1 ;
+                      sh:path      rdf:type
+                    ] ;
+    sh:property     [ sh:maxCount  1 ;
+                      sh:minCount  1 ;
+                      sh:path      cve:id
+                    ] ;
+    sh:property     [ sh:maxCount  1 ;
+                      sh:minCount  1 ;
+                      sh:path      dcterm:description
+                    ] ;
+    sh:property     [ sh:maxCount  1 ;
+                      sh:minCount  1 ;
+                      sh:path      dcterm:issued
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      dcterm:modified
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      cve:hasCWE ;
+                      sh:dataType  cwe:CWE
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      cve:hasCVSS2BaseMetric ;
+                      sh:dataType  cvss:CVSS2BaseMetric
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      cve:hasCPE ;
+                      sh:dataType  cpe:CPE
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      cve:hasVulnerableConfiguration ;
+                      sh:dataType  cve:LogicalTest
+                    ] ;
+    sh:targetClass  cve:CVE
+.

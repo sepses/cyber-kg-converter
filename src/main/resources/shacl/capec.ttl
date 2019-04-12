@@ -1,0 +1,99 @@
+@prefix : <http://w3id.org/semcon/ns/ontology#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterm: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ssr: <http://w3id.org/sepses/resource/> .
+@prefix capec: <http://w3id.org/sepses/vocab/ref/capec#> .
+
+#################################################################
+#    SHACL validator for CAPEC instances
+#################################################################
+ssr:capecValidator
+    a               sh:NodeShape ;
+    sh:closed       true ;
+    sh:name         "CAPEC Class validation" ;
+    sh:description  "CAPEC Class validation" ;
+    sh:property     [ sh:maxCount  1 ;
+                      sh:minCount  1 ;
+                      sh:path      rdf:type
+                    ] ;
+    sh:property     [ sh:maxCount  1 ;
+                      sh:minCount  1 ;
+                      sh:path      capec:id
+                    ] ;
+    sh:property     [ sh:maxCount  1 ;
+                      sh:minCount  1 ;
+                      sh:path      capec:name
+                    ] ;
+    sh:property     [ sh:maxCount  1 ;
+                      sh:minCount  1 ;
+                      sh:path      capec:abstraction
+                    ] ;
+    sh:property     [ sh:minCount  1 ;
+                      sh:minCount  1 ;
+                      sh:path      capec:status
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      dcterm:description
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      capec:structure
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      capec:likelihoodOfAttack
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      capec:typicalSeverity ;
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      capec:indicator
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      capec:prerequisite
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      capec:resourceRequired
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      capec:mitigation ;
+                    ] ;
+    sh:property     [ sh:maxCount  1 ;
+                      sh:minCount  1 ;
+                      sh:path      capec:hasSubmissionHistory ;
+                      sh:dataType  capec:SubmissionHistory
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      capec:hasModificationHistory ;
+                      sh:dataType  capec:ModificationHistory
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      capec:hasRelatedWeakness ;
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      capec:hasReference ;
+                      sh:dataType  capec:Reference
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      capec:hasSkillRequired ;
+                      sh:dataType  capec:PotentialMitigation
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      capec:hasConsequence ;
+                      sh:dataType  capec:Consequence
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      capec:hasRelatedAttackPattern ;
+                      sh:dataType  capec:RelatedAttackPattern
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      capec:hasExecutionFlow ;
+                      sh:dataType  capec:ExecutionFlow
+                    ] ;
+
+    sh:targetClass  capec:CAPEC
+.

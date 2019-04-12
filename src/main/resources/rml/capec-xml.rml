@@ -106,7 +106,7 @@
         rr:objectMap [ rr:template "http://w3id.org/sepses/resource/capec/submissionHistory/{concat(@ID,translate(Content_History/Submission/Submission_Date,'-',''))}" ; ];
     ];
     rr:predicateObjectMap [
-        rr:predicate capec:hasMitigation;
+        rr:predicate capec:mitigation;
         rr:objectMap [ carml:multiReference "Mitigations/Mitigation" ; ];
     ];
     rr:predicateObjectMap [

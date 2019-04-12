@@ -20,7 +20,7 @@
         rml:iterator "/cpe-list/cpe-item"
     ];
     rr:subjectMap [
-        rr:template "http://w3id.org/sepses/resource/cpe/{translate(@name,':/_.~-%','')}";
+        rr:template "http://w3id.org/sepses/resource/cpe/{translate(@name,':/~%','')}";
     ];
     rr:predicateObjectMap [
         rr:predicate rdf:type;

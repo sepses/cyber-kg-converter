@@ -274,7 +274,7 @@
         rr:class cwe:CommonConsequence
     ] ;
 	rr:predicateObjectMap [
-        rr:predicate cwe:isCommonSequenceOf ;
+        rr:predicate cwe:isCommonConsequenceOf ;
         rr:objectMap [ rr:template "http://w3id.org/sepses/resource/cwe/CWE-{./../../@ID}" ];
     ];
     rr:predicateObjectMap [

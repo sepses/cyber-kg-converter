@@ -44,8 +44,6 @@ public class CAPEC {
     public static final Property HAS_CONSEQUENCE = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/capec#hasConsequence" );
     
     public static final Property HAS_EXECUTION_FLOW = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/capec#hasExecutionFlow" );
-    
-    public static final Property HAS_MITIGATION = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/capec#hasMitigation" );
 
     public static final Property HAS_MODIFICATION_HISTORY = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/capec#hasModificationHistory" );
     
@@ -62,6 +60,8 @@ public class CAPEC {
     public static final Property ID = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/capec#id" );
     
     public static final Property LIKELIHOOD_OF_ATTACK = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/capec#likelihoodOfAttack" );
+
+    public static final Property MITIGATION = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/capec#mitigation" );
     
     public static final Property NAME = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/capec#name" );
     
@@ -88,8 +88,6 @@ public class CAPEC {
     public static final Resource CONSEQUENCE = m_model.createResource( "http://w3id.org/sepses/vocab/ref/capec#Consequence" );
     
     public static final Resource EXECUTION_FLOW = m_model.createResource( "http://w3id.org/sepses/vocab/ref/capec#ExecutionFlow" );
-    
-    public static final Resource MITIGATION = m_model.createResource( "http://w3id.org/sepses/vocab/ref/capec#Mitigation" );
 
     public static final Resource REFERENCE = m_model.createResource( "http://w3id.org/sepses/vocab/ref/capec#Reference" );
     

@@ -24,9 +24,9 @@ public class Linker {
     public static void updateCveLinks(Model cveModel) {
         log.info("generating correct CVE links");
 
-        Property isCpeOf = ResourceFactory.createProperty(CVE.NS+"isCpeOf");
-        Property isLogicalTestFactRefOf = ResourceFactory.createProperty(CPE.NS+"isLogicalTestFactRefOf");
-        Property isVulnerableConfigurationOf = ResourceFactory.createProperty(CPE.NS+"isVulnerableConfigurationOf");
+        Property isCpeOf = ResourceFactory.createProperty(CVE.NS + "isCpeOf");
+        Property isLogicalTestFactRefOf = ResourceFactory.createProperty(CPE.NS + "isLogicalTestFactRefOf");
+        Property isVulnerableConfigurationOf = ResourceFactory.createProperty(CPE.NS + "isVulnerableConfigurationOf");
 
         executeLinksUpdate(cveModel, isCpeOf, CVE.HAS_CPE);
         executeLinksUpdate(cveModel, isLogicalTestFactRefOf, CPE.HAS_LOGICAL_TEST_FACT_REF);
@@ -38,13 +38,13 @@ public class Linker {
     public static void updateCweLinks(Model cweModel) {
         log.info("generating correct CWE links");
 
-        Property isModificationHistoryOf = ResourceFactory.createProperty(CWE.NS+"isModificationHistoryOf");
-        Property isSubmissionHistoryOf = ResourceFactory.createProperty(CWE.NS+"isSubmissionHistoryOf");
-        Property isModeOfIntroductionOf = ResourceFactory.createProperty(CWE.NS+"isModeOfIntroductionOf");
-        Property isDetectionMethodOf = ResourceFactory.createProperty(CWE.NS+"isDetectionMethodOf");
-        Property isPotentialMitigationOf = ResourceFactory.createProperty(CWE.NS+"isPotentialMitigationOf");
-        Property isCommonSequenceOf = ResourceFactory.createProperty(CWE.NS+"isCommonSequenceOf");
-        Property isRelatedWeaknessOf = ResourceFactory.createProperty(CWE.NS+"isRelatedWeaknessOf");
+        Property isModificationHistoryOf = ResourceFactory.createProperty(CWE.NS + "isModificationHistoryOf");
+        Property isSubmissionHistoryOf = ResourceFactory.createProperty(CWE.NS + "isSubmissionHistoryOf");
+        Property isModeOfIntroductionOf = ResourceFactory.createProperty(CWE.NS + "isModeOfIntroductionOf");
+        Property isDetectionMethodOf = ResourceFactory.createProperty(CWE.NS + "isDetectionMethodOf");
+        Property isPotentialMitigationOf = ResourceFactory.createProperty(CWE.NS + "isPotentialMitigationOf");
+        Property isCommonSequenceOf = ResourceFactory.createProperty(CWE.NS + "isCommonConsequenceOf");
+        Property isRelatedWeaknessOf = ResourceFactory.createProperty(CWE.NS + "isRelatedWeaknessOf");
 
         executeLinksUpdate(cweModel, isModificationHistoryOf, CWE.HAS_MODIFICATION_HISTORY);
         executeLinksUpdate(cweModel, isSubmissionHistoryOf, CWE.HAS_SUBMISSION_HISTORY);
@@ -60,12 +60,12 @@ public class Linker {
     public static void updateCapecLinks(Model capecModel) {
         log.info("generating correct CAPEC links");
 
-        Property isModificationHistoryOf = ResourceFactory.createProperty(CAPEC.NS+"isModificationHistoryOf");
-        Property isSubmissionHistoryOf = ResourceFactory.createProperty(CAPEC.NS+"isSubmissionHistoryOf");
-        Property isSkillRequiredFor = ResourceFactory.createProperty(CAPEC.NS+"isSkillRequiredFor");
-        Property isRelatedAttackPatternOf = ResourceFactory.createProperty(CAPEC.NS+"isRelatedAttackPatternOf");
-        Property isConsequenceOf = ResourceFactory.createProperty(CAPEC.NS+"isConsequenceOf");
-        Property isExecutionFlowOf = ResourceFactory.createProperty(CAPEC.NS+"isExecutionFlowOf");
+        Property isModificationHistoryOf = ResourceFactory.createProperty(CAPEC.NS + "isModificationHistoryOf");
+        Property isSubmissionHistoryOf = ResourceFactory.createProperty(CAPEC.NS + "isSubmissionHistoryOf");
+        Property isSkillRequiredFor = ResourceFactory.createProperty(CAPEC.NS + "isSkillRequiredFor");
+        Property isRelatedAttackPatternOf = ResourceFactory.createProperty(CAPEC.NS + "isRelatedAttackPatternOf");
+        Property isConsequenceOf = ResourceFactory.createProperty(CAPEC.NS + "isConsequenceOf");
+        Property isExecutionFlowOf = ResourceFactory.createProperty(CAPEC.NS + "isExecutionFlowOf");
 
         executeLinksUpdate(capecModel, isModificationHistoryOf, CAPEC.HAS_MODIFICATION_HISTORY);
         executeLinksUpdate(capecModel, isSubmissionHistoryOf, CAPEC.HAS_SUBMISSION_HISTORY);

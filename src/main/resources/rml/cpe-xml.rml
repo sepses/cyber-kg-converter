@@ -16,7 +16,7 @@
         rml:iterator "/cpe-list/generator"
     ];
     rr:subjectMap [
-        rr:template "http://w3id.org/sepses/resource/cpe/generator/{translate(timestamp,':/_.~-%','')}";
+        rr:template "http://w3id.org/sepses/resource/cpe/generator/{translate(timestamp,':/~%','')}";
     ];
     rr:predicateObjectMap [
         rr:predicate rdf:type;
@@ -58,7 +58,7 @@
         rml:iterator "/cpe-list/cpe-item"
     ];
     rr:subjectMap [
-        rr:template "http://w3id.org/sepses/resource/cpe/{translate(@name,':/_.~-%','')}";
+        rr:template "http://w3id.org/sepses/resource/cpe/{translate(@name,':/~%','')}";
     ];
     rr:predicateObjectMap [
         rr:predicate rdf:type;
@@ -95,7 +95,7 @@
         rr:datatype xsd:string ;
     ];
     rr:predicateObjectMap [
-        rr:predicate cpe:processor;
+        rr:predicate cpe:update;
         rr:objectMap [ rml:reference "tokenize(cpe-23:cpe23-item/@name,':')[7]"];
         rr:datatype xsd:string ;
     ];

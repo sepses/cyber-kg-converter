@@ -1,0 +1,79 @@
+@prefix : <http://w3id.org/semcon/ns/ontology#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterm: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ssr: <http://w3id.org/sepses/resource/> .
+@prefix cpe: <http://w3id.org/sepses/vocab/ref/cpe#> .
+
+#################################################################
+#    SHACL validator for CPE instances
+#################################################################
+ssr:cpeValidator
+    a               sh:NodeShape ;
+    sh:closed       true ;
+    sh:name         "CPE Class validation" ;
+    sh:description  "CPE Class validation" ;
+    sh:property     [ sh:maxCount  1 ;
+                      sh:minCount  1 ;
+                      sh:path      rdf:type
+                    ] ;
+    sh:property     [ sh:minCount  1 ;
+                      sh:path      cpe:id
+                    ] ;
+    sh:property     [ sh:minCount  1 ;
+                      sh:path      cpe:title
+                    ] ;
+    sh:property     [ sh:minCount  1 ;
+                      sh:path      cpe:cpe23
+                    ] ;
+    sh:property     [ sh:minCount  1 ;
+                      sh:minCount  1 ;
+                      sh:path      cpe:cpe_version
+                    ] ;
+    sh:property     [ sh:minCount  1 ;
+                      sh:path      cpe:part
+                    ] ;
+    sh:property     [ sh:minCount  1 ;
+                      sh:path      cpe:version
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      cpe:update
+                    ] ;
+    sh:property     [ sh:minCount  1 ;
+                      sh:path      cpe:edition ;
+                    ] ;
+    sh:property     [ sh:minCount  1 ;
+                      sh:path      cpe:language ;
+                    ] ;
+    sh:property     [ sh:minCount  1 ;
+                      sh:path      cpe:softwareEdition
+                    ] ;
+    sh:property     [ sh:minCount  1 ;
+                      sh:path      cpe:targetSoftware
+                    ] ;
+    sh:property     [ sh:minCount  1 ;
+                      sh:path      cpe:targetHardware
+                    ] ;
+    sh:property     [ sh:minCount  1 ;
+                      sh:path      cpe:other
+                    ] ;
+    sh:property     [ sh:minCount  1 ;
+                      sh:path      cpe:hasVendor ;
+                      sh:dataType  cpe:Vendor
+                    ] ;
+    sh:property     [ sh:minCount  1 ;
+                      sh:path      cpe:hasProduct ;
+                      sh:dataType  cpe:Product
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      cpe:hasReference ;
+                      sh:dataType  cpe:Reference
+                    ] ;
+
+    sh:targetClass  cpe:CPE
+.

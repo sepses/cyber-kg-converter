@@ -1,0 +1,610 @@
+2019-04-12 07:08:37 INFO  Utility - Fuseki triplestore is selected
+2019-04-12 07:08:37 INFO  Utility - Fuseki triplestore is selected
+2019-04-12 07:08:37 INFO  Utility - Fuseki triplestore is selected
+2019-04-12 07:08:37 INFO  Utility - Fuseki triplestore is selected
+2019-04-12 07:08:37 INFO  MainParser - start CAPEC parser
+2019-04-12 07:08:37 INFO  CAPECParser - Downloading CAPEX file from http://capec.mitre.org/data/xml/views/1000.xml.zip
+2019-04-12 07:08:38 INFO  CAPECParser - CAPEX file downloaded
+2019-04-12 07:08:38 INFO  CAPECParser - Unzipping CAPEX file into 
+2019-04-12 07:08:38 INFO  CAPECParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/capec/1000.xml - Done!
+2019-04-12 07:08:38 INFO  CAPECParser - adjusting filename: 1000.xml
+2019-04-12 07:08:38 INFO  CAPECParser - Checking updates from http://localhost:3030/sepses using graphname http://w3id.org/sepses/graph/capec
+2019-04-12 07:08:39 INFO  RmlMapper - Mapping triples map: <http://none.com/#CAPECCatalogMapping>
+2019-04-12 07:08:41 INFO  CAPECParser - CAPEC is new...! 
+2019-04-12 07:08:41 INFO  CAPECParser - Parsing xml to rdf...  
+2019-04-12 07:08:41 INFO  RmlMapper - Mapping triples map: <http://none.com/#CAPECCatalogMapping>
+2019-04-12 07:08:41 INFO  RmlMapper - Mapping triples map: <http://none.com/#CAPECMapping>
+2019-04-12 07:08:41 INFO  RmlMapper - Mapping triples map: <http://none.com/#CAPECModificationHistory>
+2019-04-12 07:08:42 INFO  RmlMapper - Mapping triples map: <http://none.com/#CAPECSubmissionHistory>
+2019-04-12 07:08:42 INFO  RmlMapper - Mapping triples map: <http://none.com/#CAPECSkillRequiredMapping>
+2019-04-12 07:08:42 INFO  RmlMapper - Mapping triples map: <http://none.com/#CAPECRelatedAttackPatternMapping>
+2019-04-12 07:08:42 INFO  RmlMapper - Mapping triples map: <http://none.com/#CAPECConsequenceMapping>
+2019-04-12 07:08:42 INFO  RmlMapper - Mapping triples map: <http://none.com/#CAPECExecutionFlowMapping>
+2019-04-12 07:08:42 INFO  RmlMapper - Mapping triples map: <http://none.com/#CAPECReference>
+2019-04-12 07:08:43 INFO  Linker - generating correct CAPEC links
+2019-04-12 07:08:43 INFO  Linker - generating correct CAPEC links ... done
+2019-04-12 07:08:43 INFO  CAPECParser - The number of CAPEC instances parsed: 516
+2019-04-12 07:08:43 INFO  CAPECParser - Parsing done..!
+2019-04-12 07:08:43 INFO  CAPECParser - CAPEC parser finished in 6 seconds
+2019-04-12 07:08:44 INFO  CAPECParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/capec
+2019-04-12 07:08:44 INFO  FusekiStorage - storing output/capec/1000.xml.zip-output.ttl started
+2019-04-12 07:08:46 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:08:46 INFO  FusekiStorage - Writing process for 'output/capec/1000.xml.zip-output.ttl' took 2 seconds
+2019-04-12 07:08:46 INFO  MainParser - ************* CAPEC parser finished
+2019-04-12 07:08:46 INFO  MainParser - start CWE parser
+2019-04-12 07:08:46 INFO  CWEParser - Downloading resource from https://cwe.mitre.org/data/xml/views/1000.xml.zip
+2019-04-12 07:08:49 INFO  CWEParser -   Done!
+2019-04-12 07:08:49 INFO  CWEParser - Unzipping resource to...  
+2019-04-12 07:08:49 INFO  CWEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cwe/1000.xml  Done!
+2019-04-12 07:08:49 INFO  CWEParser - Renaming and adapt XML file...  
+2019-04-12 07:08:49 INFO  CWEParser - ... done!
+2019-04-12 07:08:49 INFO  CWEParser - Checking updates from http://localhost:3030/sepses using graphname http://w3id.org/sepses/graph/cwe
+2019-04-12 07:08:49 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWECatalogMapping>
+2019-04-12 07:08:49 INFO  CWEParser - The downloaded CWE data is new...! 
+2019-04-12 07:08:49 INFO  CWEParser - Parsing xml to rdf...  
+2019-04-12 07:08:49 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWECatalogMapping>
+2019-04-12 07:08:49 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWEMapping>
+2019-04-12 07:08:50 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWESubmissionHistory>
+2019-04-12 07:08:50 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWEModificationHistory>
+2019-04-12 07:08:51 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWEModeOfIntroduction>
+2019-04-12 07:08:51 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWEDetectionMethod>
+2019-04-12 07:08:52 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWEPotentialMitigation>
+2019-04-12 07:08:52 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWECommonConsequences>
+2019-04-12 07:08:52 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWEApplicablePlatforms>
+2019-04-12 07:08:52 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWEReference>
+2019-04-12 07:08:53 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWERelatedWeaknessMapping>
+2019-04-12 07:08:55 INFO  Linker - generating correct CWE links
+2019-04-12 07:08:55 INFO  Linker - generating correct CVE links ... done
+2019-04-12 07:08:55 INFO  CWEParser - The number of CWE instances parsed: 806
+2019-04-12 07:08:55 INFO  CWEParser - Parsing done..!
+2019-04-12 07:08:55 INFO  CWEParser - CWE processing finished in 9 seconds
+2019-04-12 07:08:57 INFO  CWEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cwe
+2019-04-12 07:08:57 INFO  FusekiStorage - storing output/cwe/1000.xml.zip-output.ttl started
+2019-04-12 07:09:01 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:09:01 INFO  FusekiStorage - Writing process for 'output/cwe/1000.xml.zip-output.ttl' took 4 seconds
+2019-04-12 07:09:01 INFO  MainParser - ************* CWE parser finished
+2019-04-12 07:09:01 INFO  MainParser - start CPE parser
+2019-04-12 07:09:01 INFO  CPEParser - Downloading resource from https://nvd.nist.gov/feeds/xml/cpe/dictionary/official-cpe-dictionary_v2.3.xml.zip
+2019-04-12 07:09:04 INFO  CPEParser -    Done!
+2019-04-12 07:09:04 INFO  CPEParser - Unzipping resource to...  
+2019-04-12 07:09:05 INFO  CPEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cpe/official-cpe-dictionary_v2.3.xml  Done!
+2019-04-12 07:09:05 INFO  CPEParser - Injecting xml file...  
+2019-04-12 07:09:05 INFO  CPEParser - write xml file
+2019-04-12 07:09:05 INFO  CPEParser - Done!
+2019-04-12 07:09:05 INFO  CPEParser - Checking updates from http://localhost:3030/sepses using graphname http://w3id.org/sepses/graph/cpe
+2019-04-12 07:09:05 INFO  CPEParser - existing cpe count = 0
+2019-04-12 07:09:07 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPEMapping>
+2019-04-12 07:09:08 INFO  CPEParser - CPE is NEW!!
+2019-04-12 07:09:08 INFO  CPEParser - Parsing xml to rdf...  
+2019-04-12 07:09:09 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPEMapping>
+2019-04-12 07:09:31 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPEVendorMapping>
+2019-04-12 07:09:35 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPEProductMapping>
+2019-04-12 07:10:05 INFO  CPEParser - (new!) CPE parsed: 196671
+2019-04-12 07:10:05 INFO  CPEParser - Parsing done..!
+2019-04-12 07:10:05 INFO  CPEParser - CPE processing finished in 64 seconds
+2019-04-12 07:10:32 INFO  CPEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cpe
+2019-04-12 07:10:32 INFO  FusekiStorage - storing output/cpe/official-cpe-dictionary_v2.3.xml.zip-output.ttl started
+2019-04-12 07:11:58 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:11:58 INFO  FusekiStorage - Writing process for 'output/cpe/official-cpe-dictionary_v2.3.xml.zip-output.ttl' took 86 seconds
+2019-04-12 07:11:58 INFO  MainParser - ************* CPE parser finished
+2019-04-12 07:11:58 INFO  MainParser - start CVE parser
+2019-04-12 07:11:58 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2002.meta
+2019-04-12 07:11:59 INFO  CVEParser - generate cve meta model
+2019-04-12 07:11:59 INFO  CVEParser - Downloading resource from internet...  
+2019-04-12 07:12:00 INFO  CVEParser - Downloading resource Done!
+2019-04-12 07:12:00 INFO  CVEParser - Unzipping resource to...  
+2019-04-12 07:12:00 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cve/nvdcve-2.0-2002.xml Done!
+2019-04-12 07:12:00 INFO  CVEParser - Injecting xml file...  
+2019-04-12 07:12:00 INFO  CVEParser -  Done!
+2019-04-12 07:12:00 INFO  CVEParser - Parsing xml to rdf...  
+2019-04-12 07:12:00 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-12 07:12:01 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-12 07:12:02 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-12 07:12:03 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-12 07:12:03 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-12 07:12:04 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-12 07:12:05 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-12 07:12:05 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-12 07:12:08 INFO  Linker - generating correct CVE links
+2019-04-12 07:12:09 INFO  Linker - generating correct CVE links ... done
+2019-04-12 07:12:09 INFO  CVEParser - adding CVE Metamodel
+2019-04-12 07:12:09 INFO  CVEParser - Done!
+2019-04-12 07:12:09 INFO  CVEParser - [Year-2002] CVE Processing is done in 11 seconds
+2019-04-12 07:12:11 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-12 07:12:11 INFO  CVEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cve
+2019-04-12 07:12:11 INFO  FusekiStorage - storing output/cve/nvdcve-2.0-modified.xml.zip-output.ttl started
+2019-04-12 07:12:24 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:12:24 INFO  FusekiStorage - Writing process for 'output/cve/nvdcve-2.0-modified.xml.zip-output.ttl' took 13 seconds
+2019-04-12 07:12:24 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2003.meta
+2019-04-12 07:12:24 INFO  CVEParser - generate cve meta model
+2019-04-12 07:12:24 INFO  CVEParser - Downloading resource from internet...  
+2019-04-12 07:12:25 INFO  CVEParser - Downloading resource Done!
+2019-04-12 07:12:25 INFO  CVEParser - Unzipping resource to...  
+2019-04-12 07:12:26 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cve/nvdcve-2.0-2003.xml Done!
+2019-04-12 07:12:26 INFO  CVEParser - Injecting xml file...  
+2019-04-12 07:12:26 INFO  CVEParser -  Done!
+2019-04-12 07:12:26 INFO  CVEParser - Parsing xml to rdf...  
+2019-04-12 07:12:26 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-12 07:12:26 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-12 07:12:26 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-12 07:12:26 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-12 07:12:26 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-12 07:12:26 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-12 07:12:27 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-12 07:12:27 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-12 07:12:28 INFO  Linker - generating correct CVE links
+2019-04-12 07:12:28 INFO  Linker - generating correct CVE links ... done
+2019-04-12 07:12:28 INFO  CVEParser - adding CVE Metamodel
+2019-04-12 07:12:28 INFO  CVEParser - Done!
+2019-04-12 07:12:28 INFO  CVEParser - [Year-2003] CVE Processing is done in 4 seconds
+2019-04-12 07:12:28 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-12 07:12:28 INFO  CVEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cve
+2019-04-12 07:12:28 INFO  FusekiStorage - storing output/cve/nvdcve-2.0-modified.xml.zip-output.ttl started
+2019-04-12 07:12:48 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:12:48 INFO  FusekiStorage - Writing process for 'output/cve/nvdcve-2.0-modified.xml.zip-output.ttl' took 20 seconds
+2019-04-12 07:12:48 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2004.meta
+2019-04-12 07:12:49 INFO  CVEParser - generate cve meta model
+2019-04-12 07:12:49 INFO  CVEParser - Downloading resource from internet...  
+2019-04-12 07:12:50 INFO  CVEParser - Downloading resource Done!
+2019-04-12 07:12:50 INFO  CVEParser - Unzipping resource to...  
+2019-04-12 07:12:50 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cve/nvdcve-2.0-2004.xml Done!
+2019-04-12 07:12:50 INFO  CVEParser - Injecting xml file...  
+2019-04-12 07:12:50 INFO  CVEParser -  Done!
+2019-04-12 07:12:50 INFO  CVEParser - Parsing xml to rdf...  
+2019-04-12 07:12:50 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-12 07:12:50 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-12 07:12:51 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-12 07:12:51 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-12 07:12:51 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-12 07:12:52 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-12 07:12:52 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-12 07:12:52 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-12 07:12:54 INFO  Linker - generating correct CVE links
+2019-04-12 07:12:54 INFO  Linker - generating correct CVE links ... done
+2019-04-12 07:12:54 INFO  CVEParser - adding CVE Metamodel
+2019-04-12 07:12:54 INFO  CVEParser - Done!
+2019-04-12 07:12:54 INFO  CVEParser - [Year-2004] CVE Processing is done in 6 seconds
+2019-04-12 07:12:55 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-12 07:12:55 INFO  CVEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cve
+2019-04-12 07:12:55 INFO  FusekiStorage - storing output/cve/nvdcve-2.0-modified.xml.zip-output.ttl started
+2019-04-12 07:13:07 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:13:07 INFO  FusekiStorage - Writing process for 'output/cve/nvdcve-2.0-modified.xml.zip-output.ttl' took 12 seconds
+2019-04-12 07:13:07 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2005.meta
+2019-04-12 07:13:07 INFO  CVEParser - generate cve meta model
+2019-04-12 07:13:07 INFO  CVEParser - Downloading resource from internet...  
+2019-04-12 07:13:08 INFO  CVEParser - Downloading resource Done!
+2019-04-12 07:13:08 INFO  CVEParser - Unzipping resource to...  
+2019-04-12 07:13:09 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cve/nvdcve-2.0-2005.xml Done!
+2019-04-12 07:13:09 INFO  CVEParser - Injecting xml file...  
+2019-04-12 07:13:09 INFO  CVEParser -  Done!
+2019-04-12 07:13:09 INFO  CVEParser - Parsing xml to rdf...  
+2019-04-12 07:13:09 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-12 07:13:09 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-12 07:13:10 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-12 07:13:11 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-12 07:13:11 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-12 07:13:12 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-12 07:13:12 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-12 07:13:13 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-12 07:13:15 INFO  Linker - generating correct CVE links
+2019-04-12 07:13:16 INFO  Linker - generating correct CVE links ... done
+2019-04-12 07:13:16 INFO  CVEParser - adding CVE Metamodel
+2019-04-12 07:13:16 INFO  CVEParser - Done!
+2019-04-12 07:13:16 INFO  CVEParser - [Year-2005] CVE Processing is done in 9 seconds
+2019-04-12 07:13:17 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-12 07:13:17 INFO  CVEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cve
+2019-04-12 07:13:17 INFO  FusekiStorage - storing output/cve/nvdcve-2.0-modified.xml.zip-output.ttl started
+2019-04-12 07:13:45 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:13:45 INFO  FusekiStorage - Writing process for 'output/cve/nvdcve-2.0-modified.xml.zip-output.ttl' took 28 seconds
+2019-04-12 07:13:45 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2006.meta
+2019-04-12 07:13:46 INFO  CVEParser - generate cve meta model
+2019-04-12 07:13:46 INFO  CVEParser - Downloading resource from internet...  
+2019-04-12 07:13:49 INFO  CVEParser - Downloading resource Done!
+2019-04-12 07:13:49 INFO  CVEParser - Unzipping resource to...  
+2019-04-12 07:13:49 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cve/nvdcve-2.0-2006.xml Done!
+2019-04-12 07:13:49 INFO  CVEParser - Injecting xml file...  
+2019-04-12 07:13:49 INFO  CVEParser -  Done!
+2019-04-12 07:13:49 INFO  CVEParser - Parsing xml to rdf...  
+2019-04-12 07:13:49 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-12 07:13:50 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-12 07:13:51 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-12 07:13:52 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-12 07:13:52 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-12 07:13:54 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-12 07:13:55 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-12 07:13:55 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-12 07:14:00 INFO  Linker - generating correct CVE links
+2019-04-12 07:14:00 INFO  Linker - generating correct CVE links ... done
+2019-04-12 07:14:00 INFO  CVEParser - adding CVE Metamodel
+2019-04-12 07:14:00 INFO  CVEParser - Done!
+2019-04-12 07:14:00 INFO  CVEParser - [Year-2006] CVE Processing is done in 15 seconds
+2019-04-12 07:14:03 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-12 07:14:03 INFO  CVEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cve
+2019-04-12 07:14:03 INFO  FusekiStorage - storing output/cve/nvdcve-2.0-modified.xml.zip-output.ttl started
+2019-04-12 07:14:38 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:14:38 INFO  FusekiStorage - Writing process for 'output/cve/nvdcve-2.0-modified.xml.zip-output.ttl' took 35 seconds
+2019-04-12 07:14:38 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2007.meta
+2019-04-12 07:14:38 INFO  CVEParser - generate cve meta model
+2019-04-12 07:14:38 INFO  CVEParser - Downloading resource from internet...  
+2019-04-12 07:14:40 INFO  CVEParser - Downloading resource Done!
+2019-04-12 07:14:40 INFO  CVEParser - Unzipping resource to...  
+2019-04-12 07:14:40 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cve/nvdcve-2.0-2007.xml Done!
+2019-04-12 07:14:40 INFO  CVEParser - Injecting xml file...  
+2019-04-12 07:14:40 INFO  CVEParser -  Done!
+2019-04-12 07:14:40 INFO  CVEParser - Parsing xml to rdf...  
+2019-04-12 07:14:41 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-12 07:14:41 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-12 07:14:42 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-12 07:14:43 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-12 07:14:44 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-12 07:14:45 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-12 07:14:46 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-12 07:14:47 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-12 07:14:51 INFO  Linker - generating correct CVE links
+2019-04-12 07:14:52 INFO  Linker - generating correct CVE links ... done
+2019-04-12 07:14:52 INFO  CVEParser - adding CVE Metamodel
+2019-04-12 07:14:52 INFO  CVEParser - Done!
+2019-04-12 07:14:52 INFO  CVEParser - [Year-2007] CVE Processing is done in 14 seconds
+2019-04-12 07:14:54 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-12 07:14:54 INFO  CVEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cve
+2019-04-12 07:14:54 INFO  FusekiStorage - storing output/cve/nvdcve-2.0-modified.xml.zip-output.ttl started
+2019-04-12 07:15:34 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:15:34 INFO  FusekiStorage - Writing process for 'output/cve/nvdcve-2.0-modified.xml.zip-output.ttl' took 40 seconds
+2019-04-12 07:15:34 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2008.meta
+2019-04-12 07:15:35 INFO  CVEParser - generate cve meta model
+2019-04-12 07:15:35 INFO  CVEParser - Downloading resource from internet...  
+2019-04-12 07:15:37 INFO  CVEParser - Downloading resource Done!
+2019-04-12 07:15:37 INFO  CVEParser - Unzipping resource to...  
+2019-04-12 07:15:37 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cve/nvdcve-2.0-2008.xml Done!
+2019-04-12 07:15:37 INFO  CVEParser - Injecting xml file...  
+2019-04-12 07:15:37 INFO  CVEParser -  Done!
+2019-04-12 07:15:37 INFO  CVEParser - Parsing xml to rdf...  
+2019-04-12 07:15:37 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-12 07:15:38 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-12 07:15:40 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-12 07:15:42 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-12 07:15:43 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-12 07:15:45 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-12 07:15:46 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-12 07:15:46 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-12 07:15:52 INFO  Linker - generating correct CVE links
+2019-04-12 07:15:53 INFO  Linker - generating correct CVE links ... done
+2019-04-12 07:15:53 INFO  CVEParser - adding CVE Metamodel
+2019-04-12 07:15:53 INFO  CVEParser - Done!
+2019-04-12 07:15:53 INFO  CVEParser - [Year-2008] CVE Processing is done in 19 seconds
+2019-04-12 07:15:57 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-12 07:15:57 INFO  CVEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cve
+2019-04-12 07:15:57 INFO  FusekiStorage - storing output/cve/nvdcve-2.0-modified.xml.zip-output.ttl started
+2019-04-12 07:16:39 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:16:39 INFO  FusekiStorage - Writing process for 'output/cve/nvdcve-2.0-modified.xml.zip-output.ttl' took 42 seconds
+2019-04-12 07:16:39 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2009.meta
+2019-04-12 07:16:40 INFO  CVEParser - generate cve meta model
+2019-04-12 07:16:40 INFO  CVEParser - Downloading resource from internet...  
+2019-04-12 07:16:41 INFO  CVEParser - Downloading resource Done!
+2019-04-12 07:16:41 INFO  CVEParser - Unzipping resource to...  
+2019-04-12 07:16:41 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cve/nvdcve-2.0-2009.xml Done!
+2019-04-12 07:16:41 INFO  CVEParser - Injecting xml file...  
+2019-04-12 07:16:42 INFO  CVEParser -  Done!
+2019-04-12 07:16:42 INFO  CVEParser - Parsing xml to rdf...  
+2019-04-12 07:16:42 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-12 07:16:42 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-12 07:16:45 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-12 07:16:48 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-12 07:16:48 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-12 07:16:50 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-12 07:16:52 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-12 07:16:52 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-12 07:16:57 INFO  Linker - generating correct CVE links
+2019-04-12 07:16:58 INFO  Linker - generating correct CVE links ... done
+2019-04-12 07:16:58 INFO  CVEParser - adding CVE Metamodel
+2019-04-12 07:16:58 INFO  CVEParser - Done!
+2019-04-12 07:16:58 INFO  CVEParser - [Year-2009] CVE Processing is done in 19 seconds
+2019-04-12 07:17:00 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-12 07:17:00 INFO  CVEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cve
+2019-04-12 07:17:00 INFO  FusekiStorage - storing output/cve/nvdcve-2.0-modified.xml.zip-output.ttl started
+2019-04-12 07:17:49 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:17:49 INFO  FusekiStorage - Writing process for 'output/cve/nvdcve-2.0-modified.xml.zip-output.ttl' took 49 seconds
+2019-04-12 07:17:49 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2010.meta
+2019-04-12 07:17:49 INFO  CVEParser - generate cve meta model
+2019-04-12 07:17:49 INFO  CVEParser - Downloading resource from internet...  
+2019-04-12 07:17:51 INFO  CVEParser - Downloading resource Done!
+2019-04-12 07:17:51 INFO  CVEParser - Unzipping resource to...  
+2019-04-12 07:17:51 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cve/nvdcve-2.0-2010.xml Done!
+2019-04-12 07:17:51 INFO  CVEParser - Injecting xml file...  
+2019-04-12 07:17:52 INFO  CVEParser -  Done!
+2019-04-12 07:17:52 INFO  CVEParser - Parsing xml to rdf...  
+2019-04-12 07:17:52 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-12 07:17:53 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-12 07:17:59 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-12 07:18:03 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-12 07:18:04 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-12 07:18:05 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-12 07:18:06 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-12 07:18:07 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-12 07:18:14 INFO  Linker - generating correct CVE links
+2019-04-12 07:18:15 INFO  Linker - generating correct CVE links ... done
+2019-04-12 07:18:15 INFO  CVEParser - adding CVE Metamodel
+2019-04-12 07:18:15 INFO  CVEParser - Done!
+2019-04-12 07:18:15 INFO  CVEParser - [Year-2010] CVE Processing is done in 26 seconds
+2019-04-12 07:18:19 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-12 07:18:19 INFO  CVEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cve
+2019-04-12 07:18:19 INFO  FusekiStorage - storing output/cve/nvdcve-2.0-modified.xml.zip-output.ttl started
+2019-04-12 07:19:17 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:19:17 INFO  FusekiStorage - Writing process for 'output/cve/nvdcve-2.0-modified.xml.zip-output.ttl' took 58 seconds
+2019-04-12 07:19:17 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2011.meta
+2019-04-12 07:19:18 INFO  CVEParser - generate cve meta model
+2019-04-12 07:19:18 INFO  CVEParser - Downloading resource from internet...  
+2019-04-12 07:19:25 INFO  CVEParser - Downloading resource Done!
+2019-04-12 07:19:25 INFO  CVEParser - Unzipping resource to...  
+2019-04-12 07:19:26 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cve/nvdcve-2.0-2011.xml Done!
+2019-04-12 07:19:26 INFO  CVEParser - Injecting xml file...  
+2019-04-12 07:19:26 INFO  CVEParser -  Done!
+2019-04-12 07:19:26 INFO  CVEParser - Parsing xml to rdf...  
+2019-04-12 07:19:27 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-12 07:19:29 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-12 07:19:43 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-12 07:19:58 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-12 07:20:00 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-12 07:20:03 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-12 07:20:04 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-12 07:20:06 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-12 07:20:27 INFO  Linker - generating correct CVE links
+2019-04-12 07:20:36 INFO  Linker - generating correct CVE links ... done
+2019-04-12 07:20:36 INFO  CVEParser - adding CVE Metamodel
+2019-04-12 07:20:36 INFO  CVEParser - Done!
+2019-04-12 07:20:36 INFO  CVEParser - [Year-2011] CVE Processing is done in 79 seconds
+2019-04-12 07:20:43 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-12 07:20:43 INFO  CVEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cve
+2019-04-12 07:20:43 INFO  FusekiStorage - storing output/cve/nvdcve-2.0-modified.xml.zip-output.ttl started
+2019-04-12 07:22:49 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:22:49 INFO  FusekiStorage - Writing process for 'output/cve/nvdcve-2.0-modified.xml.zip-output.ttl' took 126 seconds
+2019-04-12 07:22:49 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2012.meta
+2019-04-12 07:22:50 INFO  CVEParser - generate cve meta model
+2019-04-12 07:22:50 INFO  CVEParser - Downloading resource from internet...  
+2019-04-12 07:22:52 INFO  CVEParser - Downloading resource Done!
+2019-04-12 07:22:52 INFO  CVEParser - Unzipping resource to...  
+2019-04-12 07:22:52 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cve/nvdcve-2.0-2012.xml Done!
+2019-04-12 07:22:52 INFO  CVEParser - Injecting xml file...  
+2019-04-12 07:22:53 INFO  CVEParser -  Done!
+2019-04-12 07:22:53 INFO  CVEParser - Parsing xml to rdf...  
+2019-04-12 07:22:53 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-12 07:22:54 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-12 07:22:59 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-12 07:23:03 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-12 07:23:04 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-12 07:23:05 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-12 07:23:08 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-12 07:23:09 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-12 07:23:15 INFO  Linker - generating correct CVE links
+2019-04-12 07:23:17 INFO  Linker - generating correct CVE links ... done
+2019-04-12 07:23:17 INFO  CVEParser - adding CVE Metamodel
+2019-04-12 07:23:17 INFO  CVEParser - Done!
+2019-04-12 07:23:17 INFO  CVEParser - [Year-2012] CVE Processing is done in 28 seconds
+2019-04-12 07:23:20 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-12 07:23:20 INFO  CVEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cve
+2019-04-12 07:23:20 INFO  FusekiStorage - storing output/cve/nvdcve-2.0-modified.xml.zip-output.ttl started
+2019-04-12 07:25:20 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:25:20 INFO  FusekiStorage - Writing process for 'output/cve/nvdcve-2.0-modified.xml.zip-output.ttl' took 120 seconds
+2019-04-12 07:25:20 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2013.meta
+2019-04-12 07:25:21 INFO  CVEParser - generate cve meta model
+2019-04-12 07:25:21 INFO  CVEParser - Downloading resource from internet...  
+2019-04-12 07:25:27 INFO  CVEParser - Downloading resource Done!
+2019-04-12 07:25:27 INFO  CVEParser - Unzipping resource to...  
+2019-04-12 07:25:28 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cve/nvdcve-2.0-2013.xml Done!
+2019-04-12 07:25:28 INFO  CVEParser - Injecting xml file...  
+2019-04-12 07:25:28 INFO  CVEParser -  Done!
+2019-04-12 07:25:28 INFO  CVEParser - Parsing xml to rdf...  
+2019-04-12 07:25:28 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-12 07:25:29 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-12 07:25:33 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-12 07:25:36 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-12 07:25:38 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-12 07:25:40 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-12 07:25:41 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-12 07:25:41 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-12 07:25:48 INFO  Linker - generating correct CVE links
+2019-04-12 07:25:49 INFO  Linker - generating correct CVE links ... done
+2019-04-12 07:25:49 INFO  CVEParser - adding CVE Metamodel
+2019-04-12 07:25:49 INFO  CVEParser - Done!
+2019-04-12 07:25:49 INFO  CVEParser - [Year-2013] CVE Processing is done in 29 seconds
+2019-04-12 07:25:52 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-12 07:25:52 INFO  CVEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cve
+2019-04-12 07:25:52 INFO  FusekiStorage - storing output/cve/nvdcve-2.0-modified.xml.zip-output.ttl started
+2019-04-12 07:26:55 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:26:55 INFO  FusekiStorage - Writing process for 'output/cve/nvdcve-2.0-modified.xml.zip-output.ttl' took 63 seconds
+2019-04-12 07:26:55 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2014.meta
+2019-04-12 07:26:56 INFO  CVEParser - generate cve meta model
+2019-04-12 07:26:56 INFO  CVEParser - Downloading resource from internet...  
+2019-04-12 07:26:59 INFO  CVEParser - Downloading resource Done!
+2019-04-12 07:26:59 INFO  CVEParser - Unzipping resource to...  
+2019-04-12 07:27:00 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cve/nvdcve-2.0-2014.xml Done!
+2019-04-12 07:27:00 INFO  CVEParser - Injecting xml file...  
+2019-04-12 07:27:00 INFO  CVEParser -  Done!
+2019-04-12 07:27:00 INFO  CVEParser - Parsing xml to rdf...  
+2019-04-12 07:27:00 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-12 07:27:01 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-12 07:27:05 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-12 07:27:08 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-12 07:27:09 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-12 07:27:10 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-12 07:27:11 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-12 07:27:12 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-12 07:27:19 INFO  Linker - generating correct CVE links
+2019-04-12 07:27:20 INFO  Linker - generating correct CVE links ... done
+2019-04-12 07:27:20 INFO  CVEParser - adding CVE Metamodel
+2019-04-12 07:27:20 INFO  CVEParser - Done!
+2019-04-12 07:27:20 INFO  CVEParser - [Year-2014] CVE Processing is done in 25 seconds
+2019-04-12 07:27:25 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-12 07:27:25 INFO  CVEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cve
+2019-04-12 07:27:25 INFO  FusekiStorage - storing output/cve/nvdcve-2.0-modified.xml.zip-output.ttl started
+2019-04-12 07:28:43 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:28:43 INFO  FusekiStorage - Writing process for 'output/cve/nvdcve-2.0-modified.xml.zip-output.ttl' took 78 seconds
+2019-04-12 07:28:43 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2015.meta
+2019-04-12 07:28:44 INFO  CVEParser - generate cve meta model
+2019-04-12 07:28:44 INFO  CVEParser - Downloading resource from internet...  
+2019-04-12 07:28:46 INFO  CVEParser - Downloading resource Done!
+2019-04-12 07:28:46 INFO  CVEParser - Unzipping resource to...  
+2019-04-12 07:28:46 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cve/nvdcve-2.0-2015.xml Done!
+2019-04-12 07:28:46 INFO  CVEParser - Injecting xml file...  
+2019-04-12 07:28:47 INFO  CVEParser -  Done!
+2019-04-12 07:28:47 INFO  CVEParser - Parsing xml to rdf...  
+2019-04-12 07:28:47 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-12 07:28:48 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-12 07:28:51 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-12 07:28:54 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-12 07:28:55 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-12 07:28:57 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-12 07:28:58 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-12 07:28:59 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-12 07:29:05 INFO  Linker - generating correct CVE links
+2019-04-12 07:29:06 INFO  Linker - generating correct CVE links ... done
+2019-04-12 07:29:06 INFO  CVEParser - adding CVE Metamodel
+2019-04-12 07:29:06 INFO  CVEParser - Done!
+2019-04-12 07:29:06 INFO  CVEParser - [Year-2015] CVE Processing is done in 23 seconds
+2019-04-12 07:29:09 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-12 07:29:09 INFO  CVEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cve
+2019-04-12 07:29:09 INFO  FusekiStorage - storing output/cve/nvdcve-2.0-modified.xml.zip-output.ttl started
+2019-04-12 07:30:15 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:30:15 INFO  FusekiStorage - Writing process for 'output/cve/nvdcve-2.0-modified.xml.zip-output.ttl' took 66 seconds
+2019-04-12 07:30:15 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2016.meta
+2019-04-12 07:30:16 INFO  CVEParser - generate cve meta model
+2019-04-12 07:30:16 INFO  CVEParser - Downloading resource from internet...  
+2019-04-12 07:30:23 INFO  CVEParser - Downloading resource Done!
+2019-04-12 07:30:23 INFO  CVEParser - Unzipping resource to...  
+2019-04-12 07:30:24 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cve/nvdcve-2.0-2016.xml Done!
+2019-04-12 07:30:24 INFO  CVEParser - Injecting xml file...  
+2019-04-12 07:30:24 INFO  CVEParser -  Done!
+2019-04-12 07:30:24 INFO  CVEParser - Parsing xml to rdf...  
+2019-04-12 07:30:24 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-12 07:30:25 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-12 07:30:29 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-12 07:30:32 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-12 07:30:33 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-12 07:30:35 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-12 07:30:36 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-12 07:30:37 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-12 07:30:45 INFO  Linker - generating correct CVE links
+2019-04-12 07:30:47 INFO  Linker - generating correct CVE links ... done
+2019-04-12 07:30:47 INFO  CVEParser - adding CVE Metamodel
+2019-04-12 07:30:47 INFO  CVEParser - Done!
+2019-04-12 07:30:47 INFO  CVEParser - [Year-2016] CVE Processing is done in 32 seconds
+2019-04-12 07:30:51 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-12 07:30:51 INFO  CVEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cve
+2019-04-12 07:30:51 INFO  FusekiStorage - storing output/cve/nvdcve-2.0-modified.xml.zip-output.ttl started
+2019-04-12 07:31:59 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:31:59 INFO  FusekiStorage - Writing process for 'output/cve/nvdcve-2.0-modified.xml.zip-output.ttl' took 68 seconds
+2019-04-12 07:31:59 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2017.meta
+2019-04-12 07:32:00 INFO  CVEParser - generate cve meta model
+2019-04-12 07:32:00 INFO  CVEParser - Downloading resource from internet...  
+2019-04-12 07:32:03 INFO  CVEParser - Downloading resource Done!
+2019-04-12 07:32:03 INFO  CVEParser - Unzipping resource to...  
+2019-04-12 07:32:04 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cve/nvdcve-2.0-2017.xml Done!
+2019-04-12 07:32:04 INFO  CVEParser - Injecting xml file...  
+2019-04-12 07:32:08 INFO  CVEParser -  Done!
+2019-04-12 07:32:08 INFO  CVEParser - Parsing xml to rdf...  
+2019-04-12 07:32:08 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-12 07:32:11 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-12 07:32:29 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-12 07:32:44 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-12 07:32:53 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-12 07:32:56 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-12 07:33:03 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-12 07:33:06 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-12 07:33:38 INFO  Linker - generating correct CVE links
+2019-04-12 07:33:53 INFO  Linker - generating correct CVE links ... done
+2019-04-12 07:33:53 INFO  CVEParser - adding CVE Metamodel
+2019-04-12 07:33:53 INFO  CVEParser - Done!
+2019-04-12 07:33:53 INFO  CVEParser - [Year-2017] CVE Processing is done in 114 seconds
+2019-04-12 07:34:03 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-12 07:34:03 INFO  CVEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cve
+2019-04-12 07:34:03 INFO  FusekiStorage - storing output/cve/nvdcve-2.0-modified.xml.zip-output.ttl started
+2019-04-12 07:36:52 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:36:52 INFO  FusekiStorage - Writing process for 'output/cve/nvdcve-2.0-modified.xml.zip-output.ttl' took 169 seconds
+2019-04-12 07:36:52 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2018.meta
+2019-04-12 07:36:53 INFO  CVEParser - generate cve meta model
+2019-04-12 07:36:53 INFO  CVEParser - Downloading resource from internet...  
+2019-04-12 07:36:59 INFO  CVEParser - Downloading resource Done!
+2019-04-12 07:36:59 INFO  CVEParser - Unzipping resource to...  
+2019-04-12 07:37:01 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cve/nvdcve-2.0-2018.xml Done!
+2019-04-12 07:37:01 INFO  CVEParser - Injecting xml file...  
+2019-04-12 07:37:03 INFO  CVEParser -  Done!
+2019-04-12 07:37:03 INFO  CVEParser - Parsing xml to rdf...  
+2019-04-12 07:37:04 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-12 07:37:08 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-12 07:37:33 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-12 07:38:00 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-12 07:38:11 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-12 07:38:17 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-12 07:38:28 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-12 07:38:34 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-12 07:39:22 INFO  Linker - generating correct CVE links
+2019-04-12 07:39:39 INFO  Linker - generating correct CVE links ... done
+2019-04-12 07:39:39 INFO  CVEParser - adding CVE Metamodel
+2019-04-12 07:39:39 INFO  CVEParser - Done!
+2019-04-12 07:39:39 INFO  CVEParser - [Year-2018] CVE Processing is done in 167 seconds
+2019-04-12 07:39:52 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-12 07:39:52 INFO  CVEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cve
+2019-04-12 07:39:52 INFO  FusekiStorage - storing output/cve/nvdcve-2.0-modified.xml.zip-output.ttl started
+2019-04-12 07:44:14 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:44:14 INFO  FusekiStorage - Writing process for 'output/cve/nvdcve-2.0-modified.xml.zip-output.ttl' took 262 seconds
+2019-04-12 07:44:14 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2019.meta
+2019-04-12 07:44:15 INFO  CVEParser - generate cve meta model
+2019-04-12 07:44:15 INFO  CVEParser - Downloading resource from internet...  
+2019-04-12 07:44:16 INFO  CVEParser - Downloading resource Done!
+2019-04-12 07:44:16 INFO  CVEParser - Unzipping resource to...  
+2019-04-12 07:44:16 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cve/nvdcve-2.0-2019.xml Done!
+2019-04-12 07:44:16 INFO  CVEParser - Injecting xml file...  
+2019-04-12 07:44:17 INFO  CVEParser -  Done!
+2019-04-12 07:44:17 INFO  CVEParser - Parsing xml to rdf...  
+2019-04-12 07:44:17 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-12 07:44:17 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-12 07:44:21 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-12 07:44:25 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-12 07:44:27 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-12 07:44:27 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-12 07:44:28 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-12 07:44:29 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-12 07:44:35 INFO  Linker - generating correct CVE links
+2019-04-12 07:44:37 INFO  Linker - generating correct CVE links ... done
+2019-04-12 07:44:37 INFO  CVEParser - adding CVE Metamodel
+2019-04-12 07:44:37 INFO  CVEParser - Done!
+2019-04-12 07:44:37 INFO  CVEParser - [Year-2019] CVE Processing is done in 23 seconds
+2019-04-12 07:44:39 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-12 07:44:39 INFO  CVEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cve
+2019-04-12 07:44:39 INFO  FusekiStorage - storing output/cve/nvdcve-2.0-modified.xml.zip-output.ttl started
+2019-04-12 07:47:39 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:47:39 INFO  FusekiStorage - Writing process for 'output/cve/nvdcve-2.0-modified.xml.zip-output.ttl' took 180 seconds
+2019-04-12 07:47:39 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-modified.meta
+2019-04-12 07:47:40 INFO  CVEParser - generate cve meta model
+2019-04-12 07:47:40 INFO  CVEParser - Downloading resource from internet...  
+2019-04-12 07:47:46 INFO  CVEParser - Downloading resource Done!
+2019-04-12 07:47:46 INFO  CVEParser - Unzipping resource to...  
+2019-04-12 07:47:46 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/target/input/cve/nvdcve-2.0-modified.xml Done!
+2019-04-12 07:47:46 INFO  CVEParser - Injecting xml file...  
+2019-04-12 07:47:46 INFO  CVEParser -  Done!
+2019-04-12 07:47:47 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-12 07:48:01 INFO  CVEParser - Done!
+2019-04-12 07:48:01 INFO  CVEParser - Found New CVE: 477
+2019-04-12 07:48:01 INFO  CVEParser - Found modified CVE : 92
+2019-04-12 07:48:01 INFO  CVEParser - Found existing CVE : 445
+2019-04-12 07:48:01 INFO  CVEParser - Parsing xml to rdf...  
+2019-04-12 07:48:01 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-12 07:48:02 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-12 07:48:04 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-12 07:48:06 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-12 07:48:07 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-12 07:48:07 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-12 07:48:07 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-12 07:48:08 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-12 07:48:11 INFO  Linker - generating correct CVE links
+2019-04-12 07:48:11 INFO  Linker - generating correct CVE links ... done
+2019-04-12 07:48:11 INFO  CVEParser - adding CVE Metamodel
+2019-04-12 07:48:11 INFO  CVEParser - Done!
+2019-04-12 07:48:11 INFO  CVEParser - [Year-1] CVE Processing is done in 32 seconds
+2019-04-12 07:48:12 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-12 07:48:12 INFO  CVEParser - Store data to http://localhost:3030/sepses using graph http://w3id.org/sepses/graph/cve
+2019-04-12 07:48:12 INFO  FusekiStorage - storing output/cve/nvdcve-2.0-modified.xml.zip-output.ttl started
+2019-04-12 07:48:49 INFO  FusekiStorage - Data replaced successfully
+2019-04-12 07:48:49 INFO  FusekiStorage - Writing process for 'output/cve/nvdcve-2.0-modified.xml.zip-output.ttl' took 37 seconds
+2019-04-12 07:48:49 INFO  MainParser - ************* CVE parser finished
+2019-04-12 07:48:49 INFO  MainParser - Transformation process finished in 2412 seconds

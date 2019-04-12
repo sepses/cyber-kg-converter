@@ -6,6 +6,7 @@
 @prefix capec: <http://w3id.org/sepses/vocab/ref/capec#> .
 @prefix dcterm: <http://purl.org/dc/terms/> .
 
+
 <#CAPECCatalogMapping>
     rml:logicalSource [
         rml:source [

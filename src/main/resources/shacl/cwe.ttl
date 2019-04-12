@@ -1,0 +1,107 @@
+@prefix : <http://w3id.org/semcon/ns/ontology#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterm: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ssr: <http://w3id.org/sepses/resource/> .
+@prefix cve: <http://w3id.org/sepses/vocab/ref/cve#> .
+@prefix cpe: <http://w3id.org/sepses/vocab/ref/cpe#> .
+@prefix cvss: <http://w3id.org/sepses/vocab/ref/cvss#> .
+@prefix capec: <http://w3id.org/sepses/vocab/ref/capec#> .
+@prefix cwe: <http://w3id.org/sepses/vocab/ref/cwe#> .
+
+#################################################################
+#    SHACL validator for CWE instances
+#################################################################
+ssr:CWEValidator
+    a               sh:NodeShape ;
+    sh:closed       true ;
+    sh:name         "CWE Class validation" ;
+    sh:description  "CWE Class validation" ;
+    sh:property     [ sh:maxCount  1 ;
+                      sh:minCount  1 ;
+                      sh:path      rdf:type
+                    ] ;
+    sh:property     [ sh:maxCount  1 ;
+                      sh:minCount  1 ;
+                      sh:path      cwe:id
+                    ] ;
+    sh:property     [ sh:maxCount  1 ;
+                      sh:minCount  1 ;
+                      sh:path      cwe:name
+                    ] ;
+    sh:property     [ sh:maxCount  1 ;
+                      sh:minCount  1 ;
+                      sh:path      cwe:abstraction
+                    ] ;
+    sh:property     [ sh:maxCount  1 ;
+                      sh:minCount  1 ;
+                      sh:path      cwe:structure
+                    ] ;
+    sh:property     [ sh:maxCount  1 ;
+                      sh:minCount  1 ;
+                      sh:path      cwe:status
+                    ] ;
+    sh:property     [ sh:maxCount  1 ;
+                      sh:minCount  1 ;
+                      sh:path      dcterm:description
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      cwe:extendedDescription
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      cwe:hasReference ;
+                      sh:dataType  cwe:Reference
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      cwe:hasCAPEC
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      cwe:weaknessOrdinality
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      cwe:likelihoodOfExploit
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      cwe:backgroundDetail
+                    ] ;
+    sh:property     [ sh:maxCount  1 ;
+                      sh:minCount  1 ;
+                      sh:path      cwe:hasSubmissionHistory ;
+                      sh:dataType  cwe:SubmissionHistory
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      cwe:hasModificationHistory ;
+                      sh:dataType  cwe:ModificationHistory
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      cwe:hasModeOfIntroduction ;
+                      sh:dataType  cwe:ModeOfIntroduction
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      cwe:hasDetectionMethod ;
+                      sh:dataType  cwe:DetectionMethod
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      cwe:hasPotentialMitigation ;
+                      sh:dataType  cwe:PotentialMitigation
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      cwe:hasCommonConsequence ;
+                      sh:dataType  cwe:CommonConsequence
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      cwe:hasApplicablePlatform ;
+                      sh:dataType  cwe:ApplicablePlatform
+                    ] ;
+    sh:property     [ sh:minCount  0 ;
+                      sh:path      cwe:hasRelatedWeakness ;
+                      sh:dataType  cwe:RelatedWeakness
+                    ] ;
+
+    sh:targetClass  cwe:CWE
+.

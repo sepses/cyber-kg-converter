@@ -56,7 +56,7 @@ public class CPE {
     public static final Property UPDATE = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/cpe#update" );
     
     public static final Property VENDOR_NAME = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/cpe#vendorName" );
-    
+
     public static final Property VERSION = m_model.createProperty( "http://w3id.org/sepses/vocab/ref/cpe#version" );
     
     public static final Resource CPE = m_model.createResource( "http://w3id.org/sepses/vocab/ref/cpe#CPE" );

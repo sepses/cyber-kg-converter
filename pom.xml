@@ -9,63 +9,63 @@
         <plugins>
             <!-- generate tbox assessor -->
             <!--<plugin>-->
-                <!--<groupId>org.apache.jena</groupId>-->
-                <!--<artifactId>jena-maven-tools</artifactId>-->
-                <!--<version>${jena.schemagen.version}</version>-->
-                  <!--<configuration>-->
-                      <!--<includes>-->
-                          <!--<include>src/main/resources/owl/*.ttl</include>-->
-                      <!--</includes>-->
-                      <!--<fileOptions>-->
-                          <!--<source>-->
-                              <!--<input>src/main/resources/owl/CAPEC.ttl</input>-->
-                              <!--<useInf>true</useInf>-->
-                              <!--<namespace>http://w3id.org/sepses/vocab/ref/capec#</namespace>-->
-                              <!--<noIndividuals>true</noIndividuals>-->
-                              <!--<ucNames>true</ucNames>-->
-                          <!--</source>-->
-                          <!--<source>-->
-                              <!--<input>src/main/resources/owl/CPE.ttl</input>-->
-                              <!--<useInf>true</useInf>-->
-                              <!--<namespace>http://w3id.org/sepses/vocab/ref/cpe#</namespace>-->
-                              <!--<noIndividuals>true</noIndividuals>-->
-                              <!--<ucNames>true</ucNames>-->
-                          <!--</source>-->
-                          <!--<source>-->
-                              <!--<input>src/main/resources/owl/CVE.ttl</input>-->
-                              <!--<useInf>true</useInf>-->
-                              <!--<namespace>http://w3id.org/sepses/vocab/ref/cve#</namespace>-->
-                              <!--<noIndividuals>true</noIndividuals>-->
-                              <!--<ucNames>true</ucNames>-->
-                          <!--</source>-->
-                          <!--<source>-->
-                              <!--<input>src/main/resources/owl/CVSS.ttl</input>-->
-                              <!--<useInf>true</useInf>-->
-                              <!--<namespace>http://w3id.org/sepses/vocab/ref/cvss#</namespace>-->
-                              <!--<noIndividuals>true</noIndividuals>-->
-                              <!--<ucNames>true</ucNames>-->
-                          <!--</source>-->
-                          <!--<source>-->
-                              <!--<input>src/main/resources/owl/CWE.ttl</input>-->
-                              <!--<useInf>true</useInf>-->
-                              <!--<namespace>http://w3id.org/sepses/vocab/ref/cwe#</namespace>-->
-                              <!--<noIndividuals>true</noIndividuals>-->
-                              <!--<ucNames>true</ucNames>-->
-                          <!--</source>-->
-                          <!--<source>-->
-                              <!--<input>default</input>-->
-                              <!--<package-name>id.juang.diff.vocab</package-name>-->
-                          <!--</source>-->
-                      <!--</fileOptions>-->
-                  <!--</configuration>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                          <!--<id>schemagen</id>-->
-                          <!--<goals>-->
-                                <!--<goal>translate</goal>-->
-                          <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
+            <!--<groupId>org.apache.jena</groupId>-->
+            <!--<artifactId>jena-maven-tools</artifactId>-->
+            <!--<version>${jena.schemagen.version}</version>-->
+            <!--<configuration>-->
+            <!--<includes>-->
+            <!--<include>src/main/resources/owl/*.ttl</include>-->
+            <!--</includes>-->
+            <!--<fileOptions>-->
+            <!--<source>-->
+            <!--<input>src/main/resources/owl/CAPEC.ttl</input>-->
+            <!--<useInf>true</useInf>-->
+            <!--<namespace>http://w3id.org/sepses/vocab/ref/capec#</namespace>-->
+            <!--<noIndividuals>true</noIndividuals>-->
+            <!--<ucNames>true</ucNames>-->
+            <!--</source>-->
+            <!--<source>-->
+            <!--<input>src/main/resources/owl/CPE.ttl</input>-->
+            <!--<useInf>true</useInf>-->
+            <!--<namespace>http://w3id.org/sepses/vocab/ref/cpe#</namespace>-->
+            <!--<noIndividuals>true</noIndividuals>-->
+            <!--<ucNames>true</ucNames>-->
+            <!--</source>-->
+            <!--<source>-->
+            <!--<input>src/main/resources/owl/CVE.ttl</input>-->
+            <!--<useInf>true</useInf>-->
+            <!--<namespace>http://w3id.org/sepses/vocab/ref/cve#</namespace>-->
+            <!--<noIndividuals>true</noIndividuals>-->
+            <!--<ucNames>true</ucNames>-->
+            <!--</source>-->
+            <!--<source>-->
+            <!--<input>src/main/resources/owl/CVSS.ttl</input>-->
+            <!--<useInf>true</useInf>-->
+            <!--<namespace>http://w3id.org/sepses/vocab/ref/cvss#</namespace>-->
+            <!--<noIndividuals>true</noIndividuals>-->
+            <!--<ucNames>true</ucNames>-->
+            <!--</source>-->
+            <!--<source>-->
+            <!--<input>src/main/resources/owl/CWE.ttl</input>-->
+            <!--<useInf>true</useInf>-->
+            <!--<namespace>http://w3id.org/sepses/vocab/ref/cwe#</namespace>-->
+            <!--<noIndividuals>true</noIndividuals>-->
+            <!--<ucNames>true</ucNames>-->
+            <!--</source>-->
+            <!--<source>-->
+            <!--<input>default</input>-->
+            <!--<package-name>id.juang.diff.vocab</package-name>-->
+            <!--</source>-->
+            <!--</fileOptions>-->
+            <!--</configuration>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<id>schemagen</id>-->
+            <!--<goals>-->
+            <!--<goal>translate</goal>-->
+            <!--</goals>-->
+            <!--</execution>-->
+            <!--</executions>-->
             <!--</plugin>-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -92,6 +92,28 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>ac.at.tuwien.ifs.sepses.MainParser</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
                 </configuration>
             </plugin>
         </plugins>
@@ -166,6 +188,13 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.25</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.topbraid/shacl -->
+        <dependency>
+            <groupId>org.topbraid</groupId>
+            <artifactId>shacl</artifactId>
+            <version>1.1.0</version>
         </dependency>
 
         <!-- testing -->
