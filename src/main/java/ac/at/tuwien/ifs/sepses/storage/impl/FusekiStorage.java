@@ -1,6 +1,7 @@
 package ac.at.tuwien.ifs.sepses.storage.impl;
 
 import ac.at.tuwien.ifs.sepses.storage.Storage;
+import com.sun.javafx.PlatformUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.jena.query.ParameterizedSparqlString;
 import org.apache.jena.rdf.model.Resource;
@@ -36,6 +37,8 @@ public enum FusekiStorage implements Storage {
 
         try {
             log.info("storing " + filename + " started");
+            if (PlatformUtil.isWindows())
+                filename = filename.replaceAll("/", "\\");
             String command = "s-post " + endpoint + " " + namegraph + " " + filename;
             Process process = Runtime.getRuntime().exec(command);
             InputStream is = process.getInputStream();
@@ -61,6 +64,8 @@ public enum FusekiStorage implements Storage {
 
         try {
             log.info("storing " + file + " started");
+            if (PlatformUtil.isWindows())
+                file = file.replaceAll("/", "\\");
             String command = "s-put " + endpoint + " " + namegraph + " " + file;
             Process process = Runtime.getRuntime().exec(command);
             InputStream is = process.getInputStream();
