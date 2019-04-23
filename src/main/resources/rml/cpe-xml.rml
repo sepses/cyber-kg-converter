@@ -16,7 +16,7 @@
         rml:iterator "/cpe-list/generator"
     ];
     rr:subjectMap [
-        rr:template "http://w3id.org/sepses/resource/cpe/generator/{translate(timestamp,':/~%','')}";
+        rr:template "http://w3id.org/sepses/resource/cpe/generator/{translate(timestamp,':/~%-','')}";
     ];
     rr:predicateObjectMap [
         rr:predicate rdf:type;
@@ -58,7 +58,7 @@
         rml:iterator "/cpe-list/cpe-item"
     ];
     rr:subjectMap [
-        rr:template "http://w3id.org/sepses/resource/cpe/{translate(@name,':/~%','')}";
+        rr:template "http://w3id.org/sepses/resource/cpe/{translate(@name,':/~%-','')}";
     ];
     rr:predicateObjectMap [
         rr:predicate rdf:type;

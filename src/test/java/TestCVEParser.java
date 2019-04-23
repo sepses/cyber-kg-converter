@@ -55,6 +55,7 @@ public class TestCVEParser {
         log.info("CVE constraint check starts");
 
         Model model = parser.getModelFromLastUpdate();
+        RDFDataMgr.write(new FileWriter("test.ttl"), model, Lang.TURTLE);
         Resource result = ValidationUtil.validateModel(model, constraints, false);
         RDFDataMgr.write(new FileOutputStream(shaclResult), result.getModel(), Lang.TURTLE);
 

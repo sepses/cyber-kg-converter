@@ -8,6 +8,7 @@ import ac.at.tuwien.ifs.sepses.parser.tool.CVETool;
 import ac.at.tuwien.ifs.sepses.parser.tool.Linker;
 import ac.at.tuwien.ifs.sepses.storage.Storage;
 import ac.at.tuwien.ifs.sepses.vocab.CVE;
+import org.apache.commons.io.IOUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.slf4j.Logger;
@@ -15,6 +16,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -98,6 +101,7 @@ public class CVEParser implements Parser {
                 storeFileInRepo(filename);
             }
             model.close();
+
         }
     }
 
@@ -114,7 +118,7 @@ public class CVEParser implements Parser {
     @Override public void storeFileInRepo(String filename) {
 
         log.info("delete previous CVE metadata in the triple store");
-        CVETool.deleteCVEMeta(sparqlEndpoint, namegraph);
+        CVETool.deleteCVEMeta(storage, sparqlEndpoint, namegraph, isUseAuth, user, pass);
 
         log.info("Store data to " + sparqlEndpoint + " using graph " + namegraph);
         storage.storeData(filename, sparqlEndpoint, namegraph, isUseAuth, user, pass);
@@ -136,7 +140,9 @@ public class CVEParser implements Parser {
             fileName = CVEXMLFile.substring(CVEXMLFile.lastIndexOf("\\") + 1);
         }
         Model CVEModelTemp = XMLParser.Parse(CVEXMLFile, RMLFileTemp);
-        ArrayList<String>[] CVEArray = CVETool.checkExistingCVE(CVEModelTemp, CyberKnowledgeEp, CVEGraphName);
+        ArrayList<String>[] CVEArray =
+                CVETool.checkExistingCVE(storage, CVEModelTemp, CyberKnowledgeEp, CVEGraphName, isUseAuth, user,
+                        pass);
         log.info("Done!");
         log.info("Found New CVE: " + CVEArray[0].size());
         log.info("Found modified CVE : " + CVEArray[1].size());

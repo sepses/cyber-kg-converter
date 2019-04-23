@@ -1,7 +1,5 @@
 package ac.at.tuwien.ifs.sepses.storage;
 
-import org.apache.jena.rdf.model.Model;
-
 public interface Storage {
 
     /**
@@ -17,8 +15,8 @@ public interface Storage {
             String pass);
 
     /**
-     * delete data from a named graph
+     * execute update query in selected triplestore
      */
-    public void deleteData(String endpoint, String namegraph, Boolean isUseAuth, String user, String pass);
+    public void executeUpdate(String endpoint, String query, Boolean isUseAuth, String user, String pass);
 
 }

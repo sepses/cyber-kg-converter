@@ -1,18 +1,20 @@
 package ac.at.tuwien.ifs.sepses.parser.impl;
 
 import ac.at.tuwien.ifs.sepses.helper.DownloadUnzip;
+import ac.at.tuwien.ifs.sepses.helper.Utility;
+import ac.at.tuwien.ifs.sepses.helper.XMLParser;
 import ac.at.tuwien.ifs.sepses.parser.Parser;
 import ac.at.tuwien.ifs.sepses.parser.tool.CPETool;
-import ac.at.tuwien.ifs.sepses.helper.XMLParser;
 import ac.at.tuwien.ifs.sepses.storage.Storage;
-import ac.at.tuwien.ifs.sepses.helper.Utility;
 import ac.at.tuwien.ifs.sepses.vocab.CPE;
+import org.apache.commons.io.IOUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
@@ -77,6 +79,22 @@ public class CPEParser implements Parser {
             model.close();
         }
 
+        // remove CPE-is-not-available-comment
+        addEmptyCPEComments();
+
+    }
+
+    private void addEmptyCPEComments() {
+        try {
+            log.info("add CPE-is-not-available-comment process");
+            InputStream is =
+                    CVEParser.class.getClassLoader().getResourceAsStream("sparql/add-cpe-comments.sparql");
+            String query = IOUtils.toString(is, Charset.forName("UTF-8"));
+            storage.executeUpdate(sparqlEndpoint, query, isUseAuth, user, pass);
+        } catch (IOException e) {
+            log.error("failed add CPE-is-not-available-comment to graph: " + namegraph, e);
+        }
+        log.info("add CPE-is-not-available-comment process finished");
     }
 
     @Override public Model getModelFromLastUpdate() throws IOException {
@@ -140,8 +158,8 @@ public class CPEParser implements Parser {
         Integer cpeCount = Utility.countInstance(sparqlEndpoint, namegraph, CPE.CPE);
         log.info("existing cpe count = " + cpeCount);
 
-        boolean sameVersion = Utility
-                .checkIsEqualModifedDate(rmlMetaModel, CPEXML, sparqlEndpoint, namegraph, CPE.GENERATOR_TIME_STAMP);
+        boolean sameVersion = Utility.checkIsEqualModifedDate(rmlMetaModel, CPEXML, sparqlEndpoint, namegraph,
+                CPE.GENERATOR_TIME_STAMP);
         if (sameVersion) {
             log.info("CPE is up-to-date!!");
             model = ModelFactory.createDefaultModel();

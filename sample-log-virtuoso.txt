@@ -1,0 +1,629 @@
+2019-04-17 09:56:07 INFO  Utility - Virtuoso triplestore is selected
+2019-04-17 09:56:07 INFO  Utility - Virtuoso triplestore is selected
+2019-04-17 09:56:07 INFO  Utility - Virtuoso triplestore is selected
+2019-04-17 09:56:07 INFO  Utility - Virtuoso triplestore is selected
+2019-04-17 09:56:07 INFO  MainParser - start CAPEC parser
+2019-04-17 09:56:07 INFO  CAPECParser - Downloading CAPEX file from http://capec.mitre.org/data/xml/views/1000.xml.zip
+2019-04-17 09:56:09 INFO  CAPECParser - CAPEX file downloaded
+2019-04-17 09:56:09 INFO  CAPECParser - Unzipping CAPEX file into
+2019-04-17 09:56:09 INFO  CAPECParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/capec/1000.xml - Done!
+2019-04-17 09:56:09 INFO  CAPECParser - adjusting filename: 1000.xml
+2019-04-17 09:56:09 INFO  CAPECParser - Checking updates from http://localhost:8890/sparql using graphname http://w3id.org/sepses/graph/capec
+2019-04-17 09:56:10 INFO  RmlMapper - Mapping triples map: <http://none.com/#CAPECCatalogMapping>
+2019-04-17 09:56:11 INFO  CAPECParser - CAPEC is new...!
+2019-04-17 09:56:11 INFO  CAPECParser - Parsing xml to rdf...
+2019-04-17 09:56:11 INFO  RmlMapper - Mapping triples map: <http://none.com/#CAPECCatalogMapping>
+2019-04-17 09:56:12 INFO  RmlMapper - Mapping triples map: <http://none.com/#CAPECMapping>
+2019-04-17 09:56:12 INFO  RmlMapper - Mapping triples map: <http://none.com/#CAPECModificationHistory>
+2019-04-17 09:56:12 INFO  RmlMapper - Mapping triples map: <http://none.com/#CAPECSubmissionHistory>
+2019-04-17 09:56:12 INFO  RmlMapper - Mapping triples map: <http://none.com/#CAPECSkillRequiredMapping>
+2019-04-17 09:56:12 INFO  RmlMapper - Mapping triples map: <http://none.com/#CAPECRelatedAttackPatternMapping>
+2019-04-17 09:56:13 INFO  RmlMapper - Mapping triples map: <http://none.com/#CAPECConsequenceMapping>
+2019-04-17 09:56:13 INFO  RmlMapper - Mapping triples map: <http://none.com/#CAPECExecutionFlowMapping>
+2019-04-17 09:56:13 INFO  RmlMapper - Mapping triples map: <http://none.com/#CAPECReference>
+2019-04-17 09:56:14 INFO  Linker - generating correct CAPEC links
+2019-04-17 09:56:14 INFO  Linker - generating correct CAPEC links ... done
+2019-04-17 09:56:14 INFO  CAPECParser - The number of CAPEC instances parsed: 516
+2019-04-17 09:56:14 INFO  CAPECParser - Parsing done..!
+2019-04-17 09:56:14 INFO  CAPECParser - CAPEC parser finished in 7 seconds
+2019-04-17 09:56:14 INFO  CAPECParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/capec
+2019-04-17 09:56:14 INFO  VirtuosoStorage - output/capec/1000.xml.zip-output.ttl
+2019-04-17 09:56:15 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 09:56:15 INFO  VirtuosoStorage - Writing process for 'output/capec/1000.xml.zip-output.ttl' took 1 seconds
+2019-04-17 09:56:15 INFO  MainParser - ************* CAPEC parser finished
+2019-04-17 09:56:15 INFO  MainParser - start CWE parser
+2019-04-17 09:56:15 INFO  CWEParser - Downloading resource from https://cwe.mitre.org/data/xml/views/1000.xml.zip
+2019-04-17 09:56:18 INFO  CWEParser -   Done!
+2019-04-17 09:56:18 INFO  CWEParser - Unzipping resource to...
+2019-04-17 09:56:18 INFO  CWEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cwe/1000.xml  Done!
+2019-04-17 09:56:18 INFO  CWEParser - Renaming and adapt XML file...
+2019-04-17 09:56:18 INFO  CWEParser - ... done!
+2019-04-17 09:56:18 INFO  CWEParser - Checking updates from http://localhost:8890/sparql using graphname http://w3id.org/sepses/graph/cwe
+2019-04-17 09:56:18 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWECatalogMapping>
+2019-04-17 09:56:19 INFO  CWEParser - The downloaded CWE data is new...!
+2019-04-17 09:56:19 INFO  CWEParser - Parsing xml to rdf...
+2019-04-17 09:56:19 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWECatalogMapping>
+2019-04-17 09:56:19 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWEMapping>
+2019-04-17 09:56:20 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWESubmissionHistory>
+2019-04-17 09:56:20 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWEModificationHistory>
+2019-04-17 09:56:21 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWEModeOfIntroduction>
+2019-04-17 09:56:21 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWEDetectionMethod>
+2019-04-17 09:56:21 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWEPotentialMitigation>
+2019-04-17 09:56:22 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWECommonConsequences>
+2019-04-17 09:56:22 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWEApplicablePlatforms>
+2019-04-17 09:56:23 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWEReference>
+2019-04-17 09:56:23 INFO  RmlMapper - Mapping triples map: <http://none.com/#CWERelatedWeaknessMapping>
+2019-04-17 09:56:25 INFO  Linker - generating correct CWE links
+2019-04-17 09:56:26 INFO  Linker - generating correct CVE links ... done
+2019-04-17 09:56:26 INFO  CWEParser - The number of CWE instances parsed: 806
+2019-04-17 09:56:26 INFO  CWEParser - Parsing done..!
+2019-04-17 09:56:26 INFO  CWEParser - CWE processing finished in 11 seconds
+2019-04-17 09:56:27 INFO  CWEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cwe
+2019-04-17 09:56:27 INFO  VirtuosoStorage - output/cwe/1000.xml.zip-output.ttl
+2019-04-17 09:56:28 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 09:56:28 INFO  VirtuosoStorage - Writing process for 'output/cwe/1000.xml.zip-output.ttl' took 1 seconds
+2019-04-17 09:56:28 INFO  MainParser - ************* CWE parser finished
+2019-04-17 09:56:28 INFO  MainParser - start CPE parser
+2019-04-17 09:56:28 INFO  CPEParser - Downloading resource from https://nvd.nist.gov/feeds/xml/cpe/dictionary/official-cpe-dictionary_v2.3.xml.zip
+2019-04-17 09:56:32 INFO  CPEParser -    Done!
+2019-04-17 09:56:32 INFO  CPEParser - Unzipping resource to...
+2019-04-17 09:56:32 INFO  CPEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cpe/official-cpe-dictionary_v2.3.xml  Done!
+2019-04-17 09:56:32 INFO  CPEParser - Injecting xml file...
+2019-04-17 09:56:33 INFO  CPEParser - write xml file
+2019-04-17 09:56:33 INFO  CPEParser - Done!
+2019-04-17 09:56:33 INFO  CPEParser - Checking updates from http://localhost:8890/sparql using graphname http://w3id.org/sepses/graph/cpe
+2019-04-17 09:56:34 INFO  CPEParser - existing cpe count = 0
+2019-04-17 09:56:34 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPEMapping>
+2019-04-17 09:56:36 INFO  CPEParser - CPE is NEW!!
+2019-04-17 09:56:36 INFO  CPEParser - Parsing xml to rdf...
+2019-04-17 09:56:36 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPEMapping>
+2019-04-17 09:56:58 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPEVendorMapping>
+2019-04-17 09:57:06 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPEProductMapping>
+2019-04-17 09:57:42 INFO  CPEParser - (new!) CPE parsed: 198244
+2019-04-17 09:57:42 INFO  CPEParser - Parsing done..!
+2019-04-17 09:57:42 INFO  CPEParser - CPE processing finished in 74 seconds
+2019-04-17 09:57:58 INFO  CPEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cpe
+2019-04-17 09:57:58 INFO  VirtuosoStorage - output/cpe/official-cpe-dictionary_v2.3.xml.zip-output.ttl
+2019-04-17 09:58:38 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 09:58:38 INFO  VirtuosoStorage - Writing process for 'output/cpe/official-cpe-dictionary_v2.3.xml.zip-output.ttl' took 40 seconds
+2019-04-17 09:58:38 INFO  MainParser - ************* CPE parser finished
+2019-04-17 09:58:38 INFO  MainParser - start CVE parser
+2019-04-17 09:58:39 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2002.meta
+2019-04-17 09:58:40 INFO  CVEParser - generate cve meta model
+2019-04-17 09:58:40 INFO  CVEParser - Downloading resource from internet...
+2019-04-17 09:58:42 INFO  CVEParser - Downloading resource Done!
+2019-04-17 09:58:42 INFO  CVEParser - Unzipping resource to...
+2019-04-17 09:58:42 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cve/nvdcve-2.0-2002.xml Done!
+2019-04-17 09:58:42 INFO  CVEParser - Injecting xml file...
+2019-04-17 09:58:42 INFO  CVEParser -  Done!
+2019-04-17 09:58:42 INFO  CVEParser - Parsing xml to rdf...
+2019-04-17 09:58:42 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-17 09:58:43 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-17 09:58:43 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-17 09:58:44 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-17 09:58:44 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-17 09:58:45 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-17 09:58:46 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-17 09:58:46 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-17 09:58:49 INFO  Linker - generating correct CVE links
+2019-04-17 09:58:50 INFO  Linker - generating correct CVE links ... done
+2019-04-17 09:58:50 INFO  CVEParser - adding CVE Metamodel
+2019-04-17 09:58:50 INFO  CVEParser - Done!
+2019-04-17 09:58:50 INFO  CVEParser - [Year-2002] CVE Processing is done in 11 seconds
+2019-04-17 09:58:51 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-17 09:58:51 INFO  CVETool - WITH <http://w3id.org/sepses/graph/cve> DELETE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o } WHERE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o }
+2019-04-17 09:58:51 INFO  CVEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cve
+2019-04-17 09:58:51 INFO  VirtuosoStorage - output/cve/nvdcve-2.0-2002.xml.zip-output.ttl
+2019-04-17 09:58:56 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 09:58:56 INFO  VirtuosoStorage - Writing process for 'output/cve/nvdcve-2.0-2002.xml.zip-output.ttl' took 5 seconds
+2019-04-17 09:58:56 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2003.meta
+2019-04-17 09:58:56 INFO  CVEParser - generate cve meta model
+2019-04-17 09:58:56 INFO  CVEParser - Downloading resource from internet...
+2019-04-17 09:58:57 INFO  CVEParser - Downloading resource Done!
+2019-04-17 09:58:57 INFO  CVEParser - Unzipping resource to...
+2019-04-17 09:58:57 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cve/nvdcve-2.0-2003.xml Done!
+2019-04-17 09:58:57 INFO  CVEParser - Injecting xml file...
+2019-04-17 09:58:57 INFO  CVEParser -  Done!
+2019-04-17 09:58:57 INFO  CVEParser - Parsing xml to rdf...
+2019-04-17 09:58:57 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-17 09:58:57 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-17 09:58:58 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-17 09:58:58 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-17 09:58:58 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-17 09:58:58 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-17 09:58:58 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-17 09:58:59 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-17 09:58:59 INFO  Linker - generating correct CVE links
+2019-04-17 09:58:59 INFO  Linker - generating correct CVE links ... done
+2019-04-17 09:58:59 INFO  CVEParser - adding CVE Metamodel
+2019-04-17 09:58:59 INFO  CVEParser - Done!
+2019-04-17 09:58:59 INFO  CVEParser - [Year-2003] CVE Processing is done in 3 seconds
+2019-04-17 09:59:00 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-17 09:59:00 INFO  CVETool - WITH <http://w3id.org/sepses/graph/cve> DELETE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o } WHERE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o }
+2019-04-17 09:59:01 INFO  CVEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cve
+2019-04-17 09:59:01 INFO  VirtuosoStorage - output/cve/nvdcve-2.0-2003.xml.zip-output.ttl
+2019-04-17 09:59:02 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 09:59:02 INFO  VirtuosoStorage - Writing process for 'output/cve/nvdcve-2.0-2003.xml.zip-output.ttl' took 1 seconds
+2019-04-17 09:59:02 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2004.meta
+2019-04-17 09:59:03 INFO  CVEParser - generate cve meta model
+2019-04-17 09:59:03 INFO  CVEParser - Downloading resource from internet...
+2019-04-17 09:59:04 INFO  CVEParser - Downloading resource Done!
+2019-04-17 09:59:04 INFO  CVEParser - Unzipping resource to...
+2019-04-17 09:59:04 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cve/nvdcve-2.0-2004.xml Done!
+2019-04-17 09:59:04 INFO  CVEParser - Injecting xml file...
+2019-04-17 09:59:05 INFO  CVEParser -  Done!
+2019-04-17 09:59:05 INFO  CVEParser - Parsing xml to rdf...
+2019-04-17 09:59:05 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-17 09:59:05 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-17 09:59:05 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-17 09:59:06 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-17 09:59:06 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-17 09:59:07 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-17 09:59:07 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-17 09:59:07 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-17 09:59:09 INFO  Linker - generating correct CVE links
+2019-04-17 09:59:09 INFO  Linker - generating correct CVE links ... done
+2019-04-17 09:59:09 INFO  CVEParser - adding CVE Metamodel
+2019-04-17 09:59:09 INFO  CVEParser - Done!
+2019-04-17 09:59:09 INFO  CVEParser - [Year-2004] CVE Processing is done in 7 seconds
+2019-04-17 09:59:10 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-17 09:59:10 INFO  CVETool - WITH <http://w3id.org/sepses/graph/cve> DELETE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o } WHERE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o }
+2019-04-17 09:59:10 INFO  CVEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cve
+2019-04-17 09:59:10 INFO  VirtuosoStorage - output/cve/nvdcve-2.0-2004.xml.zip-output.ttl
+2019-04-17 09:59:13 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 09:59:13 INFO  VirtuosoStorage - Writing process for 'output/cve/nvdcve-2.0-2004.xml.zip-output.ttl' took 3 seconds
+2019-04-17 09:59:13 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2005.meta
+2019-04-17 09:59:13 INFO  CVEParser - generate cve meta model
+2019-04-17 09:59:13 INFO  CVEParser - Downloading resource from internet...
+2019-04-17 09:59:15 INFO  CVEParser - Downloading resource Done!
+2019-04-17 09:59:15 INFO  CVEParser - Unzipping resource to...
+2019-04-17 09:59:15 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cve/nvdcve-2.0-2005.xml Done!
+2019-04-17 09:59:15 INFO  CVEParser - Injecting xml file...
+2019-04-17 09:59:15 INFO  CVEParser -  Done!
+2019-04-17 09:59:15 INFO  CVEParser - Parsing xml to rdf...
+2019-04-17 09:59:15 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-17 09:59:15 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-17 09:59:16 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-17 09:59:17 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-17 09:59:17 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-17 09:59:18 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-17 09:59:19 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-17 09:59:19 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-17 09:59:22 INFO  Linker - generating correct CVE links
+2019-04-17 09:59:22 INFO  Linker - generating correct CVE links ... done
+2019-04-17 09:59:22 INFO  CVEParser - adding CVE Metamodel
+2019-04-17 09:59:22 INFO  CVEParser - Done!
+2019-04-17 09:59:22 INFO  CVEParser - [Year-2005] CVE Processing is done in 9 seconds
+2019-04-17 09:59:24 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-17 09:59:24 INFO  CVETool - WITH <http://w3id.org/sepses/graph/cve> DELETE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o } WHERE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o }
+2019-04-17 09:59:24 INFO  CVEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cve
+2019-04-17 09:59:24 INFO  VirtuosoStorage - output/cve/nvdcve-2.0-2005.xml.zip-output.ttl
+2019-04-17 09:59:28 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 09:59:28 INFO  VirtuosoStorage - Writing process for 'output/cve/nvdcve-2.0-2005.xml.zip-output.ttl' took 4 seconds
+2019-04-17 09:59:28 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2006.meta
+2019-04-17 09:59:29 INFO  CVEParser - generate cve meta model
+2019-04-17 09:59:29 INFO  CVEParser - Downloading resource from internet...
+2019-04-17 09:59:30 INFO  CVEParser - Downloading resource Done!
+2019-04-17 09:59:30 INFO  CVEParser - Unzipping resource to...
+2019-04-17 09:59:30 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cve/nvdcve-2.0-2006.xml Done!
+2019-04-17 09:59:30 INFO  CVEParser - Injecting xml file...
+2019-04-17 09:59:31 INFO  CVEParser -  Done!
+2019-04-17 09:59:31 INFO  CVEParser - Parsing xml to rdf...
+2019-04-17 09:59:31 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-17 09:59:31 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-17 09:59:32 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-17 09:59:34 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-17 09:59:34 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-17 09:59:36 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-17 09:59:37 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-17 09:59:37 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-17 09:59:42 INFO  Linker - generating correct CVE links
+2019-04-17 09:59:42 INFO  Linker - generating correct CVE links ... done
+2019-04-17 09:59:42 INFO  CVEParser - adding CVE Metamodel
+2019-04-17 09:59:42 INFO  CVEParser - Done!
+2019-04-17 09:59:42 INFO  CVEParser - [Year-2006] CVE Processing is done in 14 seconds
+2019-04-17 09:59:45 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-17 09:59:45 INFO  CVETool - WITH <http://w3id.org/sepses/graph/cve> DELETE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o } WHERE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o }
+2019-04-17 09:59:46 INFO  CVEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cve
+2019-04-17 09:59:46 INFO  VirtuosoStorage - output/cve/nvdcve-2.0-2006.xml.zip-output.ttl
+2019-04-17 09:59:52 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 09:59:52 INFO  VirtuosoStorage - Writing process for 'output/cve/nvdcve-2.0-2006.xml.zip-output.ttl' took 6 seconds
+2019-04-17 09:59:52 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2007.meta
+2019-04-17 09:59:52 INFO  CVEParser - generate cve meta model
+2019-04-17 09:59:52 INFO  CVEParser - Downloading resource from internet...
+2019-04-17 09:59:56 INFO  CVEParser - Downloading resource Done!
+2019-04-17 09:59:56 INFO  CVEParser - Unzipping resource to...
+2019-04-17 09:59:56 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cve/nvdcve-2.0-2007.xml Done!
+2019-04-17 09:59:56 INFO  CVEParser - Injecting xml file...
+2019-04-17 09:59:56 INFO  CVEParser -  Done!
+2019-04-17 09:59:56 INFO  CVEParser - Parsing xml to rdf...
+2019-04-17 09:59:57 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-17 09:59:57 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-17 09:59:58 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-17 09:59:59 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-17 10:00:00 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-17 10:00:01 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-17 10:00:02 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-17 10:00:02 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-17 10:00:07 INFO  Linker - generating correct CVE links
+2019-04-17 10:00:07 INFO  Linker - generating correct CVE links ... done
+2019-04-17 10:00:07 INFO  CVEParser - adding CVE Metamodel
+2019-04-17 10:00:07 INFO  CVEParser - Done!
+2019-04-17 10:00:07 INFO  CVEParser - [Year-2007] CVE Processing is done in 15 seconds
+2019-04-17 10:00:10 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-17 10:00:10 INFO  CVETool - WITH <http://w3id.org/sepses/graph/cve> DELETE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o } WHERE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o }
+2019-04-17 10:00:11 INFO  CVEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cve
+2019-04-17 10:00:11 INFO  VirtuosoStorage - output/cve/nvdcve-2.0-2007.xml.zip-output.ttl
+2019-04-17 10:00:16 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 10:00:16 INFO  VirtuosoStorage - Writing process for 'output/cve/nvdcve-2.0-2007.xml.zip-output.ttl' took 5 seconds
+2019-04-17 10:00:16 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2008.meta
+2019-04-17 10:00:17 INFO  CVEParser - generate cve meta model
+2019-04-17 10:00:17 INFO  CVEParser - Downloading resource from internet...
+2019-04-17 10:00:19 INFO  CVEParser - Downloading resource Done!
+2019-04-17 10:00:19 INFO  CVEParser - Unzipping resource to...
+2019-04-17 10:00:20 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cve/nvdcve-2.0-2008.xml Done!
+2019-04-17 10:00:20 INFO  CVEParser - Injecting xml file...
+2019-04-17 10:00:20 INFO  CVEParser -  Done!
+2019-04-17 10:00:20 INFO  CVEParser - Parsing xml to rdf...
+2019-04-17 10:00:20 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-17 10:00:21 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-17 10:00:23 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-17 10:00:25 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-17 10:00:26 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-17 10:00:28 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-17 10:00:29 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-17 10:00:30 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-17 10:00:36 INFO  Linker - generating correct CVE links
+2019-04-17 10:00:37 INFO  Linker - generating correct CVE links ... done
+2019-04-17 10:00:37 INFO  CVEParser - adding CVE Metamodel
+2019-04-17 10:00:37 INFO  CVEParser - Done!
+2019-04-17 10:00:37 INFO  CVEParser - [Year-2008] CVE Processing is done in 21 seconds
+2019-04-17 10:00:40 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-17 10:00:40 INFO  CVETool - WITH <http://w3id.org/sepses/graph/cve> DELETE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o } WHERE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o }
+2019-04-17 10:00:41 INFO  CVEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cve
+2019-04-17 10:00:41 INFO  VirtuosoStorage - output/cve/nvdcve-2.0-2008.xml.zip-output.ttl
+2019-04-17 10:00:48 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 10:00:48 INFO  VirtuosoStorage - Writing process for 'output/cve/nvdcve-2.0-2008.xml.zip-output.ttl' took 7 seconds
+2019-04-17 10:00:48 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2009.meta
+2019-04-17 10:00:49 INFO  CVEParser - generate cve meta model
+2019-04-17 10:00:49 INFO  CVEParser - Downloading resource from internet...
+2019-04-17 10:00:51 INFO  CVEParser - Downloading resource Done!
+2019-04-17 10:00:51 INFO  CVEParser - Unzipping resource to...
+2019-04-17 10:00:51 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cve/nvdcve-2.0-2009.xml Done!
+2019-04-17 10:00:51 INFO  CVEParser - Injecting xml file...
+2019-04-17 10:00:51 INFO  CVEParser -  Done!
+2019-04-17 10:00:51 INFO  CVEParser - Parsing xml to rdf...
+2019-04-17 10:00:51 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-17 10:00:52 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-17 10:00:55 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-17 10:00:57 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-17 10:00:58 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-17 10:00:59 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-17 10:01:00 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-17 10:01:00 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-17 10:01:06 INFO  Linker - generating correct CVE links
+2019-04-17 10:01:07 INFO  Linker - generating correct CVE links ... done
+2019-04-17 10:01:07 INFO  CVEParser - adding CVE Metamodel
+2019-04-17 10:01:07 INFO  CVEParser - Done!
+2019-04-17 10:01:07 INFO  CVEParser - [Year-2009] CVE Processing is done in 19 seconds
+2019-04-17 10:01:10 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-17 10:01:10 INFO  CVETool - WITH <http://w3id.org/sepses/graph/cve> DELETE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o } WHERE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o }
+2019-04-17 10:01:10 INFO  CVEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cve
+2019-04-17 10:01:10 INFO  VirtuosoStorage - output/cve/nvdcve-2.0-2009.xml.zip-output.ttl
+2019-04-17 10:01:16 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 10:01:16 INFO  VirtuosoStorage - Writing process for 'output/cve/nvdcve-2.0-2009.xml.zip-output.ttl' took 6 seconds
+2019-04-17 10:01:16 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2010.meta
+2019-04-17 10:01:17 INFO  CVEParser - generate cve meta model
+2019-04-17 10:01:17 INFO  CVEParser - Downloading resource from internet...
+2019-04-17 10:01:19 INFO  CVEParser - Downloading resource Done!
+2019-04-17 10:01:19 INFO  CVEParser - Unzipping resource to...
+2019-04-17 10:01:19 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cve/nvdcve-2.0-2010.xml Done!
+2019-04-17 10:01:19 INFO  CVEParser - Injecting xml file...
+2019-04-17 10:01:19 INFO  CVEParser -  Done!
+2019-04-17 10:01:19 INFO  CVEParser - Parsing xml to rdf...
+2019-04-17 10:01:20 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-17 10:01:20 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-17 10:01:26 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-17 10:01:31 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-17 10:01:33 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-17 10:01:34 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-17 10:01:35 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-17 10:01:36 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-17 10:01:43 INFO  Linker - generating correct CVE links
+2019-04-17 10:01:45 INFO  Linker - generating correct CVE links ... done
+2019-04-17 10:01:45 INFO  CVEParser - adding CVE Metamodel
+2019-04-17 10:01:45 INFO  CVEParser - Done!
+2019-04-17 10:01:45 INFO  CVEParser - [Year-2010] CVE Processing is done in 29 seconds
+2019-04-17 10:01:48 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-17 10:01:48 INFO  CVETool - WITH <http://w3id.org/sepses/graph/cve> DELETE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o } WHERE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o }
+2019-04-17 10:01:49 INFO  CVEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cve
+2019-04-17 10:01:49 INFO  VirtuosoStorage - output/cve/nvdcve-2.0-2010.xml.zip-output.ttl
+2019-04-17 10:01:57 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 10:01:57 INFO  VirtuosoStorage - Writing process for 'output/cve/nvdcve-2.0-2010.xml.zip-output.ttl' took 8 seconds
+2019-04-17 10:01:57 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2011.meta
+2019-04-17 10:01:58 INFO  CVEParser - generate cve meta model
+2019-04-17 10:01:58 INFO  CVEParser - Downloading resource from internet...
+2019-04-17 10:02:01 INFO  CVEParser - Downloading resource Done!
+2019-04-17 10:02:01 INFO  CVEParser - Unzipping resource to...
+2019-04-17 10:02:02 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cve/nvdcve-2.0-2011.xml Done!
+2019-04-17 10:02:02 INFO  CVEParser - Injecting xml file...
+2019-04-17 10:02:03 INFO  CVEParser -  Done!
+2019-04-17 10:02:03 INFO  CVEParser - Parsing xml to rdf...
+2019-04-17 10:02:03 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-17 10:02:05 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-17 10:02:22 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-17 10:02:39 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-17 10:02:41 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-17 10:02:46 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-17 10:02:48 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-17 10:02:50 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-17 10:03:11 INFO  Linker - generating correct CVE links
+2019-04-17 10:03:17 INFO  Linker - generating correct CVE links ... done
+2019-04-17 10:03:17 INFO  CVEParser - adding CVE Metamodel
+2019-04-17 10:03:17 INFO  CVEParser - Done!
+2019-04-17 10:03:17 INFO  CVEParser - [Year-2011] CVE Processing is done in 80 seconds
+2019-04-17 10:03:25 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-17 10:03:25 INFO  CVETool - WITH <http://w3id.org/sepses/graph/cve> DELETE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o } WHERE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o }
+2019-04-17 10:03:26 INFO  CVEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cve
+2019-04-17 10:03:26 INFO  VirtuosoStorage - output/cve/nvdcve-2.0-2011.xml.zip-output.ttl
+2019-04-17 10:03:42 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 10:03:42 INFO  VirtuosoStorage - Writing process for 'output/cve/nvdcve-2.0-2011.xml.zip-output.ttl' took 16 seconds
+2019-04-17 10:03:42 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2012.meta
+2019-04-17 10:03:43 INFO  CVEParser - generate cve meta model
+2019-04-17 10:03:43 INFO  CVEParser - Downloading resource from internet...
+2019-04-17 10:03:45 INFO  CVEParser - Downloading resource Done!
+2019-04-17 10:03:45 INFO  CVEParser - Unzipping resource to...
+2019-04-17 10:03:45 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cve/nvdcve-2.0-2012.xml Done!
+2019-04-17 10:03:45 INFO  CVEParser - Injecting xml file...
+2019-04-17 10:03:45 INFO  CVEParser -  Done!
+2019-04-17 10:03:45 INFO  CVEParser - Parsing xml to rdf...
+2019-04-17 10:03:46 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-17 10:03:46 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-17 10:03:51 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-17 10:03:56 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-17 10:03:57 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-17 10:03:59 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-17 10:04:00 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-17 10:04:00 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-17 10:04:07 INFO  Linker - generating correct CVE links
+2019-04-17 10:04:09 INFO  Linker - generating correct CVE links ... done
+2019-04-17 10:04:09 INFO  CVEParser - adding CVE Metamodel
+2019-04-17 10:04:09 INFO  CVEParser - Done!
+2019-04-17 10:04:09 INFO  CVEParser - [Year-2012] CVE Processing is done in 27 seconds
+2019-04-17 10:04:12 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-17 10:04:12 INFO  CVETool - WITH <http://w3id.org/sepses/graph/cve> DELETE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o } WHERE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o }
+2019-04-17 10:04:12 INFO  CVEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cve
+2019-04-17 10:04:12 INFO  VirtuosoStorage - output/cve/nvdcve-2.0-2012.xml.zip-output.ttl
+2019-04-17 10:04:21 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 10:04:21 INFO  VirtuosoStorage - Writing process for 'output/cve/nvdcve-2.0-2012.xml.zip-output.ttl' took 9 seconds
+2019-04-17 10:04:21 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2013.meta
+2019-04-17 10:04:21 INFO  CVEParser - generate cve meta model
+2019-04-17 10:04:21 INFO  CVEParser - Downloading resource from internet...
+2019-04-17 10:04:25 INFO  CVEParser - Downloading resource Done!
+2019-04-17 10:04:25 INFO  CVEParser - Unzipping resource to...
+2019-04-17 10:04:25 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cve/nvdcve-2.0-2013.xml Done!
+2019-04-17 10:04:25 INFO  CVEParser - Injecting xml file...
+2019-04-17 10:04:26 INFO  CVEParser -  Done!
+2019-04-17 10:04:26 INFO  CVEParser - Parsing xml to rdf...
+2019-04-17 10:04:26 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-17 10:04:26 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-17 10:04:31 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-17 10:04:35 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-17 10:04:36 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-17 10:04:37 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-17 10:04:38 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-17 10:04:39 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-17 10:04:46 INFO  Linker - generating correct CVE links
+2019-04-17 10:04:48 INFO  Linker - generating correct CVE links ... done
+2019-04-17 10:04:48 INFO  CVEParser - adding CVE Metamodel
+2019-04-17 10:04:48 INFO  CVEParser - Done!
+2019-04-17 10:04:48 INFO  CVEParser - [Year-2013] CVE Processing is done in 27 seconds
+2019-04-17 10:04:51 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-17 10:04:51 INFO  CVETool - WITH <http://w3id.org/sepses/graph/cve> DELETE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o } WHERE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o }
+2019-04-17 10:04:52 INFO  CVEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cve
+2019-04-17 10:04:52 INFO  VirtuosoStorage - output/cve/nvdcve-2.0-2013.xml.zip-output.ttl
+2019-04-17 10:05:00 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 10:05:00 INFO  VirtuosoStorage - Writing process for 'output/cve/nvdcve-2.0-2013.xml.zip-output.ttl' took 8 seconds
+2019-04-17 10:05:00 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2014.meta
+2019-04-17 10:05:01 INFO  CVEParser - generate cve meta model
+2019-04-17 10:05:01 INFO  CVEParser - Downloading resource from internet...
+2019-04-17 10:05:03 INFO  CVEParser - Downloading resource Done!
+2019-04-17 10:05:03 INFO  CVEParser - Unzipping resource to...
+2019-04-17 10:05:03 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cve/nvdcve-2.0-2014.xml Done!
+2019-04-17 10:05:03 INFO  CVEParser - Injecting xml file...
+2019-04-17 10:05:03 INFO  CVEParser -  Done!
+2019-04-17 10:05:03 INFO  CVEParser - Parsing xml to rdf...
+2019-04-17 10:05:03 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-17 10:05:04 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-17 10:05:08 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-17 10:05:11 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-17 10:05:12 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-17 10:05:14 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-17 10:05:15 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-17 10:05:16 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-17 10:05:23 INFO  Linker - generating correct CVE links
+2019-04-17 10:05:24 INFO  Linker - generating correct CVE links ... done
+2019-04-17 10:05:24 INFO  CVEParser - adding CVE Metamodel
+2019-04-17 10:05:24 INFO  CVEParser - Done!
+2019-04-17 10:05:24 INFO  CVEParser - [Year-2014] CVE Processing is done in 24 seconds
+2019-04-17 10:05:27 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-17 10:05:27 INFO  CVETool - WITH <http://w3id.org/sepses/graph/cve> DELETE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o } WHERE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o }
+2019-04-17 10:05:27 INFO  CVEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cve
+2019-04-17 10:05:27 INFO  VirtuosoStorage - output/cve/nvdcve-2.0-2014.xml.zip-output.ttl
+2019-04-17 10:05:37 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 10:05:37 INFO  VirtuosoStorage - Writing process for 'output/cve/nvdcve-2.0-2014.xml.zip-output.ttl' took 10 seconds
+2019-04-17 10:05:37 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2015.meta
+2019-04-17 10:05:37 INFO  CVEParser - generate cve meta model
+2019-04-17 10:05:37 INFO  CVEParser - Downloading resource from internet...
+2019-04-17 10:05:39 INFO  CVEParser - Downloading resource Done!
+2019-04-17 10:05:39 INFO  CVEParser - Unzipping resource to...
+2019-04-17 10:05:39 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cve/nvdcve-2.0-2015.xml Done!
+2019-04-17 10:05:39 INFO  CVEParser - Injecting xml file...
+2019-04-17 10:05:40 INFO  CVEParser -  Done!
+2019-04-17 10:05:40 INFO  CVEParser - Parsing xml to rdf...
+2019-04-17 10:05:40 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-17 10:05:41 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-17 10:05:43 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-17 10:05:46 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-17 10:05:47 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-17 10:05:49 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-17 10:05:51 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-17 10:05:52 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-17 10:05:58 INFO  Linker - generating correct CVE links
+2019-04-17 10:05:59 INFO  Linker - generating correct CVE links ... done
+2019-04-17 10:05:59 INFO  CVEParser - adding CVE Metamodel
+2019-04-17 10:05:59 INFO  CVEParser - Done!
+2019-04-17 10:05:59 INFO  CVEParser - [Year-2015] CVE Processing is done in 22 seconds
+2019-04-17 10:06:02 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-17 10:06:02 INFO  CVETool - WITH <http://w3id.org/sepses/graph/cve> DELETE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o } WHERE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o }
+2019-04-17 10:06:03 INFO  CVEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cve
+2019-04-17 10:06:03 INFO  VirtuosoStorage - output/cve/nvdcve-2.0-2015.xml.zip-output.ttl
+2019-04-17 10:06:12 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 10:06:12 INFO  VirtuosoStorage - Writing process for 'output/cve/nvdcve-2.0-2015.xml.zip-output.ttl' took 9 seconds
+2019-04-17 10:06:12 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2016.meta
+2019-04-17 10:06:13 INFO  CVEParser - generate cve meta model
+2019-04-17 10:06:13 INFO  CVEParser - Downloading resource from internet...
+2019-04-17 10:06:15 INFO  CVEParser - Downloading resource Done!
+2019-04-17 10:06:15 INFO  CVEParser - Unzipping resource to...
+2019-04-17 10:06:15 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cve/nvdcve-2.0-2016.xml Done!
+2019-04-17 10:06:15 INFO  CVEParser - Injecting xml file...
+2019-04-17 10:06:16 INFO  CVEParser -  Done!
+2019-04-17 10:06:16 INFO  CVEParser - Parsing xml to rdf...
+2019-04-17 10:06:16 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-17 10:06:17 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-17 10:06:21 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-17 10:06:25 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-17 10:06:26 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-17 10:06:29 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-17 10:06:30 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-17 10:06:31 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-17 10:06:39 INFO  Linker - generating correct CVE links
+2019-04-17 10:06:41 INFO  Linker - generating correct CVE links ... done
+2019-04-17 10:06:41 INFO  CVEParser - adding CVE Metamodel
+2019-04-17 10:06:41 INFO  CVEParser - Done!
+2019-04-17 10:06:41 INFO  CVEParser - [Year-2016] CVE Processing is done in 29 seconds
+2019-04-17 10:06:45 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-17 10:06:45 INFO  CVETool - WITH <http://w3id.org/sepses/graph/cve> DELETE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o } WHERE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o }
+2019-04-17 10:06:45 INFO  CVEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cve
+2019-04-17 10:06:45 INFO  VirtuosoStorage - output/cve/nvdcve-2.0-2016.xml.zip-output.ttl
+2019-04-17 10:06:57 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 10:06:57 INFO  VirtuosoStorage - Writing process for 'output/cve/nvdcve-2.0-2016.xml.zip-output.ttl' took 12 seconds
+2019-04-17 10:06:57 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2017.meta
+2019-04-17 10:06:57 INFO  CVEParser - generate cve meta model
+2019-04-17 10:06:57 INFO  CVEParser - Downloading resource from internet...
+2019-04-17 10:07:01 INFO  CVEParser - Downloading resource Done!
+2019-04-17 10:07:01 INFO  CVEParser - Unzipping resource to...
+2019-04-17 10:07:02 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cve/nvdcve-2.0-2017.xml Done!
+2019-04-17 10:07:02 INFO  CVEParser - Injecting xml file...
+2019-04-17 10:07:04 INFO  CVEParser -  Done!
+2019-04-17 10:07:04 INFO  CVEParser - Parsing xml to rdf...
+2019-04-17 10:07:05 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-17 10:07:07 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-17 10:07:27 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-17 10:07:40 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-17 10:07:53 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-17 10:07:57 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-17 10:07:59 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-17 10:08:05 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-17 10:08:35 INFO  Linker - generating correct CVE links
+2019-04-17 10:08:44 INFO  Linker - generating correct CVE links ... done
+2019-04-17 10:08:44 INFO  CVEParser - adding CVE Metamodel
+2019-04-17 10:08:44 INFO  CVEParser - Done!
+2019-04-17 10:08:44 INFO  CVEParser - [Year-2017] CVE Processing is done in 107 seconds
+2019-04-17 10:08:57 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-17 10:08:57 INFO  CVETool - WITH <http://w3id.org/sepses/graph/cve> DELETE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o } WHERE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o }
+2019-04-17 10:08:58 INFO  CVEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cve
+2019-04-17 10:08:58 INFO  VirtuosoStorage - output/cve/nvdcve-2.0-2017.xml.zip-output.ttl
+2019-04-17 10:09:24 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 10:09:24 INFO  VirtuosoStorage - Writing process for 'output/cve/nvdcve-2.0-2017.xml.zip-output.ttl' took 26 seconds
+2019-04-17 10:09:24 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2018.meta
+2019-04-17 10:09:25 INFO  CVEParser - generate cve meta model
+2019-04-17 10:09:25 INFO  CVEParser - Downloading resource from internet...
+2019-04-17 10:09:28 INFO  CVEParser - Downloading resource Done!
+2019-04-17 10:09:28 INFO  CVEParser - Unzipping resource to...
+2019-04-17 10:09:30 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cve/nvdcve-2.0-2018.xml Done!
+2019-04-17 10:09:30 INFO  CVEParser - Injecting xml file...
+2019-04-17 10:09:32 INFO  CVEParser -  Done!
+2019-04-17 10:09:32 INFO  CVEParser - Parsing xml to rdf...
+2019-04-17 10:09:32 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-17 10:09:36 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-17 10:10:07 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-17 10:10:40 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-17 10:10:51 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-17 10:11:00 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-17 10:11:10 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-17 10:11:24 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-17 10:12:15 INFO  Linker - generating correct CVE links
+2019-04-17 10:12:33 INFO  Linker - generating correct CVE links ... done
+2019-04-17 10:12:33 INFO  CVEParser - adding CVE Metamodel
+2019-04-17 10:12:33 INFO  CVEParser - Done!
+2019-04-17 10:12:33 INFO  CVEParser - [Year-2018] CVE Processing is done in 189 seconds
+2019-04-17 10:12:46 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-17 10:12:46 INFO  CVETool - WITH <http://w3id.org/sepses/graph/cve> DELETE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o } WHERE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o }
+2019-04-17 10:12:47 INFO  CVEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cve
+2019-04-17 10:12:47 INFO  VirtuosoStorage - output/cve/nvdcve-2.0-2018.xml.zip-output.ttl
+2019-04-17 10:13:21 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 10:13:21 INFO  VirtuosoStorage - Writing process for 'output/cve/nvdcve-2.0-2018.xml.zip-output.ttl' took 34 seconds
+2019-04-17 10:13:21 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2019.meta
+2019-04-17 10:13:22 INFO  CVEParser - generate cve meta model
+2019-04-17 10:13:22 INFO  CVEParser - Downloading resource from internet...
+2019-04-17 10:13:24 INFO  CVEParser - Downloading resource Done!
+2019-04-17 10:13:24 INFO  CVEParser - Unzipping resource to...
+2019-04-17 10:13:24 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cve/nvdcve-2.0-2019.xml Done!
+2019-04-17 10:13:24 INFO  CVEParser - Injecting xml file...
+2019-04-17 10:13:25 INFO  CVEParser -  Done!
+2019-04-17 10:13:25 INFO  CVEParser - Parsing xml to rdf...
+2019-04-17 10:13:25 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-17 10:13:25 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-17 10:13:30 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-17 10:13:35 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-17 10:13:37 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-17 10:13:38 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-17 10:13:38 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-17 10:13:39 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-17 10:13:46 INFO  Linker - generating correct CVE links
+2019-04-17 10:13:47 INFO  Linker - generating correct CVE links ... done
+2019-04-17 10:13:47 INFO  CVEParser - adding CVE Metamodel
+2019-04-17 10:13:47 INFO  CVEParser - Done!
+2019-04-17 10:13:47 INFO  CVEParser - [Year-2019] CVE Processing is done in 26 seconds
+2019-04-17 10:13:50 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-17 10:13:50 INFO  CVETool - WITH <http://w3id.org/sepses/graph/cve> DELETE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o } WHERE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o }
+2019-04-17 10:13:51 INFO  CVEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cve
+2019-04-17 10:13:51 INFO  VirtuosoStorage - output/cve/nvdcve-2.0-2019.xml.zip-output.ttl
+2019-04-17 10:13:58 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 10:13:58 INFO  VirtuosoStorage - Writing process for 'output/cve/nvdcve-2.0-2019.xml.zip-output.ttl' took 7 seconds
+2019-04-17 10:13:58 INFO  CVEParser - Checking resource meta from https://nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-modified.meta
+2019-04-17 10:13:58 INFO  CVEParser - generate cve meta model
+2019-04-17 10:13:58 INFO  CVEParser - Downloading resource from internet...
+2019-04-17 10:13:59 INFO  CVEParser - Downloading resource Done!
+2019-04-17 10:13:59 INFO  CVEParser - Unzipping resource to...
+2019-04-17 10:13:59 INFO  CVEParser - /Users/juang/CodeRepo/Sepses/cyber-kb/input/cve/nvdcve-2.0-modified.xml Done!
+2019-04-17 10:13:59 INFO  CVEParser - Injecting xml file...
+2019-04-17 10:13:59 INFO  CVEParser -  Done!
+2019-04-17 10:13:59 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-17 10:14:10 INFO  CVEParser - Done!
+2019-04-17 10:14:10 INFO  CVEParser - Found New CVE: 0
+2019-04-17 10:14:10 INFO  CVEParser - Found modified CVE : 4
+2019-04-17 10:14:10 INFO  CVEParser - Found existing CVE : 918
+2019-04-17 10:14:10 INFO  CVEParser - Parsing xml to rdf...
+2019-04-17 10:14:10 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEMapping>
+2019-04-17 10:14:10 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEhasCPE>
+2019-04-17 10:14:12 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef1>
+2019-04-17 10:14:13 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEFactRef2>
+2019-04-17 10:14:13 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEReferenceMapping>
+2019-04-17 10:14:13 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVEVulnerableConfigurationMapping>
+2019-04-17 10:14:14 INFO  RmlMapper - Mapping triples map: <http://none.com/#CPELogicalTestMapping>
+2019-04-17 10:14:14 INFO  RmlMapper - Mapping triples map: <http://none.com/#CVSS2BaseMetricMapping>
+2019-04-17 10:14:16 INFO  Linker - generating correct CVE links
+2019-04-17 10:14:16 INFO  Linker - generating correct CVE links ... done
+2019-04-17 10:14:16 INFO  CVEParser - adding CVE Metamodel
+2019-04-17 10:14:16 INFO  CVEParser - Done!
+2019-04-17 10:14:16 INFO  CVEParser - [Year-1] CVE Processing is done in 18 seconds
+2019-04-17 10:14:17 INFO  CVEParser - delete previous CVE metadata in the triple store
+2019-04-17 10:14:17 INFO  CVETool - WITH <http://w3id.org/sepses/graph/cve> DELETE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o } WHERE { ?s <http://w3id.org/sepses/vocab/ref/cve#metaSHA256> ?o }
+2019-04-17 10:14:17 INFO  CVEParser - Store data to http://localhost:8890/sparql using graph http://w3id.org/sepses/graph/cve
+2019-04-17 10:14:17 INFO  VirtuosoStorage - output/cve/nvdcve-2.0-modified.xml.zip-output.ttl
+2019-04-17 10:14:20 INFO  VirtuosoStorage - Data stored successfully
+2019-04-17 10:14:20 INFO  VirtuosoStorage - Writing process for 'output/cve/nvdcve-2.0-modified.xml.zip-output.ttl' took 3 seconds
+2019-04-17 10:14:20 INFO  MainParser - ************* CVE parser finished
+2019-04-17 10:14:20 INFO  MainParser - Transformation process finished in 1093 seconds (18 minutes 13 seconds)

@@ -1,31 +1,44 @@
 package ac.at.tuwien.ifs.sepses.storage.impl;
 
 import ac.at.tuwien.ifs.sepses.storage.Storage;
-import org.apache.jena.query.ParameterizedSparqlString;
-import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.ResourceFactory;
-import org.apache.jena.update.UpdateExecutionFactory;
-import org.apache.jena.update.UpdateFactory;
-import org.apache.jena.update.UpdateProcessor;
-import org.apache.jena.update.UpdateRequest;
+import ac.at.tuwien.ifs.sepses.storage.tool.StorageHelper;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.io.InputStream;
 
-public class VirtuosoStorage implements Storage {
+public enum VirtuosoStorage implements Storage {
+
+    INSTANCE();
 
     private static final Logger log = LoggerFactory.getLogger(VirtuosoStorage.class);
+
+    public static VirtuosoStorage getInstance() {
+        return INSTANCE;
+    }
 
     @Override public void storeData(String file, String endpoint, String namegraph, Boolean isUseAuth, String user,
             String pass) {
         try {
             log.info(file);
-            // e.g., endpoint = 'http://localhost:8890/'
-            String url = endpoint + "sparql-graph-crud-auth?graph-uri=" + namegraph;
-            String command = "curl --digest -u " + user + ":" + pass + " -v -X PUT -T " + file + " " + url;
-            Runtime.getRuntime().exec(command);
+            if (!isUseAuth) {
+                log.error("not handled yet");
+                return;
+            }
+
+            long start = System.currentTimeMillis() / 1000;
+
+            String url = endpoint + "-graph-crud-auth?graph-uri=" + namegraph;
+            String command = "curl --digest -u " + user + ":" + pass + " -v -X POST -T " + file + " " + url;
+            Process process = Runtime.getRuntime().exec(command);
+            InputStream is = process.getInputStream();
+            IOUtils.copy(is, System.out);
             log.info("Data stored successfully");
+
+            long end = System.currentTimeMillis() / 1000;
+            log.info("Writing process for '" + file + "' took " + (end - start) + " seconds");
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         }
@@ -35,31 +48,31 @@ public class VirtuosoStorage implements Storage {
     @Override public void replaceData(String file, String endpoint, String namegraph, Boolean isUseAuth, String user,
             String pass) {
         try {
+
+            long start = System.currentTimeMillis() / 1000;
+
             log.info(file);
-            // e.g., endpoint = 'http://localhost:8890/'
-            String url = endpoint + "sparql-graph-crud-auth?graph-uri=" + namegraph;
-            String command = "curl --digest -u " + user + ":" + pass + " -v -X POST -T " + file + " " + url;
-            Runtime.getRuntime().exec(command);
+            if (!isUseAuth) {
+                log.error("not handled yet");
+                return;
+            }
+            String url = endpoint + "-graph-crud-auth?graph-uri=" + namegraph;
+            String command = "curl --digest -u " + user + ":" + pass + " -v -X PUT -T " + file + " " + url;
+            Process process = Runtime.getRuntime().exec(command);
+            InputStream is = process.getInputStream();
+            IOUtils.copy(is, System.out);
             log.info("Data stored successfully");
+
+            long end = System.currentTimeMillis() / 1000;
+            log.info("Writing process for '" + file + "' took " + (end - start) + " seconds");
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         }
 
     }
 
-    @Override public void deleteData(String endpoint, String namegraph, Boolean isUseAuth, String user, String pass) {
-
-        if (isUseAuth) {
-            log.error("Auth is not handled yet");
-            return;
-        }
-        ParameterizedSparqlString query = new ParameterizedSparqlString("DROP GRAPH ?graph");
-        Resource graphResource = ResourceFactory.createResource(namegraph);
-        query.setParam("graph", graphResource);
-        UpdateRequest updateRequest = UpdateFactory.create(query.toString());
-        UpdateProcessor processor = UpdateExecutionFactory.createRemote(updateRequest, endpoint);
-
-        processor.execute();
-
+    @Override public void executeUpdate(String endpoint, String query, Boolean isUseAuth, String user, String pass) {
+        endpoint = endpoint + "-auth";
+        StorageHelper.executeUpdate(endpoint, query, isUseAuth, user, pass);
     }
 }

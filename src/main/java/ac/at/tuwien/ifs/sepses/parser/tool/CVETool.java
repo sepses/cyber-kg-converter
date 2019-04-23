@@ -1,13 +1,10 @@
 package ac.at.tuwien.ifs.sepses.parser.tool;
 
+import ac.at.tuwien.ifs.sepses.storage.Storage;
 import ac.at.tuwien.ifs.sepses.vocab.CVE;
 import org.apache.commons.io.IOUtils;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.*;
-import org.apache.jena.update.UpdateExecutionFactory;
-import org.apache.jena.update.UpdateFactory;
-import org.apache.jena.update.UpdateProcessor;
-import org.apache.jena.update.UpdateRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,8 +16,8 @@ public class CVETool {
 
     private static final Logger log = LoggerFactory.getLogger(CVETool.class);
 
-    public static ArrayList<String>[] checkExistingCVE(Model CVEModelTemp, String sparqlEndpoint, String CVEGraphName)
-            throws IOException {
+    public static ArrayList<String>[] checkExistingCVE(Storage storage, Model CVEModelTemp, String sparqlEndpoint,
+            String CVEGraphName, Boolean isUseAuth, String user, String pass) throws IOException {
 
         //select all CVE on CVEModelTemp
         String queryTemp =
@@ -51,7 +48,7 @@ public class CVETool {
                 if (co2.equals("0^^http://www.w3.org/2001/XMLSchema#integer")) {
                     //need updates
                     CVEUpdate.add(cveId.toString());
-                    deleteCVE(sparqlEndpoint, cveRes.asResource(), CVEGraphName);
+                    deleteCVE(storage, sparqlEndpoint, cveRes.asResource(), CVEGraphName, isUseAuth, user, pass);
                 } else {
                     //leave it
                     CVELeave.add(cveId.toString());
@@ -108,15 +105,8 @@ public class CVETool {
         return c;
     }
 
-    /**
-     * Delete older CVEs and replace them with the new version from incoming data
-     *
-     * @param endpoint    SPARQL endpoint
-     * @param cveInstance CVE instance
-     * @param graphName   named Graph
-     * @throws IOException
-     */
-    private static void deleteCVE(String endpoint, Resource cveInstance, String graphName) throws IOException {
+    private static void deleteCVE(Storage storage, String endpoint, Resource cveInstance, String graphName,
+            Boolean isUseAuth, String user, String pass) throws IOException {
         InputStream is = CVETool.class.getClassLoader().getResourceAsStream("sparql/deleteCVE.sparql");
         String query = IOUtils.toString(is, Charset.defaultCharset());
 
@@ -125,9 +115,7 @@ public class CVETool {
         deleteQuery.setParam("cve", cveInstance);
         deleteQuery.setNsPrefix("cve", CVE.NS);
 
-        UpdateRequest updateRequest = UpdateFactory.create(deleteQuery.toString());
-        UpdateProcessor updateProcessor = UpdateExecutionFactory.createRemote(updateRequest, endpoint);
-        updateProcessor.execute();
+        storage.executeUpdate(endpoint, deleteQuery.toString(), isUseAuth, user, pass);
 
     }
 
@@ -151,19 +139,23 @@ public class CVETool {
 
     public static Model generateCVEMetaTriple(String metaSHA, int year) {
         Model CVEMetaModel = ModelFactory.createDefaultModel();
-        Property metaSHA256 = CVEMetaModel.createProperty("http://w3id.org/sepses/vocab/ref/cve#metaSHA256");
-        Resource CVEMeta1 = CVEMetaModel.createResource("http://w3id.org/sepses/resource/cve/meta/cveMeta" + year);
+        Property metaSHA256 = CVE.META_SHA_256;
+        Resource CVEMeta1 = CVEMetaModel.createResource(CVE.NS_INSTANCE + "meta/cveMeta" + year);
         CVEMetaModel.add(CVEMeta1, metaSHA256, metaSHA);
         return CVEMetaModel;
 
     }
 
-    public static void deleteCVEMeta(String CyberKnowledgeEp, String Namegraph) {
-        String p = "<http://w3id.org/sepses/vocab/ref/cve#metaSHA256>";
-        String Query = "with  <" + Namegraph + "> DELETE { ?s ?p ?o }  WHERE { ?s ?p ?o.  filter (?p = " + p + ")}";
-        UpdateRequest QCVE1 = UpdateFactory.create(Query);
-        UpdateProcessor qeQCVE1 = UpdateExecutionFactory.createRemote(QCVE1, CyberKnowledgeEp);
-        qeQCVE1.execute();
+    public static void deleteCVEMeta(Storage storage, String endpoint, String namegraph, boolean isUseAuth,
+            String user, String pass) {
+        Resource graphResource = ResourceFactory.createResource(namegraph);
+        ParameterizedSparqlString query =
+                new ParameterizedSparqlString("WITH ?g DELETE { ?s ?p ?o } WHERE { ?s ?p ?o }");
+        query.setParam("p", CVE.META_SHA_256);
+        query.setParam("g", graphResource);
+        log.info(query.toString());
+
+        storage.executeUpdate(endpoint, query.toString(), isUseAuth, user, pass);
     }
 
 }

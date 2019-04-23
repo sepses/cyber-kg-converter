@@ -1,11 +1,11 @@
 package ac.at.tuwien.ifs.sepses.parser.impl;
 
 import ac.at.tuwien.ifs.sepses.helper.DownloadUnzip;
+import ac.at.tuwien.ifs.sepses.helper.Utility;
+import ac.at.tuwien.ifs.sepses.helper.XMLParser;
 import ac.at.tuwien.ifs.sepses.parser.Parser;
 import ac.at.tuwien.ifs.sepses.parser.tool.Linker;
-import ac.at.tuwien.ifs.sepses.helper.XMLParser;
 import ac.at.tuwien.ifs.sepses.storage.Storage;
-import ac.at.tuwien.ifs.sepses.helper.Utility;
 import ac.at.tuwien.ifs.sepses.vocab.CWE;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;

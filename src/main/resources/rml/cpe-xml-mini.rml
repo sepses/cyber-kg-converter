@@ -20,7 +20,7 @@
         rml:iterator "/cpe-list/cpe-item"
     ];
     rr:subjectMap [
-        rr:template "http://w3id.org/sepses/resource/cpe/{translate(@name,':/~%','')}";
+        rr:template "http://w3id.org/sepses/resource/cpe/{translate(@name,':/~%-','')}";
     ];
     rr:predicateObjectMap [
         rr:predicate rdf:type;
@@ -65,10 +65,10 @@
              a carml:Stream;
         ];
         rml:referenceFormulation ql:XPath;
-        rml:iterator "/cpe-list/cpe-item"
+        rml:iterator "/cpe-list/cpe-item/cpe-23:cpe23-item"
     ];
     rr:subjectMap [
-        rr:template "http://w3id.org/sepses/resource/cpe/vendor/{tokenize(cpe-23:cpe23-item/@name,':')[4]}";
+        rr:template "http://w3id.org/sepses/resource/cpe/vendor/{tokenize(@name,':')[4]}";
     ];
     rr:predicateObjectMap [
         rr:predicate rdf:type;
@@ -76,7 +76,7 @@
     ];
     rr:predicateObjectMap [
         rr:predicate cpe:vendorName;
-        rr:objectMap [ rml:reference "tokenize(cpe-23:cpe23-item/@name,':')[4]"];
+        rr:objectMap [ rml:reference "tokenize(@name,':')[4]"];
         rr:datatype xsd:string ;
     ];
 .
@@ -87,10 +87,10 @@
             a carml:Stream;
         ];
         rml:referenceFormulation ql:XPath;
-        rml:iterator "/cpe-list/cpe-item"
+        rml:iterator "/cpe-list/cpe-item/cpe-23:cpe23-item"
     ];
     rr:subjectMap [
-        rr:template "http://w3id.org/sepses/resource/cpe/product/{tokenize(cpe-23:cpe23-item/@name,':')[5]}";
+        rr:template "http://w3id.org/sepses/resource/cpe/product/{tokenize(@name,':')[5]}";
     ];
     rr:predicateObjectMap [
         rr:predicate rdf:type;
@@ -98,12 +98,12 @@
     ];
     rr:predicateObjectMap [
         rr:predicate cpe:productName;
-        rr:objectMap [ rml:reference "tokenize(cpe-23:cpe23-item/@name,':')[5]"];
+        rr:objectMap [ rml:reference "tokenize(@name,':')[5]"];
         rr:datatype xsd:string ;
     ];
     rr:predicateObjectMap [
         rr:predicate cpe:hasVendor;
-        rr:objectMap [   rr:template "http://w3id.org/sepses/resource/cpe/vendor/{tokenize(cpe-23:cpe23-item/@name,':')[4]}" ];
+        rr:objectMap [   rr:template "http://w3id.org/sepses/resource/cpe/vendor/{tokenize(@name,':')[4]}" ];
     ];
 .
 

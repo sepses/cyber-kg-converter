@@ -1,11 +1,11 @@
 package ac.at.tuwien.ifs.sepses.parser.impl;
 
 import ac.at.tuwien.ifs.sepses.helper.DownloadUnzip;
+import ac.at.tuwien.ifs.sepses.helper.Utility;
+import ac.at.tuwien.ifs.sepses.helper.XMLParser;
 import ac.at.tuwien.ifs.sepses.parser.Parser;
 import ac.at.tuwien.ifs.sepses.parser.tool.Linker;
-import ac.at.tuwien.ifs.sepses.helper.XMLParser;
 import ac.at.tuwien.ifs.sepses.storage.Storage;
-import ac.at.tuwien.ifs.sepses.helper.Utility;
 import ac.at.tuwien.ifs.sepses.vocab.CAPEC;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
@@ -113,9 +113,8 @@ public class CAPECParser implements Parser {
 
         // Step 4 - Checking whether CAPEC is up-to-date ...
         log.info("Checking updates from " + sparqlEndpoint + " using graphname " + namegraph);
-        Boolean cat = Utility
-                .checkIsUpToDate(XMLParser.Parse(capecXML, rmlMetaModel), sparqlEndpoint, namegraph,
-                        CAPEC.ATTACK_PATTERN_CATALOG);
+        Boolean cat = Utility.checkIsUpToDate(XMLParser.Parse(capecXML, rmlMetaModel), sparqlEndpoint, namegraph,
+                CAPEC.ATTACK_PATTERN_CATALOG);
         if (cat) {
             log.info("CAPEC is up-to-date...! ");
             model = ModelFactory.createDefaultModel();

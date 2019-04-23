@@ -1,15 +1,9 @@
 package ac.at.tuwien.ifs.sepses.storage.impl;
 
 import ac.at.tuwien.ifs.sepses.storage.Storage;
+import ac.at.tuwien.ifs.sepses.storage.tool.StorageHelper;
 import com.sun.javafx.PlatformUtil;
 import org.apache.commons.io.IOUtils;
-import org.apache.jena.query.ParameterizedSparqlString;
-import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.ResourceFactory;
-import org.apache.jena.update.UpdateExecutionFactory;
-import org.apache.jena.update.UpdateFactory;
-import org.apache.jena.update.UpdateProcessor;
-import org.apache.jena.update.UpdateRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,6 +25,7 @@ public enum FusekiStorage implements Storage {
             String pass) {
         if (isUseAuth) {
             log.error("not handled yet");
+            return;
         }
 
         long start = System.currentTimeMillis() / 1000;
@@ -80,18 +75,8 @@ public enum FusekiStorage implements Storage {
 
     }
 
-    @Override public void deleteData(String endpoint, String namegraph, Boolean isUseAuth, String user, String pass) {
-
-        if (isUseAuth) {
-            log.error("Auth in Fuseki is not handled yet");
-            return;
-        }
-        ParameterizedSparqlString query = new ParameterizedSparqlString("DROP GRAPH ?graph");
-        Resource graphResource = ResourceFactory.createResource(namegraph);
-        query.setParam("graph", graphResource);
-        UpdateRequest updateRequest = UpdateFactory.create(query.toString());
-        UpdateProcessor processor = UpdateExecutionFactory.createRemote(updateRequest, endpoint);
-
-        processor.execute();
+    @Override public void executeUpdate(String endpoint, String query, Boolean isUseAuth, String user, String pass) {
+        endpoint = endpoint + "/update";
+        StorageHelper.executeUpdate(endpoint, query, isUseAuth, user, pass);
     }
 }

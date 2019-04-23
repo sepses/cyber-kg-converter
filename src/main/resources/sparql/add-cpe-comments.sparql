@@ -1,0 +1,17 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cpe: <http://w3id.org/sepses/vocab/ref/cpe#>
+PREFIX cve: <http://w3id.org/sepses/vocab/ref/cve#>
+
+INSERT {
+  GRAPH <http://w3id.org/sepses/graph/cpe> {
+	?s a cpe:CPE ;
+       cpe:cpe23 ?cpe23 ;
+	   rdfs:comment "CPE is not available in NVD database" .
+  }
+}
+WHERE {
+    ?s a cpe:CPE .
+    ?s cpe:cpe23 ?cpe23 .
+    OPTIONAL { ?s cpe:id ?id }
+    FILTER (!BOUND(?id))
+}

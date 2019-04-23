@@ -2,6 +2,7 @@ package ac.at.tuwien.ifs.sepses.helper;
 
 import ac.at.tuwien.ifs.sepses.storage.Storage;
 import ac.at.tuwien.ifs.sepses.storage.impl.FusekiStorage;
+import ac.at.tuwien.ifs.sepses.storage.impl.VirtuosoStorage;
 import ac.at.tuwien.ifs.sepses.vocab.*;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.*;
@@ -33,8 +34,8 @@ public class Utility {
      * @return true if existing catalog id the same with the new catalog id
      * @throws IOException
      */
-    public static boolean checkIsUpToDate(Model metaModel, String endpoint, String graph,
-            Resource catalogResource) throws IOException {
+    public static boolean checkIsUpToDate(Model metaModel, String endpoint, String graph, Resource catalogResource)
+            throws IOException {
 
         ParameterizedSparqlString queryString1 =
                 new ParameterizedSparqlString("select ?s from ?graph where { ?s a ?catalog }");
@@ -184,6 +185,9 @@ public class Utility {
         if (triplestore.equalsIgnoreCase("fuseki")) {
             log.info("Fuseki triplestore is selected");
             return FusekiStorage.getInstance();
+        } else if (triplestore.equalsIgnoreCase("virtuoso")) {
+            log.info("Virtuoso triplestore is selected");
+            return VirtuosoStorage.getInstance();
         } else {
             log.error("Triplestore type is not supported !!!");
             return null;
