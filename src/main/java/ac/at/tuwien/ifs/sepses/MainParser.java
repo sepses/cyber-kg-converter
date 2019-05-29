@@ -5,6 +5,10 @@ import ac.at.tuwien.ifs.sepses.parser.impl.CAPECParser;
 import ac.at.tuwien.ifs.sepses.parser.impl.CPEParser;
 import ac.at.tuwien.ifs.sepses.parser.impl.CVEParser;
 import ac.at.tuwien.ifs.sepses.parser.impl.CWEParser;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Options;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,41 +20,50 @@ public class MainParser {
     private static final Logger log = LoggerFactory.getLogger(MainParser.class);
 
     public static void main(String[] args) throws Exception {
+
+        Options options = new Options();
+        options.addOption("p", true, "Type of parser (cpe, cve, cwe, capec)");
+        options.addOption("v", false, "Activation of the SHACL validation");
+
+        CommandLineParser parser = new DefaultParser();
+        CommandLine cmd = parser.parse(options, args);
+        String program = cmd.getOptionValue("p");
+        Boolean isShaclActive = cmd.hasOption("v");
+
+        Parser sourceParser;
         Properties prop = new Properties();
         FileInputStream ip = new FileInputStream("config.properties");
         prop.load(ip);
-        Parser capecParser = new CAPECParser(prop);
-        Parser cweParser = new CWEParser(prop);
-        Parser cpeParser = new CPEParser(prop);
-        Parser cveParser = new CVEParser(prop);
+        ip.close();
 
-        long start = System.currentTimeMillis() / 1000;
+        long start = System.currentTimeMillis();
         long end;
+        if (program.equals("capec")) {
+            log.info("start CAPEC parser");
+            sourceParser = new CAPECParser(prop);
+            sourceParser.parse(isShaclActive);
+            log.info("************* CAPEC parser finished");
+        } else if (program.equals("cpe")) {
+            log.info("start CPE parser");
+            sourceParser = new CPEParser(prop);
+            sourceParser.parse(isShaclActive);
+            log.info("************* CPE parser finished");
+        } else if (program.equals("cwe")) {
+            log.info("start CWE parser");
+            sourceParser = new CWEParser(prop);
+            sourceParser.parse(isShaclActive);
+            log.info("************* CWE parser finished");
+        } else if (program.equals("cve")) {
+            log.info("start CVE parser");
+            sourceParser = new CVEParser(prop);
+            sourceParser.parse(isShaclActive);
+            log.info("************* CVE parser finished");
+        }
 
-        // *** parse source files in the following order
-
-        // 1. CAPEC
-        log.info("start CAPEC parser");
-        capecParser.parse();
-        log.info("************* CAPEC parser finished");
-
-        // 2. CWE
-        log.info("start CWE parser");
-        cweParser.parse();
-        log.info("************* CWE parser finished");
-
-        // 3. CPE
-        log.info("start CPE parser");
-        cpeParser.parse();
-        log.info("************* CPE parser finished");
-
-        // 4. CVE
-        log.info("start CVE parser");
-        cveParser.parse();
-        log.info("************* CVE parser finished");
-
-        end = System.currentTimeMillis() / 1000;
-        log.info("Transformation process finished in " + (end - start) + " seconds");
+        end = System.currentTimeMillis();
+        log.info("Transformation process finished in " + (end - start) + " milliseconds");
+        System.gc();
+        Thread.sleep(5000);
     }
 
 }
