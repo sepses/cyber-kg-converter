@@ -9,8 +9,10 @@ import ac.at.tuwien.ifs.sepses.storage.Storage;
 import ac.at.tuwien.ifs.sepses.vocab.CAPEC;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.ResourceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.topbraid.shacl.vocabulary.SH;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -60,19 +62,27 @@ public class CAPECParser implements Parser {
         Properties prop = new Properties();
         FileInputStream ip = new FileInputStream("config.properties");
         prop.load(ip);
+        ip.close();
 
         Parser parser = new CAPECParser(prop);
-        parser.parse();
+        parser.parse(false);
     }
 
-    @Override public void parse() throws IOException {
+    @Override public void parse(Boolean isShaclActive) throws IOException {
 
         if (!active.equals("Yes")) {
             log.warn("Sorry, CAPEC Parser is inactive.. please activate it in the config file !");
 
         } else {
             Model model = getModelFromLastUpdate();
-            if (!model.isEmpty()) {
+            if (isShaclActive) {
+                Model checkResults = Utility.validateWithShacl("shacl/capec.ttl", model);
+                if (checkResults.contains(null, SH.conforms, ResourceFactory.createTypedLiteral(false))) {
+                    throw new IOException("CAPEC Validation Error: " + checkResults.toString());
+                }
+                checkResults.close();
+                log.info("CAPEC Validation Succeeded");
+            } else if (!model.isEmpty()) {
                 String filename = saveModelToFile(model);
                 storeFileInRepo(filename);
             }
