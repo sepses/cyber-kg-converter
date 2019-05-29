@@ -109,6 +109,7 @@ public class CVETool {
             Boolean isUseAuth, String user, String pass) throws IOException {
         InputStream is = CVETool.class.getClassLoader().getResourceAsStream("sparql/deleteCVE.sparql");
         String query = IOUtils.toString(is, Charset.defaultCharset());
+        is.close();
 
         ParameterizedSparqlString deleteQuery = new ParameterizedSparqlString(query);
         deleteQuery.setParam("graph", ResourceFactory.createResource(graphName));
@@ -122,7 +123,10 @@ public class CVETool {
     public static String readMetaSHA(String CVEMeta) {
         String metaSHA256 = "";
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(CVEMeta)));
+
+            InputStream fis = new FileInputStream(CVEMeta);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader reader = new BufferedReader(isr);
             String co = null;
             int c = 0;
             while ((co = reader.readLine()) != null) {
@@ -131,6 +135,9 @@ public class CVETool {
                     metaSHA256 = co;
                 }
             }
+            reader.close();
+            isr.close();
+            fis.close();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }

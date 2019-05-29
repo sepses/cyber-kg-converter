@@ -34,6 +34,7 @@ public class TestCVEParser {
     @BeforeClass public static void beforeClass() throws IOException {
         FileInputStream ip = new FileInputStream("config.properties");
         properties.load(ip);
+        ip.close();
         endpoint = properties.getProperty("SparqlEndpoint");
         outputDir = properties.getProperty("OutputDir") + "/cve/";
         shaclResult = outputDir + "cve-shacl-result.ttl";
@@ -42,6 +43,7 @@ public class TestCVEParser {
         parser = new CVEParser(properties);
         InputStream is = TestCVEParser.class.getClassLoader().getResourceAsStream("shacl/cve.ttl");
         RDFDataMgr.read(constraints, is, Lang.TURTLE);
+        is.close();
     }
 
     @Test public void testCPEConfig() {

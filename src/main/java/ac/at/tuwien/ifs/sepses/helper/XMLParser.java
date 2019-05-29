@@ -17,6 +17,14 @@ import java.util.Set;
 
 public class XMLParser {
 
+    /**
+     * return turtle file name generated with caRML and RML mappings.
+     *
+     * @param xmlFileName
+     * @param rmlFile
+     * @return
+     * @throws IOException
+     */
     public static Model Parse(String xmlFileName, String rmlFile) throws IOException {
 
         // load RML file and all supporting functions
@@ -30,16 +38,24 @@ public class XMLParser {
 
         // write it out to an turtle file
         org.eclipse.rdf4j.model.Model sesameModel = mapper.map(mapping);
+        is.close();
+        instances.close();
 
         // create a temp file and return jena model
         File file = File.createTempFile("model3", ".ttl");
         file.deleteOnExit();
-        Rio.write(sesameModel, new FileOutputStream(file), RDFFormat.TURTLE); // write mapping
+        OutputStream tempOutput = new FileOutputStream(file);
+        Rio.write(sesameModel, tempOutput, RDFFormat.TURTLE); // write mapping
+        sesameModel.clear();
+        tempOutput.flush();
+        tempOutput.close();
 
         // create jena model
         Model model = ModelFactory.createDefaultModel();
         model.setNsPrefixes(Utility.getPrefixes());
-        RDFDataMgr.read(model, new FileInputStream(file), Lang.TURTLE);
+        InputStream tempInput = new FileInputStream(file);
+        RDFDataMgr.read(model, tempInput, Lang.TURTLE);
+        tempInput.close();
 
         return model;
     }

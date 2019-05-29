@@ -38,6 +38,7 @@ public enum FusekiStorage implements Storage {
             Process process = Runtime.getRuntime().exec(command);
             InputStream is = process.getInputStream();
             IOUtils.copy(is, System.out);
+            is.close();
             log.info("Data appended successfully");
         } catch (IOException e) {
             log.error(e.getMessage(), e);
@@ -65,6 +66,7 @@ public enum FusekiStorage implements Storage {
             Process process = Runtime.getRuntime().exec(command);
             InputStream is = process.getInputStream();
             IOUtils.copy(is, System.out);
+            is.close();
             log.info("Data replaced successfully");
         } catch (IOException e) {
             log.error(e.getMessage(), e);

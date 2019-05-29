@@ -35,6 +35,7 @@ public enum VirtuosoStorage implements Storage {
             Process process = Runtime.getRuntime().exec(command);
             InputStream is = process.getInputStream();
             IOUtils.copy(is, System.out);
+            is.close();
             log.info("Data stored successfully");
 
             long end = System.currentTimeMillis() / 1000;
@@ -61,6 +62,7 @@ public enum VirtuosoStorage implements Storage {
             Process process = Runtime.getRuntime().exec(command);
             InputStream is = process.getInputStream();
             IOUtils.copy(is, System.out);
+            is.close();
             log.info("Data stored successfully");
 
             long end = System.currentTimeMillis() / 1000;
