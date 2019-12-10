@@ -1,0 +1,201 @@
+
+
+#  Endpoint: https://sepses.ifs.tuwien.ac.at/sparql
+
+#
+# Recent CVEs
+#
+
+PREFIX cve: <http://w3id.org/sepses/vocab/ref/cve#>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+SELECT  ?cveId ?modified
+WHERE {
+  ?cve cve:id ?cveId .
+  ?cve dct:modified ?modified .
+ }
+ORDER BY DESC(?modified)
+
+# XML-based updates are phased out since Oct 16 - currently updating the mappings to JSON
+
+
+
+
+
+#
+# Look up CPE by product name
+#
+PREFIX cve: <http://w3id.org/sepses/vocab/ref/cve#>
+
+SELECT  ?cpeId
+WHERE {
+  ?cve cve:hasCPE ?cpeId
+  .
+  FILTER(regex(str(?cpeId), "cpeoapplemac_os_x" ))
+ }
+#ORDER BY DESC(?cpeId)
+
+
+
+
+
+
+#
+# List vulnerabilities (i.e., CVEs) for a given product (i.e., CPE).
+#
+#
+# hasCPE is based on vulnerable product in CVE
+#
+# Complex logical rules could be used to specify combinations - data is there, but queries become complex (could be materialized..)
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX asset: <http://w3id.org/sepses/vocab/bgk/assetKnowledge#>
+PREFIX cve: <http://w3id.org/sepses/vocab/ref/cve#>
+PREFIX cpe: <http://w3id.org/sepses/vocab/ref/cpe#>
+PREFIX cvss: <http://w3id.org/sepses/vocab/ref/cvss#>
+PREFIX cwe: <http://w3id.org/sepses/vocab/ref/cwe#>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+SELECT  ?cveId  ?issued ?modified
+WHERE {
+  ?cve cve:hasCPE <http://w3id.org/sepses/resource/cpe/cpeoapplemac_os_x10.14.1> .
+  ?cve cve:id ?cveId.
+  ?cve dct:issued ?issued.
+  ?cve dct:modified ?modified.
+ }
+
+
+# Limitation: Only CVEs that match this specific version here
+# wildcards not considered yet - currently adapting the ETL process to account for CPE specifications of affected versions
+
+
+
+
+#
+# List all CVSS scores for all the vulnerabilities (CVEs) for a given product (CPE).
+#
+
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX asset: <http://w3id.org/sepses/vocab/bgk/assetKnowledge#>
+PREFIX cve: <http://w3id.org/sepses/vocab/ref/cve#>
+PREFIX cpe: <http://w3id.org/sepses/vocab/ref/cpe#>
+PREFIX cvss: <http://w3id.org/sepses/vocab/ref/cvss#>
+PREFIX cwe: <http://w3id.org/sepses/vocab/ref/cwe#>
+
+
+SELECT  ?cveId ?confImpact ?integrImpact ?availImpact ?cvssScore
+WHERE {
+  ?cve cve:hasCPE <http://w3id.org/sepses/resource/cpe/cpeoapplemac_os_x10.14.1> .
+  ?cve cve:id ?cveId.
+  ?cve cve:hasCVSS2BaseMetric ?cvss2.
+  ?cvss2 cvss:confidentialityImpact ?confImpact.
+  ?cvss2 cvss:integrityImpact ?integrImpact.
+  ?cvss2 cvss:availabilityImpact ?availImpact.
+  ?cvss2 cvss:baseScore ?cvssScore.
+ }
+
+
+
+
+
+#
+# Look into information on underlying weaknesses (CWE)
+#
+
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX asset: <http://w3id.org/sepses/vocab/bgk/assetKnowledge#>
+PREFIX cve: <http://w3id.org/sepses/vocab/ref/cve#>
+PREFIX cpe: <http://w3id.org/sepses/vocab/ref/cpe#>
+PREFIX cvss: <http://w3id.org/sepses/vocab/ref/cvss#>
+PREFIX cwe: <http://w3id.org/sepses/vocab/ref/cwe#>
+
+
+SELECT  ?cveId ?cwe
+WHERE {
+  ?cve cve:hasCPE <http://w3id.org/sepses/resource/cpe/cpeoapplemac_os_x10.14.1> .
+  ?cve cve:id ?cveId.
+  ?cve cve:hasCWE ?cwe.
+ }
+
+
+# need to uncheck "Strict checking of void variables" for the following to work
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX asset: <http://w3id.org/sepses/vocab/bgk/assetKnowledge#>
+PREFIX cve: <http://w3id.org/sepses/vocab/ref/cve#>
+PREFIX cpe: <http://w3id.org/sepses/vocab/ref/cpe#>
+PREFIX cvss: <http://w3id.org/sepses/vocab/ref/cvss#>
+PREFIX cwe: <http://w3id.org/sepses/vocab/ref/cwe#>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+
+SELECT  ?name ?status ?description
+WHERE {
+  BIND(IRI("http://w3id.org/sepses/resource/cwe/CWE-125") AS ?cwe).
+  ?cwe dct:description ?description.
+  ?cwe cwe:name ?name.
+  ?cwe cwe:status ?status.
+  ?cwe dct:description ?description.
+ }
+
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX asset: <http://w3id.org/sepses/vocab/bgk/assetKnowledge#>
+PREFIX cve: <http://w3id.org/sepses/vocab/ref/cve#>
+PREFIX cpe: <http://w3id.org/sepses/vocab/ref/cpe#>
+PREFIX cvss: <http://w3id.org/sepses/vocab/ref/cvss#>
+PREFIX cwe: <http://w3id.org/sepses/vocab/ref/cwe#>
+
+
+
+#
+# Putting it all together..
+#
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX asset: <http://w3id.org/sepses/vocab/bgk/assetKnowledge#>
+PREFIX cve: <http://w3id.org/sepses/vocab/ref/cve#>
+PREFIX cpe: <http://w3id.org/sepses/vocab/ref/cpe#>
+PREFIX cvss: <http://w3id.org/sepses/vocab/ref/cvss#>
+PREFIX cwe: <http://w3id.org/sepses/vocab/ref/cwe#>
+
+
+SELECT DISTINCT ?cveId ?confImpact ?cvssScore ?commonConsequence ?consequenceImpact ?capec
+WHERE {
+  ?cve cve:hasCPE <http://w3id.org/sepses/resource/cpe/cpeoapplemac_os_x10.14.1> .
+  ?cve cve:id ?cveId.
+  ?cve cve:hasCVSS2BaseMetric ?cvss2.
+  ?cvss2 cvss:confidentialityImpact ?confImpact.
+  ?cvss2 cvss:baseScore ?cvssScore.
+  ?cve cve:hasCWE ?cwe.
+  ?cwe cwe:hasCommonConsequence ?commonConsequence.
+  ?cwe cwe:hasCAPEC ?capec.
+  ?commonConsequence cwe:consequenceImpact ?consequenceImpact
+ } ORDER BY (?cveId)
+
+
+#
+# What mitigations are available (via CWE -> CAPEC)
+#
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX asset: <http://w3id.org/sepses/vocab/bgk/assetKnowledge#>
+PREFIX cve: <http://w3id.org/sepses/vocab/ref/cve#>
+PREFIX cpe: <http://w3id.org/sepses/vocab/ref/cpe#>
+PREFIX cvss: <http://w3id.org/sepses/vocab/ref/cvss#>
+PREFIX cwe: <http://w3id.org/sepses/vocab/ref/cwe#>
+PREFIX capec: <http://w3id.org/sepses/vocab/ref/capec#>
+
+
+SELECT DISTINCT ?cveId ?cweName ?capecName ?mitigation
+WHERE {
+  ?cve cve:hasCPE <http://w3id.org/sepses/resource/cpe/cpeoapplemac_os_x10.14.1> .
+  ?cve cve:id ?cveId.
+  ?cve cve:hasCWE ?cwe.
+  ?cwe cwe:name ?cweName.
+  ?cwe cwe:hasCAPEC ?capec.
+  ?capec capec:name ?capecName.
+  ?capec capec:mitigation ?mitigation .
+ } ORDER BY (?cveId)
