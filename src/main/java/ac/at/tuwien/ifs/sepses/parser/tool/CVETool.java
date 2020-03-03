@@ -1,16 +1,23 @@
 package ac.at.tuwien.ifs.sepses.parser.tool;
 
 import ac.at.tuwien.ifs.sepses.storage.Storage;
+import ac.at.tuwien.ifs.sepses.vocab.CPE;
 import ac.at.tuwien.ifs.sepses.vocab.CVE;
 import org.apache.commons.io.IOUtils;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.*;
+import org.apache.jena.sparql.function.library.uuid;
+import org.apache.jena.update.UpdateAction;
+import org.apache.jena.update.UpdateFactory;
+import org.apache.jena.update.UpdateRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class CVETool {
 
@@ -150,6 +157,7 @@ public class CVETool {
         Resource CVEMeta1 = CVEMetaModel.createResource(CVE.NS_INSTANCE + "meta/cveMeta" + year);
         CVEMetaModel.add(CVEMeta1, metaSHA256, metaSHA);
         return CVEMetaModel;
+
     }
 
     public static void deleteCVEMeta(Storage storage, String endpoint, String namegraph, boolean isUseAuth,
@@ -160,7 +168,258 @@ public class CVETool {
         query.setParam("p", CVE.META_SHA_256);
         query.setParam("g", graphResource);
         log.info(query.toString());
+
         storage.executeUpdate(endpoint, query.toString(), isUseAuth, user, pass);
+    }
+    
+    public static void updateVulnerableConfigurationLinks(Model model) {
+    	
+    	String queryVC = "SELECT ?b WHERE { ?b a <http://w3id.org/sepses/vocab/ref/cve#VulnerableConfiguration> }";
+    	  Query QVC = QueryFactory.create(queryVC);
+          QueryExecution qeQVC = QueryExecutionFactory.create(QVC,model);
+          ResultSet rs = qeQVC.execSelect();
+                   Integer count = 0;
+
+                   ParameterizedSparqlString update =
+                           new ParameterizedSparqlString("DELETE { ?s ?p ?b } INSERT {?s ?p ?b2} WHERE {?s ?p ?b} ");
+                   ParameterizedSparqlString update2 =
+                           new ParameterizedSparqlString("DELETE { ?b <http://w3id.org/sepses/vocab/ref/cpe#hasLogicalTest> ?s } INSERT { ?b2 <http://w3id.org/sepses/vocab/ref/cpe#hasLogicalTest> ?s } WHERE {?b <http://w3id.org/sepses/vocab/ref/cpe#hasLogicalTest>  ?s} ");
+                   ParameterizedSparqlString update3 =
+                           new ParameterizedSparqlString("DELETE { ?b <http://w3id.org/sepses/vocab/ref/cpe#logicalTestOperator> ?s } INSERT { ?b2 <http://w3id.org/sepses/vocab/ref/cpe#logicalTestOperator> ?s } WHERE {?b <http://w3id.org/sepses/vocab/ref/cpe#logicalTestOperator> ?s} ");
+                   ParameterizedSparqlString update4 =
+                           new ParameterizedSparqlString("DELETE { ?b <http://w3id.org/sepses/vocab/ref/cpe#hasLogicalTestFactRef> ?s } INSERT { ?b2 <http://w3id.org/sepses/vocab/ref/cpe#hasLogicalTestFactRef> ?s } WHERE {?b <http://w3id.org/sepses/vocab/ref/cpe#hasLogicalTestFactRef> ?s} ");
+      
+                   while (rs.hasNext()) {
+        	 // System.out.println("mulai");
+              QuerySolution qsQueryCPE = rs.nextSolution();
+              //Resource s = qsQueryCPE.getResource("?s");
+              Resource b = qsQueryCPE.getResource("?b");
+              
+              String uuid = generateUUID();
+              Resource b2 = model.createResource(CVE.NS_INSTANCE+"VulnerableConfiguration/"+uuid);
+             // System.out.println(s.toString());
+            // System.out.println(b.toString());
+              update.setNsPrefixes(model.getNsPrefixMap());
+              update2.setNsPrefixes(model.getNsPrefixMap());
+             // update.setParam("s", s);
+              update.setParam("b", b);
+              update.setParam("b2", b2);
+              update2.setParam("b", b);
+              update2.setParam("b2", b2);
+              update3.setParam("b", b);
+              update3.setParam("b2", b2);
+              update4.setParam("b", b);
+              update4.setParam("b2", b2);
+              
+              UpdateRequest updateRequest = UpdateFactory.create(update.toString());
+              UpdateAction.execute(updateRequest, model);
+              UpdateRequest updateRequest2 = UpdateFactory.create(update2.toString());
+              UpdateAction.execute(updateRequest2, model);
+              UpdateRequest updateRequest3 = UpdateFactory.create(update3.toString());
+              UpdateAction.execute(updateRequest3, model);
+              UpdateRequest updateRequest4 = UpdateFactory.create(update4.toString());
+              UpdateAction.execute(updateRequest4, model);
+           
+              
+              
+             
+          }
+      //System.out.println("jumlah data"+count);
+      // System.out.println("berhasil");
+      //model.write(System.out,"TURTLE");
+	
+    	
+    }
+    
+
+    
+    
+ public static void updateLogicalTestLinks(Model model) {
+    	
+    	String queryVC = "SELECT ?b WHERE { ?b a <http://w3id.org/sepses/vocab/ref/cpe#LogicalTest> }";
+    	  Query QVC = QueryFactory.create(queryVC);
+          QueryExecution qeQVC = QueryExecutionFactory.create(QVC,model);
+          ResultSet rs = qeQVC.execSelect();
+                   Integer count = 0;
+
+                   ParameterizedSparqlString update =
+                           new ParameterizedSparqlString("DELETE { ?s ?p ?b } INSERT {?s ?p ?b2} WHERE {?s ?p ?b} ");
+                   ParameterizedSparqlString update2 =
+                           new ParameterizedSparqlString("DELETE { ?b <http://w3id.org/sepses/vocab/ref/cpe#logicalTestNegate> ?s } INSERT { ?b2 <http://w3id.org/sepses/vocab/ref/cpe#logicalTestNegate> ?s } WHERE {?b <http://w3id.org/sepses/vocab/ref/cpe#logicalTestNegate>  ?s} ");
+                   ParameterizedSparqlString update3 =
+                           new ParameterizedSparqlString("DELETE { ?b <http://w3id.org/sepses/vocab/ref/cpe#logicalTestOperator> ?s } INSERT { ?b2 <http://w3id.org/sepses/vocab/ref/cpe#logicalTestOperator> ?s } WHERE {?b <http://w3id.org/sepses/vocab/ref/cpe#logicalTestOperator> ?s} ");
+                   ParameterizedSparqlString update4 =
+                           new ParameterizedSparqlString("DELETE { ?b <http://w3id.org/sepses/vocab/ref/cpe#hasLogicalTestFactRef> ?s } INSERT { ?b2 <http://w3id.org/sepses/vocab/ref/cpe#hasLogicalTestFactRef> ?s } WHERE {?b <http://w3id.org/sepses/vocab/ref/cpe#hasLogicalTestFactRef> ?s} ");
+      
+                   while (rs.hasNext()) {
+        	 // System.out.println("mulai");
+              QuerySolution qsQueryCPE = rs.nextSolution();
+              //Resource s = qsQueryCPE.getResource("?s");
+              Resource b = qsQueryCPE.getResource("?b");
+              
+              String uuid = generateUUID();
+              Resource b2 = model.createResource(CPE.NS_INSTANCE+"LogicalTest/"+uuid);
+             // System.out.println(s.toString());
+            // System.out.println(b.toString());
+              update.setNsPrefixes(model.getNsPrefixMap());
+              update2.setNsPrefixes(model.getNsPrefixMap());
+             // update.setParam("s", s);
+              update.setParam("b", b);
+              update.setParam("b2", b2);
+              update2.setParam("b", b);
+              update2.setParam("b2", b2);
+              update3.setParam("b", b);
+              update3.setParam("b2", b2);
+              update4.setParam("b", b);
+              update4.setParam("b2", b2);
+
+              
+              UpdateRequest updateRequest = UpdateFactory.create(update.toString());
+              UpdateAction.execute(updateRequest, model);
+              UpdateRequest updateRequest2 = UpdateFactory.create(update2.toString());
+              UpdateAction.execute(updateRequest2, model);
+              UpdateRequest updateRequest3 = UpdateFactory.create(update3.toString());
+              UpdateAction.execute(updateRequest3, model);
+              UpdateRequest updateRequest4 = UpdateFactory.create(update4.toString());
+              UpdateAction.execute(updateRequest4, model);
+
+              
+              
+             
+          }
+   //   System.out.println("jumlah data"+count);
+     //  System.out.println("berhasil");
+      //model.write(System.out,"TURTLE");
+	
+    	
+    }
+ 
+ public static void deleteType(Model model) {
+	 ParameterizedSparqlString update =
+             new ParameterizedSparqlString("DELETE { ?s a <http://w3id.org/sepses/vocab/ref/cve#VulnerableConfiguration> } WHERE {?s a <http://w3id.org/sepses/vocab/ref/cve#VulnerableConfiguration>} ");
+	 ParameterizedSparqlString update2 =
+             new ParameterizedSparqlString("DELETE { ?s  a   <http://w3id.org/sepses/vocab/ref/cpe#LogicalTest> } WHERE {?s  a  <http://w3id.org/sepses/vocab/ref/cpe#LogicalTest>}");
+	 UpdateRequest updateRequest = UpdateFactory.create(update.toString());
+     UpdateAction.execute(updateRequest, model);
+     UpdateRequest updateRequest2 = UpdateFactory.create(update2.toString());
+     UpdateAction.execute(updateRequest2, model);
+}
+ 
+ public static void setType(Model model) {
+	 String queryVC = "SELECT ?b WHERE { ?s <http://w3id.org/sepses/vocab/ref/cve#hasVulnerableConfiguration> ?b }";
+	  Query QVC = QueryFactory.create(queryVC);
+     QueryExecution qeQVC = QueryExecutionFactory.create(QVC,model);
+     ResultSet rs = qeQVC.execSelect();
+     ParameterizedSparqlString update =
+             new ParameterizedSparqlString("INSERT { ?b a <http://w3id.org/sepses/vocab/ref/cve#VulnerableConfiguration> } WHERE {} ");
+    
+     while (rs.hasNext()) {
+    	    QuerySolution qsQueryCPE = rs.nextSolution();
+            Resource b = qsQueryCPE.getResource("?b");
+            update.setNsPrefixes(model.getNsPrefixMap());
+            update.setParam("b", b);
+            UpdateRequest updateRequest = UpdateFactory.create(update.toString());
+            UpdateAction.execute(updateRequest, model);
+     }
+	 
+	 
+    
+ }
+ public static void setType2(Model model) {
+	 String queryVC = "SELECT ?b WHERE { ?s <http://w3id.org/sepses/vocab/ref/cpe#hasLogicalTest> ?b }";
+	  Query QVC = QueryFactory.create(queryVC);
+     QueryExecution qeQVC = QueryExecutionFactory.create(QVC,model);
+     ResultSet rs = qeQVC.execSelect();
+     ParameterizedSparqlString update =
+             new ParameterizedSparqlString("INSERT { ?b a <http://w3id.org/sepses/vocab/ref/cpe#LogicalTest> } WHERE {} ");
+    
+     while (rs.hasNext()) {
+    	    QuerySolution qsQueryCPE = rs.nextSolution();
+            Resource b = qsQueryCPE.getResource("?b");
+            update.setNsPrefixes(model.getNsPrefixMap());
+            update.setParam("b", b);
+            UpdateRequest updateRequest = UpdateFactory.create(update.toString());
+            UpdateAction.execute(updateRequest, model);
+     }
+	 
+	 
+    
+ }
+ 
+ public static void cpeDecode(Model model) throws UnsupportedEncodingException {
+	 String queryVC = "SELECT ?s WHERE { ?s a  <http://w3id.org/sepses/vocab/ref/cpe#CPE> }";
+	  Query QVC = QueryFactory.create(queryVC);
+     QueryExecution qeQVC = QueryExecutionFactory.create(QVC,model);
+     ResultSet rs = qeQVC.execSelect();
+     ParameterizedSparqlString update =
+             new ParameterizedSparqlString("DELETE { ?s <http://w3id.org/sepses/vocab/ref/cpe#hasLogicalTestFactRef> ?b }  INSERT { ?s <http://w3id.org/sepses/vocab/ref/cpe#hasLogicalTestFactRef> ?b2} WHERE {?s <http://w3id.org/sepses/vocab/ref/cpe#hasLogicalTestFactRef> ?b} ") ;
+     ParameterizedSparqlString update2 =
+             new ParameterizedSparqlString("DELETE { ?b <http://w3id.org/sepses/vocab/ref/cpe#cpe23> ?o }  INSERT { ?b2 <http://w3id.org/sepses/vocab/ref/cpe#cpe23> ?o } WHERE {?b <http://w3id.org/sepses/vocab/ref/cpe#cpe23> ?o } ") ;
+   
+     while (rs.hasNext()) {
+    	    QuerySolution qsQueryCPE = rs.nextSolution();
+            Resource b = qsQueryCPE.getResource("?s");
+           // Resource s = qsQueryCPE.getResource("?s");
+        
+           // update.setParam("s", s);
+           // System.out.println(b.toString());
+            String sb2 = java.net.URLDecoder.decode(b.toString(), StandardCharsets.UTF_8.name());
+           // System.out.println(sb2.toString());
+            String cpens = CPE.NS_INSTANCE;
+           
+            String ssb2= sb2.substring(cpens.length());
+            //System.out.println(ssb2.toString());
+            String sssb2 = ssb2.replace("2.3","").replaceAll("[:*\\\\()-/\"\'^|]", "");
+           Resource b2 = model.createResource(CPE.NS_INSTANCE+sssb2);
+            //System.out.println(sssb2);
+            update.setNsPrefixes(model.getNsPrefixMap());
+            update.setParam("b", b);
+            update.setParam("b2", b2);
+            UpdateRequest updateRequest = UpdateFactory.create(update.toString());
+            UpdateAction.execute(updateRequest, model);
+            
+            update2.setNsPrefixes(model.getNsPrefixMap());
+            update2.setParam("b", b);
+            update2.setParam("b2", b2);
+            UpdateRequest updateRequest2 = UpdateFactory.create(update2.toString());
+            UpdateAction.execute(updateRequest2, model);
+            
+     }
+	 
+     deleteTypeCPE(model);
+     setTypeCPE(model);
+
+ }
+ public static void deleteTypeCPE(Model model) {
+	 ParameterizedSparqlString update =
+             new ParameterizedSparqlString("DELETE { ?s a <http://w3id.org/sepses/vocab/ref/cpe#CPE> } WHERE {?s a <http://w3id.org/sepses/vocab/ref/cpe#CPE>} ");
+	     	 UpdateRequest updateRequest = UpdateFactory.create(update.toString());
+     UpdateAction.execute(updateRequest, model);
+}
+ 
+ public static void setTypeCPE(Model model) {
+	 String queryVC = "SELECT ?b WHERE { ?s <http://w3id.org/sepses/vocab/ref/cpe#hasLogicalTestFactRef> ?b }";
+	  Query QVC = QueryFactory.create(queryVC);
+     QueryExecution qeQVC = QueryExecutionFactory.create(QVC,model);
+     ResultSet rs = qeQVC.execSelect();
+     ParameterizedSparqlString update =
+             new ParameterizedSparqlString("INSERT { ?b a <http://w3id.org/sepses/vocab/ref/cpe#hCPE> } WHERE {} ");
+    
+     while (rs.hasNext()) {
+    	    QuerySolution qsQueryCPE = rs.nextSolution();
+            Resource b = qsQueryCPE.getResource("?b");
+            update.setNsPrefixes(model.getNsPrefixMap());
+            update.setParam("b", b);
+            UpdateRequest updateRequest = UpdateFactory.create(update.toString());
+            UpdateAction.execute(updateRequest, model);
+     }
+	 
+	 
+    
+ }
+    public static String generateUUID() {
+    	UUID uuid = UUID.randomUUID();
+    	return uuid.toString();
     }
 
 }

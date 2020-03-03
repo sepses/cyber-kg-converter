@@ -90,18 +90,8 @@ public class CPEParser implements Parser {
                 // remove CPE-is-not-available-comment
                 addEmptyCPEComments();
             }
-<<<<<<< HEAD
-            model.close();
-         // remove CPE-is-not-available-comment
-            addEmptyCPEComments();
         }
 
-        
-
-=======
-        }
-
->>>>>>> 324bbe0e85f14655c1805c9c27d2bf334e3cfa0c
     }
 
     private void addEmptyCPEComments() {
@@ -144,12 +134,7 @@ public class CPEParser implements Parser {
         Path path = Paths.get(CPEXML);
 
         try {
-<<<<<<< HEAD
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(CPEXML)));
-            						String co = null;
-=======
             String co = null;
->>>>>>> 324bbe0e85f14655c1805c9c27d2bf334e3cfa0c
             StringBuffer inputBuffer = new StringBuffer();
             int c = 0;
 

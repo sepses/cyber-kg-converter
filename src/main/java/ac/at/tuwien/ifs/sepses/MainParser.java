@@ -4,6 +4,7 @@ import ac.at.tuwien.ifs.sepses.parser.Parser;
 import ac.at.tuwien.ifs.sepses.parser.impl.CAPECParser;
 import ac.at.tuwien.ifs.sepses.parser.impl.CPEParser;
 import ac.at.tuwien.ifs.sepses.parser.impl.CVEParser;
+import ac.at.tuwien.ifs.sepses.parser.impl.CVEParserJson;
 import ac.at.tuwien.ifs.sepses.parser.impl.CWEParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -55,7 +56,8 @@ public class MainParser {
             log.info("************* CWE parser finished");
         } else if (program.equals("cve")) {
             log.info("start CVE parser");
-            sourceParser = new CVEParser(prop);
+            sourceParser = new CVEParserJson(prop);
+            //sourceParser = new CVEParser(prop);
             sourceParser.parse(isShaclActive);
             log.info("************* CVE parser finished");
         }
