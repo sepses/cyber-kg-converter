@@ -403,7 +403,7 @@ public class CVETool {
      QueryExecution qeQVC = QueryExecutionFactory.create(QVC,model);
      ResultSet rs = qeQVC.execSelect();
      ParameterizedSparqlString update =
-             new ParameterizedSparqlString("INSERT { ?b a <http://w3id.org/sepses/vocab/ref/cpe#hCPE> } WHERE {} ");
+             new ParameterizedSparqlString("INSERT { ?b a <http://w3id.org/sepses/vocab/ref/cpe#CPE> } WHERE {} ");
     
      while (rs.hasNext()) {
     	    QuerySolution qsQueryCPE = rs.nextSolution();
