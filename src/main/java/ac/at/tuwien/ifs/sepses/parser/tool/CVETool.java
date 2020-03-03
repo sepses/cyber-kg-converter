@@ -143,7 +143,6 @@ public class CVETool {
         Resource CVEMeta1 = CVEMetaModel.createResource(CVE.NS_INSTANCE + "meta/cveMeta" + year);
         CVEMetaModel.add(CVEMeta1, metaSHA256, metaSHA);
         return CVEMetaModel;
-
     }
 
     public static void deleteCVEMeta(Storage storage, String endpoint, String namegraph, boolean isUseAuth,
@@ -154,7 +153,6 @@ public class CVETool {
         query.setParam("p", CVE.META_SHA_256);
         query.setParam("g", graphResource);
         log.info(query.toString());
-
         storage.executeUpdate(endpoint, query.toString(), isUseAuth, user, pass);
     }
 

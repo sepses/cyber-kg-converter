@@ -77,10 +77,11 @@ public class CPEParser implements Parser {
                 storeFileInRepo(filename);
             }
             model.close();
+         // remove CPE-is-not-available-comment
+            addEmptyCPEComments();
         }
 
-        // remove CPE-is-not-available-comment
-        addEmptyCPEComments();
+        
 
     }
 
@@ -125,7 +126,7 @@ public class CPEParser implements Parser {
 
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(CPEXML)));
-            String co = null;
+            						String co = null;
             StringBuffer inputBuffer = new StringBuffer();
             int c = 0;
             while ((co = reader.readLine()) != null) {
