@@ -9,8 +9,10 @@ import ac.at.tuwien.ifs.sepses.storage.Storage;
 import ac.at.tuwien.ifs.sepses.vocab.CWE;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.ResourceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.topbraid.shacl.vocabulary.SH;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -60,19 +62,30 @@ public class CWEParser implements Parser {
         Properties prop = new Properties();
         FileInputStream ip = new FileInputStream("config.properties");
         prop.load(ip);
+        ip.close();
 
         Parser parser = new CWEParser(prop);
-        parser.parse();
+        parser.parse(false);
 
     }
 
-    @Override public void parse() throws IOException {
+    @Override public void parse(Boolean isShaclActive) throws IOException {
         if (!active.equals("Yes")) {
             log.warn("Sorry, CWE Parser is inactive.. please activate it in the config file !");
 
         } else {
             Model model = getModelFromLastUpdate();
-            if (!model.isEmpty()) {
+            if (model.isEmpty())
+                return;
+
+            if (isShaclActive) {
+                Model checkResults = Utility.validateWithShacl("shacl/cwe.ttl", model);
+                if (checkResults.contains(null, SH.conforms, ResourceFactory.createTypedLiteral(false))) {
+                    throw new IOException("CWE Validation Error: " + checkResults.toString());
+                }
+                checkResults.close();
+                log.info("CWE Validation Succeeded");
+            } else {
                 String filename = saveModelToFile(model);
                 storeFileInRepo(filename);
             }

@@ -34,10 +34,12 @@ public class TestCAPECParser {
     @BeforeClass public static void beforeClass() throws IOException {
         FileInputStream ip = new FileInputStream("config.properties");
         properties.load(ip);
+        ip.close();
         endpoint = properties.getProperty("SparqlEndpoint");
         parser = new CAPECParser(properties);
         InputStream is = TestCAPECParser.class.getClassLoader().getResourceAsStream("shacl/capec.ttl");
         RDFDataMgr.read(constraints, is, Lang.TURTLE);
+        is.close();
     }
 
     @Test public void testCAPECConfig() {

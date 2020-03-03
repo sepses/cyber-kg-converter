@@ -1,21 +1,26 @@
 package ac.at.tuwien.ifs.sepses.helper;
 
 import ac.at.tuwien.ifs.sepses.storage.Storage;
+import ac.at.tuwien.ifs.sepses.storage.impl.DummyStorage;
 import ac.at.tuwien.ifs.sepses.storage.impl.FusekiStorage;
 import ac.at.tuwien.ifs.sepses.storage.impl.VirtuosoStorage;
 import ac.at.tuwien.ifs.sepses.vocab.*;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.*;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.vocabulary.DCTerms;
 import org.apache.jena.vocabulary.OWL;
 import org.eclipse.rdf4j.model.vocabulary.RDF;
 import org.eclipse.rdf4j.model.vocabulary.RDFS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.topbraid.shacl.validation.ValidationUtil;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -173,6 +178,7 @@ public class Utility {
         try {
             FileWriter out = new FileWriter(outputFile);
             model.write(out, "TURTLE");
+            out.close();
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         }
@@ -188,10 +194,23 @@ public class Utility {
         } else if (triplestore.equalsIgnoreCase("virtuoso")) {
             log.info("Virtuoso triplestore is selected");
             return VirtuosoStorage.getInstance();
+        } else if (triplestore.equalsIgnoreCase("dummy")) { // for testing/benchmarking purpose
+            log.info("Dummy triplestore is selected");
+            return DummyStorage.getInstance();
         } else {
             log.error("Triplestore type is not supported !!!");
             return null;
         }
+    }
+
+    public static Model validateWithShacl(String shaclFile, Model model) {
+
+        Model constraints = ModelFactory.createDefaultModel();
+        InputStream is = Utility.class.getClassLoader().getResourceAsStream(shaclFile);
+        RDFDataMgr.read(constraints, is, Lang.TURTLE);
+        Resource result = ValidationUtil.validateModel(model, constraints, false);
+
+        return result.getModel();
     }
 
     public static Map<String, String> getPrefixes() {

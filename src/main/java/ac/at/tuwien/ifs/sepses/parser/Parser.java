@@ -10,9 +10,10 @@ public interface Parser {
      * the main function in three steps: (1) getModelFromLastUpdate; (2) saveModelToFile; and (3) storeFileInRepo.
      * detail in implementation might be different for different resource.
      *
+     * @param isUsingShacl whether shacl validation active
      * @return Jena's RDF model
      */
-    public void parse() throws IOException;
+    public void parse(Boolean isUsingShacl) throws IOException;
 
     /**
      * load the latest version of cyber-security resource data from online resource(s).

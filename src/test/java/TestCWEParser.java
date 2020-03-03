@@ -38,6 +38,7 @@ public class TestCWEParser {
         parser = new CWEParser(properties);
         InputStream is = TestCWEParser.class.getClassLoader().getResourceAsStream("shacl/cwe.ttl");
         RDFDataMgr.read(constraints, is, Lang.TURTLE);
+        is.close();
     }
 
     @Test public void testCWEConfig() {

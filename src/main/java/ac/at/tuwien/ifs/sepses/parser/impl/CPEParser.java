@@ -10,8 +10,10 @@ import ac.at.tuwien.ifs.sepses.vocab.CPE;
 import org.apache.commons.io.IOUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.ResourceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.topbraid.shacl.vocabulary.SH;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -59,23 +61,36 @@ public class CPEParser implements Parser {
         Properties prop = new Properties();
         FileInputStream ip = new FileInputStream("config.properties");
         prop.load(ip);
+        ip.close();
 
         Parser parser = new CPEParser(prop);
-        parser.parse();
+        parser.parse(false);
 
     }
 
-    @Override public void parse() throws IOException {
+    @Override public void parse(Boolean isShaclActive) throws IOException {
 
         if (!active.equals("Yes")) {
             log.info("Sorry, CPE Parser is inactive.. please activate it in the config file !");
 
         } else {
             Model model = getModelFromLastUpdate();
-            if (!model.isEmpty()) {
+            if (isShaclActive) {
+                Model checkResults = Utility.validateWithShacl("shacl/cpe.ttl", model);
+                if (checkResults.contains(null, SH.conforms, ResourceFactory.createTypedLiteral(false))) {
+                    throw new IOException("CPE Validation Error: " + checkResults.toString());
+                }
+                checkResults.close();
+                log.info("CPE Validation Succeeded");
+            } else if (!model.isEmpty()) {
                 String filename = saveModelToFile(model);
                 storeFileInRepo(filename);
+                model.close();
+
+                // remove CPE-is-not-available-comment
+                addEmptyCPEComments();
             }
+<<<<<<< HEAD
             model.close();
          // remove CPE-is-not-available-comment
             addEmptyCPEComments();
@@ -83,14 +98,18 @@ public class CPEParser implements Parser {
 
         
 
+=======
+        }
+
+>>>>>>> 324bbe0e85f14655c1805c9c27d2bf334e3cfa0c
     }
 
     private void addEmptyCPEComments() {
         try {
             log.info("add CPE-is-not-available-comment process");
-            InputStream is =
-                    CVEParser.class.getClassLoader().getResourceAsStream("sparql/add-cpe-comments.sparql");
+            InputStream is = CVEParser.class.getClassLoader().getResourceAsStream("sparql/add-cpe-comments.sparql");
             String query = IOUtils.toString(is, Charset.forName("UTF-8"));
+            is.close();
             storage.executeUpdate(sparqlEndpoint, query, isUseAuth, user, pass);
         } catch (IOException e) {
             log.error("failed add CPE-is-not-available-comment to graph: " + namegraph, e);
@@ -125,10 +144,18 @@ public class CPEParser implements Parser {
         Path path = Paths.get(CPEXML);
 
         try {
+<<<<<<< HEAD
             BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(CPEXML)));
             						String co = null;
+=======
+            String co = null;
+>>>>>>> 324bbe0e85f14655c1805c9c27d2bf334e3cfa0c
             StringBuffer inputBuffer = new StringBuffer();
             int c = 0;
+
+            InputStream fis = new FileInputStream(CPEXML);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader reader = new BufferedReader(isr);
             while ((co = reader.readLine()) != null) {
                 c++;
                 if (c == 2) {
@@ -138,6 +165,10 @@ public class CPEParser implements Parser {
                 inputBuffer.append(co);
                 inputBuffer.append('\n');
             }
+            reader.close();
+            isr.close();
+            fis.close();
+
             String inputStr = inputBuffer.toString();
             FileWriter fw = new FileWriter(CPEXML);
             BufferedWriter bw = new BufferedWriter(fw);
@@ -149,6 +180,8 @@ public class CPEParser implements Parser {
             } catch (Exception ex) {
                 log.error("Error in closing the BufferedWriter; " + ex.getMessage(), ex);
             }
+            bw.close();
+            fw.close();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }

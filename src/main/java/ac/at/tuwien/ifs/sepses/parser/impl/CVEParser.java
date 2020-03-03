@@ -8,16 +8,15 @@ import ac.at.tuwien.ifs.sepses.parser.tool.CVETool;
 import ac.at.tuwien.ifs.sepses.parser.tool.Linker;
 import ac.at.tuwien.ifs.sepses.storage.Storage;
 import ac.at.tuwien.ifs.sepses.vocab.CVE;
-import org.apache.commons.io.IOUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.ResourceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.topbraid.shacl.vocabulary.SH;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -73,12 +72,13 @@ public class CVEParser implements Parser {
         Properties prop = new Properties();
         FileInputStream ip = new FileInputStream("config.properties");
         prop.load(ip);
+        ip.close();
 
         Parser parser = new CVEParser(prop);
-        parser.parse();
+        parser.parse(false);
     }
 
-    @Override public void parse() throws IOException {
+    @Override public void parse(Boolean isShaclActive) throws IOException {
         if (!active.equals("Yes")) {
             log.info("Sorry, CVE Parser is inactive.. please activate it in the config file !");
 
@@ -91,24 +91,21 @@ public class CVEParser implements Parser {
                     cveUrlYear = urlCVE.replace("modified", String.valueOf(i));
                     cveMetaUrlYear = urlCVEMeta.replace("modified", String.valueOf(i));
 
-                    internalExecution(i);
+                    internalExecution(i, isShaclActive);
                 }
             }
             // ** execute last update
-            Model model = getModelFromLastUpdate();
-            if (!model.isEmpty()) {
-                String filename = saveModelToFile(model);
-                storeFileInRepo(filename);
-            }
-            model.close();
-
+            cveUrlYear = urlCVE;
+            cveMetaUrlYear = urlCVEMeta;
+            internalExecution(1, isShaclActive);
         }
     }
 
     @Override public Model getModelFromLastUpdate() throws IOException {
+        // not used
         cveUrlYear = urlCVE;
         cveMetaUrlYear = urlCVEMeta;
-        return internalCVEParser(1);
+        return internalCVEParser(1, true);
     }
 
     @Override public String saveModelToFile(Model model) {
@@ -124,8 +121,8 @@ public class CVEParser implements Parser {
         storage.storeData(filename, sparqlEndpoint, namegraph, isUseAuth, user, pass);
     }
 
-    private void internalExecution(Integer year) throws IOException {
-        Model model = internalCVEParser(year);
+    private void internalExecution(Integer year, Boolean isShaclActive) throws IOException {
+        Model model = internalCVEParser(year, isShaclActive);
         String file = saveModelToFile(model);
         storeFileInRepo(file);
     }
@@ -155,15 +152,25 @@ public class CVEParser implements Parser {
         return isUpdated;
     }
 
-    private Model parseCVE(String CVEXMLFile, String RMLFile, Model CVEMetaModel) throws IOException {
-        Model CVEModel = XMLParser.Parse(CVEXMLFile, RMLFile);
-        Linker.updateCveLinks(CVEModel);
+    private Model parseCVE(String CVEXMLFile, String RMLFile, Model CVEMetaModel, Boolean isShaclActive)
+            throws IOException {
+        Model model = XMLParser.Parse(CVEXMLFile, RMLFile);
+        Linker.updateCveLinks(model);
         log.info("adding CVE Metamodel");
-        CVEModel.add(CVEMetaModel);
-        return CVEModel;
+        model.add(CVEMetaModel);
+
+        if (isShaclActive) {
+            Model checkResults = Utility.validateWithShacl("shacl/cve.ttl", model);
+            if (checkResults.contains(null, SH.conforms, ResourceFactory.createTypedLiteral(false))) {
+                throw new IOException("CVE Validation Error: " + checkResults.toString());
+            }
+            checkResults.close();
+            log.info("CVE Validation Succeeded");
+        }
+        return model;
     }
 
-    private Model internalCVEParser(Integer year) throws IOException {
+    private Model internalCVEParser(Integer year, Boolean isShaclActive) throws IOException {
 
         long start = System.currentTimeMillis() / 1000;
         long end;
@@ -214,7 +221,7 @@ public class CVEParser implements Parser {
 
         // Step 4. Parsing xml to rdf......
         log.info("Parsing xml to rdf...  ");
-        Model model = parseCVE(CVEXML, rmlFile, CVEMetaModel);
+        Model model = parseCVE(CVEXML, rmlFile, CVEMetaModel, isShaclActive);
 
         log.info("Done!");
         end = System.currentTimeMillis() / 1000;

@@ -34,6 +34,7 @@ public class TestCPEParser {
     @BeforeClass public static void beforeClass() throws IOException {
         FileInputStream ip = new FileInputStream("config.properties");
         properties.load(ip);
+        ip.close();
         endpoint = properties.getProperty("SparqlEndpoint");
         outputDir = properties.getProperty("OutputDir") + "/cpe/";
         shaclResult = outputDir + "cpe-shacl-result.ttl";
@@ -42,6 +43,7 @@ public class TestCPEParser {
         parser = new CPEParser(properties);
         InputStream is = TestCPEParser.class.getClassLoader().getResourceAsStream("shacl/cpe.ttl");
         RDFDataMgr.read(constraints, is, Lang.TURTLE);
+        is.close();
     }
 
     @Test public void testCPEConfig() {
