@@ -1,0 +1,258 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix rml: <http://semweb.mmlab.be/ns/rml#>.
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix carml: <http://carml.taxonic.com/carml/> .
+@prefix ex: <http://www.example.com/> .
+@prefix fno:    <http://semweb.datasciencelab.be/ns/function#> .
+@prefix fnml:   <http://semweb.mmlab.be/ns/fnml#> .
+@prefix dec:    <http://semantics.id/ns/declare#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cat: <http://w3id.org/sepses/vocab/ref/cat#> .
+@prefix capec: <http://w3id.org/sepses/vocab/ref/capec#> .
+@prefix dcterm: <http://purl.org/dc/terms/> .
+@prefix grel: <http://users.ugent.be/~bjdmeest/function/grel.ttl#> .
+
+<#SubjectMapping> a rr:TriplesMap ;
+  rml:logicalSource [
+    rml:source [
+      a carml:Stream ;
+    ] ;
+    rml:referenceFormulation ql:JSONPath ;
+    rml:iterator "$.objects[*]" ;
+  ] ;
+
+  rr:subjectMap [
+    rr:template "http://w3id.org/sepses/resource/cat/{id}" ;
+  ] ;
+
+  rr:predicateObjectMap [
+    rr:predicate rdf:type;
+        rr:objectMap [ rr:template "http://w3id.org/sepses/vocab/ref/cat#{type}" ];
+    ];
+
+ rr:predicateObjectMap [
+        rr:predicate dcterm:id;
+        rr:objectMap [ rml:reference  "id" ];
+        rr:datatype xsd:string ;
+    ];
+
+ rr:predicateObjectMap [
+        rr:predicate cat:accomplishesTactic;
+        rr:objectMap [ carml:multiTemplate "http://w3id.org/sepses/resource/cat/tactic/{kill_chain_phases[*].phase_name}"];
+     
+    ];
+
+rr:predicateObjectMap [
+        rr:predicate cat:hasTargetRef;
+        rr:objectMap [ carml:multiTemplate "http://w3id.org/sepses/resource/cat/{target_ref}"];
+     
+    ];
+
+rr:predicateObjectMap [
+        rr:predicate cat:hasSourceRef;
+        rr:objectMap [ carml:multiTemplate "http://w3id.org/sepses/resource/cat/{source_ref}"];
+     
+    ];
+
+ rr:predicateObjectMap [
+        rr:predicate cat:platform;
+        rr:objectMap [ carml:multiReference "x_mitre_platforms"];
+        rr:datatype xsd:string ;
+     
+    ];
+
+ rr:predicateObjectMap [
+        rr:predicate cat:permissionRequired;
+        rr:objectMap [ carml:multiReference "x_mitre_permissions_required"];
+        rr:datatype xsd:string ;
+     
+    ];
+
+ rr:predicateObjectMap [
+        rr:predicate cat:dataSource;
+        rr:objectMap [ carml:multiReference "x_mitre_data_sources"];
+        rr:datatype xsd:string ;
+     
+    ];
+ 
+ rr:predicateObjectMap [
+        rr:predicate dcterm:contributor;
+        rr:objectMap [ carml:multiReference "x_mitre_contributors"];
+        rr:datatype xsd:string ;
+     
+    ];
+
+rr:predicateObjectMap [
+        rr:predicate dcterm:version;
+        rr:objectMap [ rml:reference "x_mitre_version"];
+        rr:datatype xsd:string ;
+     
+    ];
+
+rr:predicateObjectMap [
+        rr:predicate cat:isSubtechnique;
+        rr:objectMap [ rml:reference "x_mitre_is_subtechnique"];
+        rr:datatype xsd:boolean ;
+     
+    ];
+
+
+
+rr:predicateObjectMap [
+        rr:predicate dcterm:created;
+        rr:objectMap [ rml:reference "created"];
+        rr:datatype xsd:dateTime ;
+     
+    ];
+
+rr:predicateObjectMap [
+        rr:predicate dcterm:modified;
+        rr:objectMap [ rml:reference "modified"];
+        rr:datatype xsd:dateTime ;
+     
+    ];
+
+
+rr:predicateObjectMap [
+        rr:predicate dcterm:description;
+        rr:objectMap [ rml:reference "description"];
+        rr:datatype xsd:string ;
+     
+    ];
+rr:predicateObjectMap [
+        rr:predicate cat:detection;
+        rr:objectMap [ rml:reference "x_mitre_detection"];
+        rr:datatype xsd:string ;
+     
+    ];
+
+rr:predicateObjectMap [
+        rr:predicate dcterm:title;
+        rr:objectMap [ rml:reference "name"];
+        rr:datatype xsd:string ;
+     
+    ];
+
+rr:predicateObjectMap [
+        rr:predicate cat:shortname;
+        rr:objectMap [ rml:reference "x_mitre_shortname"];
+        rr:datatype xsd:string ;
+     
+    ];
+
+
+rr:predicateObjectMap [
+        rr:predicate cat:relationshipType;
+        rr:objectMap [ rml:reference "relationship_type"];
+        rr:datatype xsd:string ;
+     
+    ];
+
+rr:predicateObjectMap [
+        rr:predicate cat:aliases;
+        rr:objectMap [ carml:multiReference "aliases"];
+        rr:datatype xsd:string ;
+     
+    ];
+
+rr:predicateObjectMap [
+        rr:predicate cat:hasReference;
+         rr:objectMap [
+           carml:multiTemplate "http://w3id.org/sepses/resource/cat/reference/{external_references[0].external_id}"
+         ] ;
+    ];
+
+rr:predicateObjectMap [
+        rr:predicate cat:hasReference;
+         rr:objectMap [
+           carml:multiTemplate "http://w3id.org/sepses/resource/cat/reference/{external_references[*].source_name}"
+         ] ;
+
+    ];
+
+    .
+
+
+
+<#RefMapping> a rr:TriplesMap ;
+rml:logicalSource [
+  rml:source [
+    a carml:Stream ;
+  ] ;
+  rml:referenceFormulation ql:JSONPath ;
+  rml:iterator "$.objects[*].external_references[*]" ;
+] ;
+
+rr:subjectMap [
+  rr:template "http://w3id.org/sepses/resource/cat/reference/{external_id}" ;
+  rr:class cat:Reference;
+] ;
+
+rr:predicateObjectMap [
+  rr:predicate cat:referenceId ;
+  rr:objectMap [
+    rml:reference "external_id" ;
+    rr:datatype xsd:string ;
+  ] ;
+];
+
+rr:predicateObjectMap [
+  rr:predicate cat:referenceName ;
+  rr:objectMap [
+    rml:reference "source_name" ;
+    rr:datatype xsd:string ;
+  ] ;
+];
+
+
+rr:predicateObjectMap [
+  rr:predicate cat:referenceUrl ;
+  rr:objectMap [
+    rml:reference "url" ;
+    rr:datatype xsd:string ;
+  ] ;
+];
+
+.
+<#RefMapping2> a rr:TriplesMap ;
+rml:logicalSource [
+  rml:source [
+    a carml:Stream ;
+  ] ;
+  rml:referenceFormulation ql:JSONPath ;
+  rml:iterator "$.objects[*].external_references[*]" ;
+] ;
+
+rr:subjectMap [
+  rr:template "http://w3id.org/sepses/resource/cat/reference/{source_name}" ;
+  rr:class cat:Reference;
+] ;
+
+rr:predicateObjectMap [
+  rr:predicate cat:referenceName ;
+  rr:objectMap [
+    rml:reference "source_name" ;
+    rr:datatype xsd:string ;
+  ] ;
+];
+
+
+rr:predicateObjectMap [
+  rr:predicate cat:referenceUrl ;
+  rr:objectMap [
+    rml:reference "url" ;
+    rr:datatype xsd:string ;
+  ] ;
+];
+
+
+rr:predicateObjectMap [
+  rr:predicate cat:referenceDescription ;
+  rr:objectMap [
+    rml:reference "description" ;
+    rr:datatype xsd:string ;
+  ] ;
+];
+.
