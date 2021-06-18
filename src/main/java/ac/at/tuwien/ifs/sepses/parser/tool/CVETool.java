@@ -364,12 +364,13 @@ public class CVETool {
            // update.setParam("s", s);
            // System.out.println(b.toString());
             String sb2 = java.net.URLDecoder.decode(b.toString(), StandardCharsets.UTF_8.name());
+            System.out.println(sb2);
            // System.out.println(sb2.toString());
             String cpens = CPE.NS_INSTANCE;
            
             String ssb2= sb2.substring(cpens.length());
             //System.out.println(ssb2.toString());
-            String sssb2 = ssb2.replace("2.3","").replaceAll("[:*\\\\()-/\"\'^|]", "");
+            String sssb2 = ssb2.replace("2.3","").replaceAll("[:*\\\\()-//</>\"\'^|]", "");
            Resource b2 = model.createResource(CPE.NS_INSTANCE+sssb2);
             //System.out.println(sssb2);
             update.setNsPrefixes(model.getNsPrefixMap());
