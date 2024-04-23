@@ -28,7 +28,7 @@ ssr:cveValidator
                     ] ;
     sh:property     [ sh:maxCount  1 ;
                       sh:minCount  1 ;
-                      sh:path      cve:id
+                      sh:path      dcterm:identifier
                     ] ;
     sh:property     [ sh:maxCount  1 ;
                       sh:minCount  1 ;
@@ -46,8 +46,8 @@ ssr:cveValidator
                       sh:dataType  cwe:CWE
                     ] ;
     sh:property     [ sh:minCount  0 ;
-                      sh:path      cve:hasCVSS2BaseMetric ;
-                      sh:dataType  cvss:CVSS2BaseMetric
+                      sh:path      cve:hasCVSS3BaseMetric ;
+                      sh:dataType  cvss:CVSS3BaseMetric
                     ] ;
     sh:property     [ sh:minCount  0 ;
                       sh:path      cve:hasCPE ;
@@ -57,5 +57,5 @@ ssr:cveValidator
                       sh:path      cve:hasVulnerableConfiguration ;
                       sh:dataType  cve:LogicalTest
                     ] ;
-    sh:targetClass  cve:CVE
+    sh:targetClass  cve:CVE 
 .

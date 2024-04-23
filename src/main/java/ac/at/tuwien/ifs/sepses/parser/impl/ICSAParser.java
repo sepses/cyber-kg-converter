@@ -9,19 +9,18 @@ import org.apache.jena.rdf.model.ResourceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.topbraid.shacl.vocabulary.SH;
-
 import ac.at.tuwien.ifs.sepses.helper.DownloadUnzip;
-import ac.at.tuwien.ifs.sepses.helper.JSONParser;
 import ac.at.tuwien.ifs.sepses.helper.Utility;
+import ac.at.tuwien.ifs.sepses.helper.CSVParser;
 import ac.at.tuwien.ifs.sepses.parser.Parser;
-import ac.at.tuwien.ifs.sepses.parser.tool.CATTool;
+import ac.at.tuwien.ifs.sepses.parser.tool.ICSATool;
 import ac.at.tuwien.ifs.sepses.storage.Storage;
-import ac.at.tuwien.ifs.sepses.vocab.CAT;
+import ac.at.tuwien.ifs.sepses.vocab.ICSA;
 
-public class CATParser implements Parser {
-	private static final Logger log = LoggerFactory.getLogger(CATParser.class);
+public class ICSAParser implements Parser {
+	private static final Logger log = LoggerFactory.getLogger(ICSAParser.class);
 
-    private final String urlCAT;
+    private final String urlICSA;
     private final String destDir;
     private final String outputDir;
     private final String rmlFile;
@@ -34,14 +33,14 @@ public class CATParser implements Parser {
 
     private final Storage storage;
 
-    public CATParser(Properties properties) {
+    public ICSAParser(Properties properties) {
 
-        urlCAT = properties.getProperty("CATUrl");
-        destDir = properties.getProperty("InputDir") + "/cat";
-        outputDir = properties.getProperty("OutputDir") + "/cat";
-        rmlFile = properties.getProperty("CATRMLFile");
-        namegraph = properties.getProperty("CATNamegraph");
-        active = properties.getProperty("CATActive");
+        urlICSA = properties.getProperty("ICSAUrl");
+        destDir = properties.getProperty("InputDir") + "/icsa";
+        outputDir = properties.getProperty("OutputDir") + "/icsa";
+        rmlFile = properties.getProperty("ICSARMLFile");
+        namegraph = properties.getProperty("ICSANamegraph");
+        active = properties.getProperty("ICSAActive");
 
         sparqlEndpoint = properties.getProperty("SparqlEndpoint");
         isUseAuth = Boolean.parseBoolean(properties.getProperty("UseAuth"));
@@ -57,24 +56,24 @@ public class CATParser implements Parser {
         prop.load(ip);
         ip.close();
 
-        Parser parser = new CATParser(prop);
+        Parser parser = new ICSAParser(prop);
         parser.parse(false);
     }
 
     @Override public void parse(Boolean isShaclActive) throws IOException {
 
         if (!active.equals("Yes")) {
-            log.warn("Sorry, Attack Parser is inactive.. please activate it in the config file !");
+            log.warn("Sorry, ICSA Parser is inactive.. please activate it in the config file !");
 
         } else {
             Model model = getModelFromLastUpdate();
             if (isShaclActive) {
-                Model checkResults = Utility.validateWithShacl("shacl/attack.ttl", model);
+                Model checkResults = Utility.validateWithShacl("shacl/icsa.ttl", model);
                 if (checkResults.contains(null, SH.conforms, ResourceFactory.createTypedLiteral(false))) {
-                    throw new IOException("Attack Validation Error: " + checkResults.toString());
+                    throw new IOException("ICSA Validation Error: " + checkResults.toString());
                 }
                 checkResults.close();
-                log.info("Attack Validation Succeeded");
+                log.info("ICSA Validation Succeeded");
             } else if (!model.isEmpty()) {
                 String filename = saveModelToFile(model);
                 storeFileInRepo(filename);
@@ -84,32 +83,40 @@ public class CATParser implements Parser {
     }
 
     @Override public Model getModelFromLastUpdate() throws IOException {
-       
+//        long start = System.currentTimeMillis() / 1000;
+//        long end;
+
         Model model = null;
 
         // Step 1 - Downloading Attack resource from the internet...
-        log.info("Downloading CAT file from " + urlCAT);
-        String catFileName = urlCAT.substring(urlCAT.lastIndexOf("/") + 1);
-        String destCATFile = destDir + "/" + catFileName;
-        String CATFile = DownloadUnzip.downloadResource(urlCAT, destCATFile);
-      // System.out.println(CATFile);
-        log.info("CAT file downloaded");
-        //String CATFile = "input/cat/enterprise-attack.json";
+        log.info("Downloading ICSA file from " + urlICSA);
+        String icsaFileName = urlICSA.substring(urlICSA.lastIndexOf("/") + 1);
+        String destICSAFile = destDir + "/" + icsaFileName;
+        String ICSAFile = DownloadUnzip.downloadResource(urlICSA, destICSAFile);
+      // System.out.println(ICSAFile);
+        log.info("ICSA file downloaded");
         long start = System.currentTimeMillis() / 1000;
         long end;
 
-        model = parseCAT(CATFile, rmlFile);
-        System.out.println("update CAT");
-        CATTool.updateCATLinks(model);
+        model = parseICSA(ICSAFile, rmlFile);
+        System.out.println("update ICSA");
+        ICSATool.createCVEConnection(model);
+        ICSATool.createCWEConnection(model);
+        ICSATool.createVendorConnection(model);
+        ICSATool.createCriticalInfrastructureConnection(model);
+        ICSATool.createCompanyHeadquearterConnection(model);
+        ICSATool.createProductConnection(model);
+        ICSATool.createProductDistributionConnection(model);
+        
     
     end = System.currentTimeMillis() / 1000;
-    log.info("CAPEC parser finished in " + (end - start) + " seconds");
+    log.info("ICSA parser finished in " + (end - start) + " seconds");
 
     return model;
     }
 
     @Override public String saveModelToFile(Model model) {
-        return Utility.saveToFile(model, outputDir, urlCAT);
+        return Utility.saveToFile(model, outputDir, urlICSA);
     }
 
     @Override public void storeFileInRepo(String filename) {
@@ -118,17 +125,14 @@ public class CATParser implements Parser {
         storage.replaceData(filename, sparqlEndpoint, namegraph, isUseAuth, user, pass);
     }
 
-    private Model parseCAT(String CATFile, String RMLFile) throws IOException {
-        log.info("Parsing json to rdf...  ");
-        //System.out.print(CATFile);
-        Model catModel = JSONParser.Parse(CATFile, RMLFile);
-        //catModel.write(System.out,"TURTLE");
-        //System.exit(0);
-        Integer countCAT = Utility.countInstance(catModel, CAT.ATTACK_PATTERN);
-        log.info("The number of CAT instances parsed: " + countCAT);
+    private Model parseICSA(String ICSAFile, String RMLFile) throws IOException {
+        log.info("Parsing csv to rdf...  ");
+       	    
+        Model icsaModel = CSVParser.Parse(ICSAFile, RMLFile);
+        Integer countICSA = Utility.countInstance(icsaModel, ICSA.ICSA);
+        log.info("The number of ICSA instances parsed: " + countICSA);
         log.info("Parsing done..!");
-        //	System.exit(0);
-        return catModel;
+        return icsaModel;
     }
 
 }

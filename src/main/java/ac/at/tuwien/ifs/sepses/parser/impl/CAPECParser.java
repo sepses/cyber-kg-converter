@@ -91,9 +91,7 @@ public class CAPECParser implements Parser {
     }
 
     @Override public Model getModelFromLastUpdate() throws IOException {
-        long start = System.currentTimeMillis() / 1000;
-        long end;
-
+        
         Model model = null;
 
         // Step 1 - Downloading CAPEC resource from the internet...
@@ -109,7 +107,8 @@ public class CAPECParser implements Parser {
         log.info(UnzipFile + " - Done!");
 
         // Step 3 - Injecting xml file...
-        String capecXML = UnzipFile;
+//        String capecXML = UnzipFile;
+        String capecXML = "input/capec/capec_v3.9.xml";
         String fileName = capecXML.substring(capecXML.lastIndexOf("/") + 1);
         if (fileName.indexOf("\\") >= 0) {
             fileName = capecXML.substring(capecXML.lastIndexOf("\\") + 1);
@@ -118,13 +117,17 @@ public class CAPECParser implements Parser {
         Path path = Paths.get(capecXML);
         String content = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
         content = content.replaceAll("xmlns=\"http://capec.mitre.org/capec-3\"",
-                "xmlns:1=\"http://capec.mitre.org/capec-3\"");
+                "xmlns:c=\"http://capec.mitre.org/capec-3\"");
         Files.write(path, content.getBytes(StandardCharsets.UTF_8));
 
         // Step 4 - Checking whether CAPEC is up-to-date ...
         log.info("Checking updates from " + sparqlEndpoint + " using graphname " + namegraph);
         Boolean cat = Utility.checkIsUpToDate(XMLParser.Parse(capecXML, rmlMetaModel), sparqlEndpoint, namegraph,
                 CAPEC.ATTACK_PATTERN_CATALOG);
+        //Boolean cat = false;
+        long start = System.currentTimeMillis() / 1000;
+        long end;
+
         if (cat) {
             log.info("CAPEC is up-to-date...! ");
             model = ModelFactory.createDefaultModel();

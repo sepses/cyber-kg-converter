@@ -24,11 +24,11 @@ ssr:capecValidator
                     ] ;
     sh:property     [ sh:maxCount  1 ;
                       sh:minCount  1 ;
-                      sh:path      capec:id
+                      sh:path      dcterm:identifier
                     ] ;
     sh:property     [ sh:maxCount  1 ;
                       sh:minCount  1 ;
-                      sh:path      capec:name
+                      sh:path      dcterm:title
                     ] ;
     sh:property     [ sh:maxCount  1 ;
                       sh:minCount  1 ;
@@ -95,5 +95,5 @@ ssr:capecValidator
                       sh:dataType  capec:ExecutionFlow
                     ] ;
 
-    sh:targetClass  capec:CAPEC
+    sh:targetClass  capec:CAPEC 
 .

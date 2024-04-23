@@ -9,7 +9,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix cat: <http://w3id.org/sepses/vocab/ref/cat#> .
+@prefix cat: <http://w3id.org/sepses/vocab/ref/attack#> .
 @prefix capec: <http://w3id.org/sepses/vocab/ref/capec#> .
 @prefix dcterm: <http://purl.org/dc/terms/> .
 @prefix grel: <http://users.ugent.be/~bjdmeest/function/grel.ttl#> .
@@ -24,62 +24,62 @@
   ] ;
 
   rr:subjectMap [
-    rr:template "http://w3id.org/sepses/resource/cat/{id}" ;
+    rr:template "http://w3id.org/sepses/resource/attack/{id}" ;
   ] ;
 
   rr:predicateObjectMap [
     rr:predicate rdf:type;
-        rr:objectMap [ rr:template "http://w3id.org/sepses/vocab/ref/cat#{type}" ];
+        rr:objectMap [ rr:template "http://w3id.org/sepses/vocab/ref/attack#{type}" ];
     ];
 
  rr:predicateObjectMap [
-        rr:predicate dcterm:id;
-        rr:objectMap [ rml:reference  "id" ];
+        rr:predicate dcterm:identifier;
+        rr:objectMap [ rml:reference  "external_references[0].external_id" ];
         rr:datatype xsd:string ;
     ];
 
  rr:predicateObjectMap [
         rr:predicate cat:accomplishesTactic;
-        rr:objectMap [ carml:multiTemplate "http://w3id.org/sepses/resource/cat/tactic/{kill_chain_phases[*].phase_name}"];
+        rr:objectMap [ rr:template "http://w3id.org/sepses/resource/attack/tactic/{kill_chain_phases[*].phase_name}"];
      
     ];
 
 rr:predicateObjectMap [
         rr:predicate cat:hasTargetRef;
-        rr:objectMap [ carml:multiTemplate "http://w3id.org/sepses/resource/cat/{target_ref}"];
+        rr:objectMap [ rr:template "http://w3id.org/sepses/resource/attack/{target_ref}"];
      
     ];
 
 rr:predicateObjectMap [
         rr:predicate cat:hasSourceRef;
-        rr:objectMap [ carml:multiTemplate "http://w3id.org/sepses/resource/cat/{source_ref}"];
+        rr:objectMap [ rr:template "http://w3id.org/sepses/resource/attack/{source_ref}"];
      
     ];
 
  rr:predicateObjectMap [
         rr:predicate cat:platform;
-        rr:objectMap [ carml:multiReference "x_mitre_platforms"];
+        rr:objectMap [ rml:reference "x_mitre_platforms"];
         rr:datatype xsd:string ;
      
     ];
 
  rr:predicateObjectMap [
         rr:predicate cat:permissionRequired;
-        rr:objectMap [ carml:multiReference "x_mitre_permissions_required"];
+        rr:objectMap [ rml:reference "x_mitre_permissions_required"];
         rr:datatype xsd:string ;
      
     ];
 
  rr:predicateObjectMap [
         rr:predicate cat:dataSource;
-        rr:objectMap [ carml:multiReference "x_mitre_data_sources"];
+        rr:objectMap [ rml:reference "x_mitre_data_sources"];
         rr:datatype xsd:string ;
      
     ];
  
  rr:predicateObjectMap [
         rr:predicate dcterm:contributor;
-        rr:objectMap [ carml:multiReference "x_mitre_contributors"];
+        rr:objectMap [ rml:reference "x_mitre_contributors"];
         rr:datatype xsd:string ;
      
     ];
@@ -152,7 +152,14 @@ rr:predicateObjectMap [
 
 rr:predicateObjectMap [
         rr:predicate cat:aliases;
-        rr:objectMap [ carml:multiReference "aliases"];
+        rr:objectMap [ rml:reference "aliases"];
+        rr:datatype xsd:string ;
+     
+    ];
+
+rr:predicateObjectMap [
+        rr:predicate cat:aliases;
+        rr:objectMap [ rml:reference "x_mitre_aliases"];
         rr:datatype xsd:string ;
      
     ];
@@ -160,14 +167,14 @@ rr:predicateObjectMap [
 rr:predicateObjectMap [
         rr:predicate cat:hasReference;
          rr:objectMap [
-           carml:multiTemplate "http://w3id.org/sepses/resource/cat/reference/{external_references[0].external_id}"
+           rr:template "http://w3id.org/sepses/resource/attack/reference/{external_references[0].external_id}"
          ] ;
     ];
 
 rr:predicateObjectMap [
         rr:predicate cat:hasReference;
          rr:objectMap [
-           carml:multiTemplate "http://w3id.org/sepses/resource/cat/reference/{external_references[*].source_name}"
+           rr:template "http://w3id.org/sepses/resource/attack/reference/{external_references[*].source_name}"
          ] ;
 
     ];
@@ -186,7 +193,7 @@ rml:logicalSource [
 ] ;
 
 rr:subjectMap [
-  rr:template "http://w3id.org/sepses/resource/cat/reference/{external_id}" ;
+  rr:template "http://w3id.org/sepses/resource/attack/reference/{external_id}" ;
   rr:class cat:Reference;
 ] ;
 
@@ -210,8 +217,7 @@ rr:predicateObjectMap [
 rr:predicateObjectMap [
   rr:predicate cat:referenceUrl ;
   rr:objectMap [
-    rml:reference "url" ;
-    rr:datatype xsd:string ;
+    rr:template "{url}" ;
   ] ;
 ];
 
@@ -226,7 +232,7 @@ rml:logicalSource [
 ] ;
 
 rr:subjectMap [
-  rr:template "http://w3id.org/sepses/resource/cat/reference/{source_name}" ;
+  rr:template "http://w3id.org/sepses/resource/attack/reference/{source_name}" ;
   rr:class cat:Reference;
 ] ;
 

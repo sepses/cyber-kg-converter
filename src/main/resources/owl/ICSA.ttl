@@ -1,0 +1,154 @@
+@prefix : <http://w3id.org/sepses/vocab/ref/icsa#> .
+@prefix cwe: <http://w3id.org/sepses/vocab/ref/cwe#> .
+@prefix cve: <http://w3id.org/sepses/vocab/ref/cve#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://w3id.org/sepses/vocab/ref/attack> .
+
+<http://w3id.org/sepses/vocab/ref/icsa> rdf:type owl:Ontology ;
+                                           owl:versionIRI <https://w3id.org/sepses/vocab/ref/icsa/1.0.0> ;
+                                           <http://purl.org/dc/elements/1.1/creator> "Kabul Kurniawan";
+                                           <http://purl.org/dc/elements/1.1/description> """An ontology to represent ICS Advisory.
+This ontology is developed based on the ICSA SCAF v.2  (https://docs.oasis-open.org/csaf/csaf/v2.0/os/csaf-v2.0-os.html)"""@en ;
+                                           <http://purl.org/dc/elements/1.1/rights> "http://creativecommons.org/licenses/by/4.0/" ;
+                                           <http://purl.org/dc/elements/1.1/title> "ICS Adversary Ontology" ;
+                                           <http://purl.org/vocab/vann/preferredNamespacePrefix> "icsa" .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://w3id.org/sepses/vocab/ref/icsa#hasCVE
+:hasCVE rdf:type owl:ObjectProperty ;
+                    rdfs:domain :ICSA ;
+                    rdfs:range cve:CVE ;
+          rdfs:label "hasCVE" .
+
+###  http://w3id.org/sepses/vocab/ref/icsa#hasCWE
+:hasCWE rdf:type owl:ObjectProperty ;
+                    rdfs:domain :ICSA ;
+                    rdfs:range cwe:CWE ;
+          rdfs:label "hasCWE" .
+
+###  http://w3id.org/sepses/vocab/ref/icsa#hasProduct
+:hasProduct rdf:type owl:ObjectProperty ;
+                    rdfs:domain :ICSA ;
+                    rdfs:range :Product ;
+          rdfs:label "hasProduct" .
+
+###  http://w3id.org/sepses/vocab/ref/icsa#hasVendor
+:hasVendor rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Product ;
+                    rdfs:range :Vendor ;
+          rdfs:label "hasVendor" .
+
+###  http://w3id.org/sepses/vocab/ref/icsa#hasCompanyHeadquarter
+:hasCompanyHeadquarter rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Product;
+                    rdfs:range :CompanyHeadquarter ;
+          rdfs:label "hasCompanyHeadquarter" .
+
+###  http://w3id.org/sepses/vocab/ref/icsa#hasProductDistribution
+:hasProductDistribution  rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Product;
+                    rdfs:range :ProductDistribution ;
+	            rdfs:label "hasProductDistribution" .
+
+###  http://w3id.org/sepses/vocab/ref/icsa#hasCriticalInfrastructureSector
+:hasCriticalInfrastructureSector  rdf:type owl:ObjectProperty ;
+                    rdfs:domain :ICSA;
+                    rdfs:range :CriticalInfrastructureSector ;
+	            rdfs:label "hasCriticalInfrastructureSector" .
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://w3id.org/sepses/vocab/ref/icsa#year
+:year rdf:type owl:DatatypeProperty ;
+         rdfs:domain :ICSA ;
+         rdfs:range xsd:integer ;
+          rdfs:label "year" .
+
+###  http://w3id.org/sepses/vocab/ref/icsa#CVSSSeverity
+:CVSSSeverity rdf:type owl:DatatypeProperty ;
+         rdfs:domain :ICSA ;
+         rdfs:range xsd:string ;
+          rdfs:label "CVSSSeverity" .
+
+###  http://w3id.org/sepses/vocab/ref/icsa#CVSSScore    
+:CVSSScore rdf:type owl:DatatypeProperty ;
+         rdfs:domain :ICSA ;
+         rdfs:range xsd:float ;
+          rdfs:label "CVSSScore" .
+
+###  http://w3id.org/sepses/vocab/ref/icsa#CVSSScore    
+:CVSSScore rdf:type owl:DatatypeProperty ;
+         rdfs:domain :ICSA ;
+         rdfs:range xsd:float ;
+          rdfs:label "CVSSScore" .
+
+###  http://w3id.org/sepses/vocab/ref/icsa#reference    
+:reference rdf:type owl:DatatypeProperty ;
+         rdfs:domain :ICSA ;
+         rdfs:range xsd:string ;
+          rdfs:label "reference" .
+
+
+###  http://w3id.org/sepses/vocab/ref/icsa#publisher
+:publisher rdf:type owl:DatatypeProperty ;
+         rdfs:domain :ICSA ;
+         rdfs:range xsd:string ;
+          rdfs:label "publisher" .
+
+###  http://w3id.org/sepses/vocab/ref/icsa#remediation
+:remediation rdf:type owl:DatatypeProperty ;
+         rdfs:domain :ICSA ;
+         rdfs:range xsd:string ;
+          rdfs:label "remediation" .
+
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://w3id.org/sepses/vocab/ref/icsa#ICSA
+:ICSA rdf:type owl:Class ;
+                rdfs:subClassOf owl:Thing ;
+                rdfs:label "ICS Advisory" .
+
+###  http://w3id.org/sepses/vocab/ref/icsa#Product
+:Product rdf:type owl:Class ;
+                rdfs:subClassOf owl:Thing ;
+                rdfs:label "Product" .
+
+###  http://w3id.org/sepses/vocab/ref/icsa#Vendor
+:Vendor rdf:type owl:Class ;
+                rdfs:subClassOf owl:Thing ;
+                rdfs:label "Vendor" .
+
+###  http://w3id.org/sepses/vocab/ref/icsa#ProductDistribution
+:ProductDistribution rdf:type owl:Class ;
+                rdfs:subClassOf owl:Thing ;
+                rdfs:label "ProductDistribution" .
+
+###  http://w3id.org/sepses/vocab/ref/icsa#CompanyHeadquarter
+:CompanyHeadquarter rdf:type owl:Class ;
+                rdfs:subClassOf owl:Thing ;
+                rdfs:label "CompanyHeadquarter" .
+
+
+###  http://w3id.org/sepses/vocab/ref/icsa#CriticalInfrastructureSector
+:CriticalInfrastructureSector rdf:type owl:Class ;
+                rdfs:subClassOf owl:Thing ;
+                rdfs:label "CriticalInfrastructureSector" .
+
+
+
+
+###  Generated by the OWL API (version 5.1.14) https://github.com/owlcs/owlapi/

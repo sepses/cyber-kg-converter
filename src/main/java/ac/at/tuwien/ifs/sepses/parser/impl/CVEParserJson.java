@@ -187,8 +187,8 @@ public class CVEParserJson implements Parser {
 
     private Model internalCVEParser(Integer year, Boolean isShaclActive) throws IOException {
 
-        long start = System.currentTimeMillis() / 1000;
-        long end;
+//        long start = System.currentTimeMillis() / 1000;
+//        long end;
 
         // Step 0b. Checking CVE Meta...
         log.info("Checking resource meta from " + cveMetaUrlYear);
@@ -223,7 +223,9 @@ public class CVEParserJson implements Parser {
             if (parseTempCVE(CVEJSON, rmlMetaModel, sparqlEndpoint, namegraph))
                 return ModelFactory.createDefaultModel();
         }
-
+        long start = System.currentTimeMillis() / 1000;
+        long end;
+        
         // Step 3. Parsing json to rdf......
         log.info("Parsing json to rdf...  ");
         Model model = parseCVE(CVEJSON, rmlFile, CVEMetaModel, isShaclActive);

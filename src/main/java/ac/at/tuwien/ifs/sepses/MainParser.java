@@ -2,10 +2,12 @@ package ac.at.tuwien.ifs.sepses;
 
 import ac.at.tuwien.ifs.sepses.parser.Parser;
 import ac.at.tuwien.ifs.sepses.parser.impl.CAPECParser;
+import ac.at.tuwien.ifs.sepses.parser.impl.CATParser;
 import ac.at.tuwien.ifs.sepses.parser.impl.CPEParser;
-import ac.at.tuwien.ifs.sepses.parser.impl.CVEParser;
 import ac.at.tuwien.ifs.sepses.parser.impl.CVEParserJson;
 import ac.at.tuwien.ifs.sepses.parser.impl.CWEParser;
+import ac.at.tuwien.ifs.sepses.parser.impl.ICSAParser;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -57,9 +59,18 @@ public class MainParser {
         } else if (program.equals("cve")) {
             log.info("start CVE parser");
             sourceParser = new CVEParserJson(prop);
-            //sourceParser = new CVEParser(prop);
             sourceParser.parse(isShaclActive);
             log.info("************* CVE parser finished");
+        }else if (program.equals("cat")) {
+            log.info("start CAT parser");
+            sourceParser = new CATParser(prop);
+            sourceParser.parse(isShaclActive);
+            log.info("************* CAT parser finished");
+        }else if (program.equals("icsa")) {
+            log.info("start CAT parser");
+            sourceParser = new ICSAParser(prop);
+            sourceParser.parse(isShaclActive);
+            log.info("************* ICSA parser finished");
         }
 
         end = System.currentTimeMillis();

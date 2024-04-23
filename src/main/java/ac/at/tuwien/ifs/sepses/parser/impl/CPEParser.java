@@ -17,8 +17,6 @@ import org.topbraid.shacl.vocabulary.SH;
 
 import java.io.*;
 import java.nio.charset.Charset;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Properties;
 
 public class CPEParser implements Parser {
@@ -86,8 +84,6 @@ public class CPEParser implements Parser {
                 String filename = saveModelToFile(model);
                 storeFileInRepo(filename);
                 model.close();
-
-                // remove CPE-is-not-available-comment
                 addEmptyCPEComments();
             }
         }
@@ -126,12 +122,13 @@ public class CPEParser implements Parser {
 
         //3. Injecting xml file...
         log.info("Injecting xml file...  ");
-        String CPEXML = UnzipFile;
+       // String CPEXML = UnzipFile;
+      String CPEXML = "input/cpe/official-cpe-dictionary_v2.3.xml";
         String fileName = CPEXML.substring(CPEXML.lastIndexOf("/") + 1);
         if (fileName.indexOf("\\") >= 0) {
             fileName = CPEXML.substring(CPEXML.lastIndexOf("\\") + 1);
         }
-        Path path = Paths.get(CPEXML);
+        	
 
         try {
             String co = null;
@@ -144,8 +141,8 @@ public class CPEParser implements Parser {
             while ((co = reader.readLine()) != null) {
                 c++;
                 if (c == 2) {
-                    co = co.replaceAll("xmlns=\"http://cpe.mitre.org/dictionary/2.0\"",
-                            "xmlns:1=\"http://cpe.mitre.org/dictionary/2.0\"");
+                    co = co.replaceAll("xmlns:1=\"http://cpe.mitre.org/dictionary/2.0\"",
+                            "xmlns:c=\"http://cpe.mitre.org/dictionary/2.0\"");
                 }
                 inputBuffer.append(co);
                 inputBuffer.append('\n');
@@ -179,6 +176,8 @@ public class CPEParser implements Parser {
 
         boolean sameVersion = Utility.checkIsEqualModifedDate(rmlMetaModel, CPEXML, sparqlEndpoint, namegraph,
                 CPE.GENERATOR_TIME_STAMP);
+
+
         if (sameVersion) {
             log.info("CPE is up-to-date!!");
             model = ModelFactory.createDefaultModel();

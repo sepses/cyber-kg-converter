@@ -6,7 +6,6 @@ import ac.at.tuwien.ifs.sepses.vocab.CVE;
 import org.apache.commons.io.IOUtils;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.*;
-import org.apache.jena.sparql.function.library.uuid;
 import org.apache.jena.update.UpdateAction;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateRequest;
@@ -178,7 +177,7 @@ public class CVETool {
     	  Query QVC = QueryFactory.create(queryVC);
           QueryExecution qeQVC = QueryExecutionFactory.create(QVC,model);
           ResultSet rs = qeQVC.execSelect();
-                   Integer count = 0;
+//                   Integer count = 0;
 
                    ParameterizedSparqlString update =
                            new ParameterizedSparqlString("DELETE { ?s ?p ?b } INSERT {?s ?p ?b2} WHERE {?s ?p ?b} ");
@@ -240,7 +239,7 @@ public class CVETool {
     	  Query QVC = QueryFactory.create(queryVC);
           QueryExecution qeQVC = QueryExecutionFactory.create(QVC,model);
           ResultSet rs = qeQVC.execSelect();
-                   Integer count = 0;
+//                   Integer count = 0;
 
                    ParameterizedSparqlString update =
                            new ParameterizedSparqlString("DELETE { ?s ?p ?b } INSERT {?s ?p ?b2} WHERE {?s ?p ?b} ");
@@ -287,9 +286,9 @@ public class CVETool {
               
              
           }
-   //   System.out.println("jumlah data"+count);
-     //  System.out.println("berhasil");
-      //model.write(System.out,"TURTLE");
+//      System.out.println("jumlah data"+count);
+//       System.out.println("berhasil");
+//      model.write(System.out,"TURTLE");
 	
     	
     }
@@ -364,7 +363,7 @@ public class CVETool {
            // update.setParam("s", s);
            // System.out.println(b.toString());
             String sb2 = java.net.URLDecoder.decode(b.toString(), StandardCharsets.UTF_8.name());
-            System.out.println(sb2);
+           // System.out.println(sb2);
            // System.out.println(sb2.toString());
             String cpens = CPE.NS_INSTANCE;
            
@@ -385,12 +384,62 @@ public class CVETool {
             UpdateRequest updateRequest2 = UpdateFactory.create(update2.toString());
             UpdateAction.execute(updateRequest2, model);
             
+            model.add(generateAdditionalTriples(model, ssb2, b2));
+            
      }
 	 
      deleteTypeCPE(model);
      setTypeCPE(model);
 
  }
+ 
+ public static Model generateAdditionalTriples(Model CPEModel, String cpe23s, Resource resource) {
+
+     //query to cpeModel
+     Model additionalCPEModel = ModelFactory.createDefaultModel();
+
+//         String cpe1 = cpe23s.substring(0, cpe23s.indexOf(":"));
+         String cpe1a = cpe23s.substring(cpe23s.indexOf(":") + 1, cpe23s.length());
+         String cpe2 = cpe1a.substring(0, cpe1a.indexOf(":"));
+         String cpe2a = cpe1a.substring(cpe1a.indexOf(":") + 1, cpe1a.length());
+         String cpe3 = cpe2a.substring(0, cpe2a.indexOf(":"));
+         String cpe3a = cpe2a.substring(cpe2a.indexOf(":") + 1, cpe2a.length());
+         String cpe4 = cpe3a.substring(0, cpe3a.indexOf(":"));
+         String cpe4a = cpe3a.substring(cpe3a.indexOf(":") + 1, cpe3a.length());
+         String cpe5 = cpe4a.substring(0, cpe4a.indexOf(":"));
+         String cpe5a = cpe4a.substring(cpe4a.indexOf(":") + 1, cpe4a.length());
+         String cpe6 = cpe5a.substring(0, cpe5a.indexOf(":"));
+         String cpe6a = cpe5a.substring(cpe5a.indexOf(":") + 1, cpe5a.length());
+         String cpe7 = cpe6a.substring(0, cpe6a.indexOf(":"));
+         String cpe7a = cpe6a.substring(cpe6a.indexOf(":") + 1, cpe6a.length());
+         String cpe8 = cpe7a.substring(0, cpe7a.indexOf(":"));
+         String cpe8a = cpe7a.substring(cpe7a.indexOf(":") + 1, cpe7a.length());
+         String cpe9 = cpe8a.substring(0, cpe8a.indexOf(":"));
+         String cpe9a = cpe8a.substring(cpe8a.indexOf(":") + 1, cpe8a.length());
+         String cpe10 = cpe9a.substring(0, cpe9a.indexOf(":"));
+         String cpe10a = cpe9a.substring(cpe9a.indexOf(":") + 1, cpe9a.length());
+         String cpe11 = cpe10a.substring(0, cpe10a.indexOf(":"));
+         String cpe11a = cpe10a.substring(cpe10a.indexOf(":") + 1, cpe10a.length());
+         String cpe12 = cpe11a.substring(0, cpe11a.indexOf(":"));
+         
+         Resource vendor = CPEModel.createResource(CPE.NS_INSTANCE+"vendor/"+cpe4.replaceAll("[:*\\\\()<>\"\'^|]", ""));
+         Resource product = CPEModel.createResource(CPE.NS_INSTANCE+"product/"+cpe5.replaceAll("[:*\\\\()<>\"\'^|]", ""));
+
+         resource.addProperty(CPE.CPE_VERSION, cpe2);
+         resource.addProperty(CPE.PART, cpe3);
+         resource.addProperty(CPE.HAS_VENDOR, vendor);
+         resource.addProperty(CPE.HAS_PRODUCT, product);
+         resource.addProperty(CPE.VERSION, cpe6);
+         resource.addProperty(CPE.UPDATE, cpe7);
+         resource.addProperty(CPE.EDITION, cpe8);
+         resource.addProperty(CPE.LANGUAGE, cpe9);
+         resource.addProperty(CPE.SOFTWARE_EDITION, cpe10);
+         resource.addProperty(CPE.TARGET_SOFTWARE, cpe11);
+         resource.addProperty(CPE.TARGET_HARDWARE, cpe10);
+         resource.addProperty(CPE.OTHER, cpe12);
+       return additionalCPEModel;
+ }
+ 
  public static void deleteTypeCPE(Model model) {
 	 ParameterizedSparqlString update =
              new ParameterizedSparqlString("DELETE { ?s a <http://w3id.org/sepses/vocab/ref/cpe#CPE> } WHERE {?s a <http://w3id.org/sepses/vocab/ref/cpe#CPE>} ");

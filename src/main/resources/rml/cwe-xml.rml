@@ -52,12 +52,12 @@
         rr:class cwe:CWE
     ];
     rr:predicateObjectMap [
-        rr:predicate cwe:id;
+        rr:predicate dcterm:identifier;
         rr:objectMap [ rml:reference "@ID" ];
         rr:datatype xsd:string ;
     ];
     rr:predicateObjectMap [
-        rr:predicate cwe:name;
+        rr:predicate dcterm:title;
         rr:objectMap [ rml:reference  "@Name" ];
         rr:datatype xsd:string ;
     ];
@@ -88,15 +88,20 @@
     ];
     rr:predicateObjectMap [
         rr:predicate cwe:hasReference;
-        rr:objectMap [ carml:multiTemplate "http://w3id.org/sepses/resource/cwe/reference/{References/Reference/@External_Reference_ID}" ];
+        rr:objectMap [ rr:template "http://w3id.org/sepses/resource/cwe/reference/{References/Reference/@External_Reference_ID}" ];
+    ];
+   rr:predicateObjectMap [
+        rr:predicate cwe:mappingUsage;
+        rr:objectMap [ rml:reference "Mapping_Notes/Usage" ];
+	rr:datatype xsd:string ;
     ];
     rr:predicateObjectMap [
         rr:predicate cwe:hasCAPEC;
-        rr:objectMap [ carml:multiTemplate "http://w3id.org/sepses/resource/capec/CAPEC-{Related_Attack_Patterns/Related_Attack_Pattern/@CAPEC_ID}" ; ];
+        rr:objectMap [ rr:template "http://w3id.org/sepses/resource/capec/CAPEC-{Related_Attack_Patterns/Related_Attack_Pattern/@CAPEC_ID}" ; ];
     ];
     rr:predicateObjectMap [
         rr:predicate cwe:weaknessOrdinality;
-        rr:objectMap [ carml:multiReference "Weakness_Ordinalities/Weakness_Ordinality/Ordinality" ; ];
+        rr:objectMap [ rml:reference "Weakness_Ordinalities/Weakness_Ordinality/Ordinality" ; ];
     ];
     rr:predicateObjectMap [
         rr:predicate cwe:likelihoodOfExploit;
@@ -104,7 +109,7 @@
     ];
     rr:predicateObjectMap [
         rr:predicate cwe:backgroundDetail;
-        rr:objectMap [ carml:multiReference "Background_Details/Background_Detail" ; ];
+        rr:objectMap [ rml:reference "Background_Details/Background_Detail" ; ];
     ];
     rr:predicateObjectMap [
         rr:predicate cwe:hasSubmissionHistory;
@@ -247,19 +252,19 @@
     ];
     rr:predicateObjectMap [
         rr:predicate cwe:mitigationPhase;
-        rr:objectMap [ carml:multiReference "Phase" ];
+        rr:objectMap [ rml:reference "Phase" ];
     ];
     rr:predicateObjectMap [
         rr:predicate cwe:mitigationDescription;
-        rr:objectMap [ carml:multiReference "Description" ];
+        rr:objectMap [ rml:reference "Description" ];
     ];
     rr:predicateObjectMap [
         rr:predicate cwe:mitigationEffectiveness;
-        rr:objectMap [ carml:multiReference "Effectiveness" ];
+        rr:objectMap [ rml:reference "Effectiveness" ];
     ];
     rr:predicateObjectMap [
         rr:predicate cwe:mitigationEffectivenessNote;
-        rr:objectMap [ carml:multiReference "Effectiveness_Notes" ];
+        rr:objectMap [ rml:reference "Effectiveness_Notes" ];
     ];
 .
 
@@ -279,15 +284,15 @@
     ];
     rr:predicateObjectMap [
         rr:predicate cwe:consequenceScope;
-        rr:objectMap [ carml:multiReference "Scope" ];
+        rr:objectMap [ rml:reference "Scope" ];
     ];
     rr:predicateObjectMap [
         rr:predicate cwe:consequenceImpact;
-        rr:objectMap [ carml:multiReference "Impact" ];
+        rr:objectMap [ rml:reference "Impact" ];
     ];
     rr:predicateObjectMap [
         rr:predicate cwe:consequenceNote;
-        rr:objectMap [ carml:multiReference "Note" ];
+        rr:objectMap [ rml:reference "Note" ];
     ];
 .
 
@@ -303,19 +308,19 @@
     ] ;
     rr:predicateObjectMap [
         rr:predicate cwe:applicablePlatformLanguage;
-        rr:objectMap [ carml:multiReference "Applicable_Platforms/Language/@Class" ];
+        rr:objectMap [ rml:reference "Applicable_Platforms/Language/@Class" ];
     ];
     rr:predicateObjectMap [
         rr:predicate cwe:applicablePlatformLanguage;
-        rr:objectMap [ carml:multiReference "Applicable_Platforms/Language/@Name" ];
+        rr:objectMap [ rml:reference "Applicable_Platforms/Language/@Name" ];
     ];
     rr:predicateObjectMap [
         rr:predicate cwe:applicablePlatformParadigm;
-        rr:objectMap [ carml:multiReference "Applicable_Platforms/Paradigm/@Name" ];
+        rr:objectMap [ rml:reference "Applicable_Platforms/Paradigm/@Name" ];
     ];
     rr:predicateObjectMap [
         rr:predicate cwe:applicablePlatformTechnology;
-        rr:objectMap [ carml:multiReference "Applicable_Platforms/Technology/@Name" ];
+        rr:objectMap [ rml:reference "Applicable_Platforms/Technology/@Name" ];
     ];
 .
 
@@ -331,12 +336,12 @@
     ] ;
     rr:predicateObjectMap [
         rr:predicate cwe:referenceAuthor;
-        rr:objectMap [ carml:multiReference "Author" ];
+        rr:objectMap [ rml:reference "Author" ];
         rr:datatype xsd:string ;
     ];
     rr:predicateObjectMap [
         rr:predicate cwe:referenceTitle;
-        rr:objectMap [ carml:multiReference "Title" ];
+        rr:objectMap [ rml:reference "Title" ];
         rr:datatype xsd:string ;
     ];
     rr:predicateObjectMap [
@@ -362,12 +367,12 @@
     rr:predicateObjectMap [
         rr:predicate cwe:referencePublisher;
         rr:objectMap [ rml:reference "Publisher"];
-        rr:datatype xsd:integer ;
+        rr:datatype xsd:string;
     ];
     rr:predicateObjectMap [
         rr:predicate cwe:referenceUrl;
         rr:objectMap [ rml:reference "URL"];
-        rr:datatype xsd:integer ;
+        rr:datatype xsd:string ;
     ];
 .
 

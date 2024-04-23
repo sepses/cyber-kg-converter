@@ -23,10 +23,10 @@ ssr:cpeValidator
                       sh:path      rdf:type
                     ] ;
     sh:property     [ sh:minCount  1 ;
-                      sh:path      cpe:id
+                      sh:path      dcterm:identifier
                     ] ;
     sh:property     [ sh:minCount  1 ;
-                      sh:path      cpe:title
+                      sh:path      dcterm:title
                     ] ;
     sh:property     [ sh:minCount  1 ;
                       sh:path      cpe:cpe23
@@ -75,5 +75,5 @@ ssr:cpeValidator
                       sh:dataType  cpe:Reference
                     ] ;
 
-    sh:targetClass  cpe:CPE
+    sh:targetClass  cpe:CPE 
 .

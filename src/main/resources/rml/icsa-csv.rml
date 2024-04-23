@@ -1,0 +1,134 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix rml: <http://semweb.mmlab.be/ns/rml#>.
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix carml: <http://carml.taxonic.com/carml/> .
+@prefix ex: <http://www.example.com/> .
+@prefix fno:    <http://semweb.datasciencelab.be/ns/function#> .
+@prefix fnml:   <http://semweb.mmlab.be/ns/fnml#> .
+@prefix dec:    <http://semantics.id/ns/declare#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix icsa: <http://w3id.org/sepses/vocab/ref/icsa#> .
+@prefix cve: <http://w3id.org/sepses/vocab/ref/cve#> .
+@prefix cwe: <http://w3id.org/sepses/vocab/ref/cwe#> .
+@prefix dcterm: <http://purl.org/dc/terms/> .
+@prefix grel: <http://users.ugent.be/~bjdmeest/function/grel.ttl#> .
+
+<#SubjectMapping> a rr:TriplesMap ;
+  rml:logicalSource [
+    rml:source [
+      a carml:Stream ;
+    ] ;
+    rml:referenceFormulation ql:CSV ;
+  ] ;
+
+  rr:subjectMap [
+    rr:template "http://w3id.org/sepses/resource/icsa/{ICS-CERT_Number}" ;
+    rr:class icsa:ICSA;
+  ] ;
+
+ rr:predicateObjectMap [
+        rr:predicate dcterm:identifier;
+        rr:objectMap [ rml:reference  "ICS-CERT_Number" ];
+        rr:datatype rdfs:Literal ;
+    ];
+
+rr:predicateObjectMap [
+        rr:predicate dcterm:title;
+        rr:objectMap [ rml:reference  "ICS-CERT_Advisory_Title" ];
+        rr:datatype rdfs:Literal ;
+    ];
+
+rr:predicateObjectMap [
+        rr:predicate dcterm:issued;
+        rr:objectMap [ rml:reference  "Original_Release_Date" ];
+        rr:datatype rdfs:Literal ;
+    ];
+
+rr:predicateObjectMap [
+        rr:predicate dcterm:modified;
+        rr:objectMap [ rml:reference  "Last_Updated" ];
+        rr:datatype rdfs:Literal ;
+    ];
+
+rr:predicateObjectMap [
+        rr:predicate icsa:year;
+        rr:objectMap [ rml:reference  "Year" ];
+        rr:datatype rdfs:Literal ;
+    ];
+
+rr:predicateObjectMap [
+        rr:predicate icsa:CVSSSeverity;
+        rr:objectMap [ rml:reference  "CVSS_Severity" ];
+        rr:datatype rdfs:Literal ;
+    ];
+
+rr:predicateObjectMap [
+        rr:predicate icsa:CVSSScore;
+        rr:objectMap [ rml:reference  "Cumulative_CVSS" ];
+        rr:datatype xsd:float ;
+    ];
+    
+    
+rr:predicateObjectMap [
+        rr:predicate icsa:license;
+        rr:objectMap [ rml:reference  "License" ];
+        rr:datatype rdfs:Literal ;
+    ];
+    
+	rr:predicateObjectMap [
+        rr:predicate icsa:cveNumber;
+        rr:objectMap [ rml:reference  "CVE_Number" ];
+        rr:datatype rdfs:Literal ;
+    ];
+
+	rr:predicateObjectMap [
+        rr:predicate icsa:cweNumber;
+        rr:objectMap [ rml:reference  "CWE_Number" ];
+        rr:datatype rdfs:Literal ;
+    ];
+ 	
+       	rr:predicateObjectMap [
+        rr:predicate icsa:criticalInfrastructureSector;
+        rr:objectMap [ rml:reference  "Critical_Infrastructure_Sector" ];
+        rr:datatype rdfs:Literal ;
+    ];
+    
+        rr:predicateObjectMap [
+        rr:predicate icsa:productsAffected;
+        rr:objectMap [ rml:reference  "Products_Affected" ];
+        rr:datatype rdfs:Literal ;
+    ];
+    
+        rr:predicateObjectMap [
+        rr:predicate icsa:product;
+        rr:objectMap [ rml:reference  "Product" ];
+        rr:datatype rdfs:Literal ;
+    ];
+    
+        rr:predicateObjectMap [
+        rr:predicate icsa:vendor;
+        rr:objectMap [ rml:reference  "Vendor" ];
+        rr:datatype rdfs:Literal ;
+    ];
+    
+            rr:predicateObjectMap [
+        rr:predicate icsa:productDistribution;
+        rr:objectMap [ rml:reference  "Product_Distribution" ];
+        rr:datatype rdfs:Literal ;
+    ];
+    
+        rr:predicateObjectMap [
+        rr:predicate icsa:companyHeadquarter;
+        rr:objectMap [ rml:reference  "Company_Headquarters" ];
+        rr:datatype rdfs:Literal ;
+    ];
+    
+        rr:predicateObjectMap [
+        rr:predicate icsa:reference;
+        rr:objectMap [ rr:template  "https://www.cisa.gov/ics/advisories/{ICS-CERT_Number}" ];
+    ];
+    
+
+.

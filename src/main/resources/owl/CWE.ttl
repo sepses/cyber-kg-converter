@@ -1,123 +1,33 @@
-@prefix : <http://w3id.org/sepses/vocab/integrated#> .
-@prefix cpe: <http://w3id.org/sepses/vocab/ref/cpe#> .
-@prefix cve: <http://w3id.org/sepses/vocab/ref/cve#> .
+@prefix : <http://w3id.org/sepses/vocab/ref/cwe#> .
 @prefix cwe: <http://w3id.org/sepses/vocab/ref/cwe#> .
-@prefix nvd: <http://w3id.org/sepses/vocab/ref/nvd#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix cvss: <http://w3id.org/sepses/vocab/ref/cvss#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix capec: <http://w3id.org/sepses/vocab/ref/capec#> .
-@prefix snort: <http://w3id.org/sepses/vocab/ref/snort#> .
-@base <http://w3id.org/sepses/vocab/integrated> .
+@base <http://w3id.org/sepses/vocab/ref/cwe> .
 
-<http://w3id.org/sepses/vocab/integrated> rdf:type owl:Ontology .
+<http://w3id.org/sepses/vocab/ref/cwe> rdf:type owl:Ontology  ;
+                                           owl:versionIRI <https://w3id.org/sepses/vocab/ref/cwe/1.0.0> ;
+                                           <http://purl.org/dc/elements/1.1/creator> "Kabul Kurniawan" ,
+                                                                                     "Elmar Kiesling" ,
+                                                                                     "Kabul Kurniawan" ;
+                                           <http://purl.org/dc/elements/1.1/description> """An ontology to represent CWE 
+This ontology is developed based on the CWE resources extracted from MITRE CWE (https://cwe.mitre.org/) """@en ;
+                                           <http://purl.org/dc/elements/1.1/rights> "http://creativecommons.org/licenses/by/4.0/" ;
+                                           <http://purl.org/dc/elements/1.1/title> "CWE Ontology" ;
+                                           <http://purl.org/vocab/vann/preferredNamespacePrefix> "cwe" .
 
 #################################################################
 #    Object Properties
 #################################################################
 
-###  http://w3id.org/sepses/vocab/ref/capec#hasConsequence
-capec:hasConsequence rdf:type owl:ObjectProperty ;
-                     rdfs:domain capec:CAPEC ;
-                     rdfs:range capec:Consequence ;
-                     rdfs:label "hasConsequence" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#hasExecutionFlow
-capec:hasExecutionFlow rdf:type owl:ObjectProperty ;
-                       rdfs:domain capec:CAPEC ;
-                       rdfs:range capec:ExecutionFlow ;
-                       rdfs:label "hasExecutionFlow" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#hasMitigation
-capec:hasMitigation rdf:type owl:ObjectProperty .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#hasReference
-capec:hasReference rdf:type owl:ObjectProperty .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#hasRelatedAttackPattern
-capec:hasRelatedAttackPattern rdf:type owl:ObjectProperty ;
-                              rdfs:domain capec:CAPEC ;
-                              rdfs:range capec:RelatedAttackPattern ;
-                              rdfs:label "hasRelatedAttackPattern" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#hasRelatedWeakness
-capec:hasRelatedWeakness rdf:type owl:ObjectProperty ;
-                         rdfs:domain capec:CAPEC ;
-                         rdfs:range cwe:CWE ;
-                         rdfs:label "hasRelatedWeakness" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#hasSkillRequired
-capec:hasSkillRequired rdf:type owl:ObjectProperty ;
-                       rdfs:domain capec:CAPEC ;
-                       rdfs:range capec:SkillRequired ;
-                       rdfs:label "hasSkillRequired" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#hasSubmissionHistory
-capec:hasSubmissionHistory rdf:type owl:ObjectProperty .
-
-
-###  http://w3id.org/sepses/vocab/ref/cpe#hasProduct
-cpe:hasProduct rdf:type owl:ObjectProperty ;
-               rdfs:domain cpe:CPE ;
-               rdfs:range cpe:Product ;
-               rdfs:label "hasProduct" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cpe#hasVendor
-cpe:hasVendor rdf:type owl:ObjectProperty ;
-              rdfs:domain cpe:Product ;
-              rdfs:range cpe:Vendor ;
-              rdfs:label "hasVendor" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cve#hasCPE
-cve:hasCPE rdf:type owl:ObjectProperty ;
-           rdfs:domain cve:CVE ;
-           rdfs:range cpe:CPE ;
-           rdfs:label "hasCPE" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cve#hasCWE
-cve:hasCWE rdf:type owl:ObjectProperty ;
-           rdfs:domain cve:CVE ;
-           rdfs:range cwe:CWE .
-
-
-###  http://w3id.org/sepses/vocab/ref/cve#hasReference
-cve:hasReference rdf:type owl:ObjectProperty ;
-                 rdfs:domain cve:CVE ;
-                 rdfs:range cve:Reference ;
-                 rdfs:label "hasReference" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cve#hasVulnerableConfiguration
-cve:hasVulnerableConfiguration rdf:type owl:ObjectProperty ;
-                               rdfs:domain cve:CVE ;
-                               rdfs:range cpe:LogicalTest ;
-                               rdfs:label "hasVulnerableConfiguration" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cvss#hasCVSS
-cvss:hasCVSS rdf:type owl:ObjectProperty ;
-             rdfs:domain cve:CVE ;
-             rdfs:range cvss:CVSS .
-
-
-###  http://w3id.org/sepses/vocab/ref/cwe#hasAplicablePlatform
-cwe:hasAplicablePlatform rdf:type owl:ObjectProperty ;
-                         rdfs:domain cwe:CWE ;
-                         rdfs:range cwe:AplicablePlatform ;
-                         rdfs:label "hasAplicablePlatform" .
+###  http://w3id.org/sepses/vocab/ref/cwe#hasApplicablePlatform
+cwe:hasApplicablePlatform rdf:type owl:ObjectProperty ;
+                          rdfs:domain cwe:CWE ;
+                          rdfs:range cwe:ApplicablePlatform ;
+                          rdfs:label "hasApplicablePlatform" .
 
 
 ###  http://w3id.org/sepses/vocab/ref/cwe#hasCAPEC
@@ -129,6 +39,7 @@ cwe:hasCAPEC rdf:type owl:ObjectProperty ;
 
 ###  http://w3id.org/sepses/vocab/ref/cwe#hasCommonConsequence
 cwe:hasCommonConsequence rdf:type owl:ObjectProperty ;
+                         owl:inverseOf cwe:isCommonConsequenceOf ;
                          rdfs:domain cwe:CWE ;
                          rdfs:range cwe:CommonConsequence ;
                          rdfs:label "hasCommonConsequence" .
@@ -136,6 +47,7 @@ cwe:hasCommonConsequence rdf:type owl:ObjectProperty ;
 
 ###  http://w3id.org/sepses/vocab/ref/cwe#hasDetectionMethod
 cwe:hasDetectionMethod rdf:type owl:ObjectProperty ;
+                       owl:inverseOf cwe:isDetectionMethodOf ;
                        rdfs:domain cwe:CWE ;
                        rdfs:range cwe:DetectionMethod ;
                        rdfs:label "hasDetectionMethod" .
@@ -143,23 +55,89 @@ cwe:hasDetectionMethod rdf:type owl:ObjectProperty ;
 
 ###  http://w3id.org/sepses/vocab/ref/cwe#hasModeOfIntroduction
 cwe:hasModeOfIntroduction rdf:type owl:ObjectProperty ;
+                          owl:inverseOf cwe:isModeOfIntroductionOf ;
                           rdfs:domain cwe:CWE ;
                           rdfs:range cwe:ModeOfIntroduction ;
                           rdfs:label "hasModeOfIntroduction" .
 
 
+###  http://w3id.org/sepses/vocab/ref/cwe#hasModificationHistory
+cwe:hasModificationHistory rdf:type owl:ObjectProperty ;
+                         rdfs:domain cwe:CWE ;
+                          rdfs:range cwe:ModificationHistory ;
+                          rdfs:label "hasModificationHistory" .
+
+
 ###  http://w3id.org/sepses/vocab/ref/cwe#hasPotentialMitigation
 cwe:hasPotentialMitigation rdf:type owl:ObjectProperty ;
+                           owl:inverseOf cwe:isPotentialMitigationOf ;
                            rdfs:domain cwe:CWE ;
                            rdfs:range cwe:PotentialMitigation ;
                            rdfs:label "hasPotentialMitigation" .
 
 
+###  http://w3id.org/sepses/vocab/ref/cwe#hasReference
+cwe:hasReference rdf:type owl:ObjectProperty ;
+                 rdfs:domain cwe:CWE ;
+                 rdfs:range cwe:Reference ;
+                 rdfs:label "hasReference" .
+
+
 ###  http://w3id.org/sepses/vocab/ref/cwe#hasRelatedWeakness
 cwe:hasRelatedWeakness rdf:type owl:ObjectProperty ;
+                       owl:inverseOf cwe:isRelatedWeaknessOf ;
                        rdfs:domain cwe:CWE ;
                        rdfs:range cwe:RelatedWeakness ;
                        rdfs:label "hasRelatedWeakness" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#hasSubmissionHistory
+cwe:hasSubmissionHistory rdf:type owl:ObjectProperty ;
+                         rdfs:domain cwe:CWE ;
+                         rdfs:range cwe:SubmissionHistory ;
+                         rdfs:label "hasSubmissionHistory" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#isCommonConsequenceOf
+cwe:isCommonConsequenceOf rdf:type owl:ObjectProperty ;
+                          rdfs:domain cwe:CommonConsequence ;
+                          rdfs:range cwe:CWE ;
+                          rdfs:label "isCommonConsequenceOf " .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#isDetectionMethodOf
+cwe:isDetectionMethodOf rdf:type owl:ObjectProperty ;
+                        rdfs:domain cwe:DetectionMethod ;
+                        rdfs:range cwe:CWE ;
+                        rdfs:label "isDetectionMethodOf " .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#isModeOfIntroductionOf
+cwe:isModeOfIntroductionOf rdf:type owl:ObjectProperty ;
+                           rdfs:domain cwe:ModeOfIntroduction ;
+                           rdfs:range cwe:CWE ;
+                           rdfs:label "isModeOfIntroductionOf" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#isModificationHistoryOf
+cwe:isModificationHistoryOf rdf:type owl:ObjectProperty ;
+                            rdfs:domain cwe:ModificationHistory ;
+                            rdfs:range cwe:CWE ;
+                            rdfs:label "isModificationHistoryOf" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#isPotentialMitigationOf
+cwe:isPotentialMitigationOf rdf:type owl:ObjectProperty ;
+                            rdfs:domain cwe:PotentialMitigation ;
+                            rdfs:range cwe:CWE ;
+                            rdfs:label "isPotentialMitigationOf " .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#isRelatedWeaknessOf
+cwe:isRelatedWeaknessOf rdf:type owl:ObjectProperty ;
+                        rdfs:domain cwe:RelatedWeakness ;
+                        rdfs:range cwe:CWE ;
+                        rdfs:label "isRelatedWeaknessOf " .
 
 
 ###  http://w3id.org/sepses/vocab/ref/cwe#relatedCWE
@@ -172,380 +150,6 @@ cwe:relatedCWE rdf:type owl:ObjectProperty ;
 #    Data properties
 #################################################################
 
-###  http://w3id.org/sepses/vocab/ref/capec#abstraction
-capec:abstraction rdf:type owl:DatatypeProperty ;
-                  rdfs:domain capec:CAPEC ;
-                  rdfs:range xsd:string ;
-                  rdfs:label "abstraction" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#attackStep
-capec:attackStep rdf:type owl:DatatypeProperty ;
-                 rdfs:domain capec:ExecutionFlow ;
-                 rdfs:range xsd:string ;
-                 rdfs:label "attackStep" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#attackStepDescription
-capec:attackStepDescription rdf:type owl:DatatypeProperty ;
-                            rdfs:domain capec:ExecutionFlow ;
-                            rdfs:range xsd:string ;
-                            rdfs:label "attackStepDescription" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#attackStepPhase
-capec:attackStepPhase rdf:type owl:DatatypeProperty ;
-                      rdfs:domain capec:ExecutionFlow ;
-                      rdfs:range xsd:string ;
-                      rdfs:label "attackStepPhase" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#attackStepTechnique
-capec:attackStepTechnique rdf:type owl:DatatypeProperty ;
-                          rdfs:domain capec:ExecutionFlow ;
-                          rdfs:range xsd:string ;
-                          rdfs:label "attackStepTechnique" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#consequenceImpact
-capec:consequenceImpact rdf:type owl:DatatypeProperty ;
-                        rdfs:domain capec:Consequence ;
-                        rdfs:range xsd:string ;
-                        rdfs:label "consequenceImpact" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#consequenceScope
-capec:consequenceScope rdf:type owl:DatatypeProperty ;
-                       rdfs:domain capec:Consequence ;
-                       rdfs:range xsd:string ;
-                       rdfs:label "consequenceScope" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#description
-capec:description rdf:type owl:DatatypeProperty ;
-                  rdfs:domain capec:CAPEC ;
-                  rdfs:range xsd:string ;
-                  rdfs:label "description" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#hasMitigation
-capec:hasMitigation rdf:type owl:DatatypeProperty ;
-                    rdfs:domain capec:CAPEC ;
-                    rdfs:range xsd:string .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#id
-capec:id rdf:type owl:DatatypeProperty ;
-         rdfs:domain capec:CAPEC ;
-         rdfs:range xsd:string ;
-         rdfs:label "id" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#likelihoodOfAttack
-capec:likelihoodOfAttack rdf:type owl:DatatypeProperty ;
-                         rdfs:domain capec:CAPEC ;
-                         rdfs:range xsd:string ;
-                         rdfs:label "likelihoodOfAttack" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#name
-capec:name rdf:type owl:DatatypeProperty ;
-           rdfs:domain capec:CAPEC ;
-           rdfs:range xsd:string ;
-           rdfs:label "name" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#prerequisite
-capec:prerequisite rdf:type owl:DatatypeProperty ;
-                   rdfs:domain capec:CAPEC ;
-                   rdfs:range xsd:string ;
-                   rdfs:label "prerequisite" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#relatedAttackPatternNature
-capec:relatedAttackPatternNature rdf:type owl:DatatypeProperty ;
-                                 rdfs:domain capec:RelatedAttackPattern ;
-                                 rdfs:range xsd:string ;
-                                 rdfs:label "relatedAttackPatternNature" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#relatedAttackPatternViewId
-capec:relatedAttackPatternViewId rdf:type owl:DatatypeProperty ;
-                                 rdfs:domain capec:RelatedAttackPattern ;
-                                 rdfs:range xsd:string ;
-                                 rdfs:label "relatedAttackPatternViewId" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#relatedCAPEC
-capec:relatedCAPEC rdf:type owl:DatatypeProperty .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#resourceRequired
-capec:resourceRequired rdf:type owl:DatatypeProperty ;
-                       rdfs:domain capec:CAPEC ;
-                       rdfs:range xsd:string ;
-                       rdfs:label "resourceRequired" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#skillDescription
-capec:skillDescription rdf:type owl:DatatypeProperty ;
-                       rdfs:domain capec:SkillRequired ;
-                       rdfs:range xsd:string ;
-                       rdfs:label "skillDescription" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#skillLevel
-capec:skillLevel rdf:type owl:DatatypeProperty ;
-                 rdfs:domain capec:SkillRequired ;
-                 rdfs:range xsd:string ;
-                 rdfs:label "skillLevel" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#status
-capec:status rdf:type owl:DatatypeProperty ;
-             rdfs:domain capec:CAPEC ;
-             rdfs:range xsd:string ;
-             rdfs:label "status" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#typicalSeverity
-capec:typicalSeverity rdf:type owl:DatatypeProperty ;
-                      rdfs:domain capec:CAPEC ;
-                      rdfs:range xsd:string ;
-                      rdfs:label "typicalSeverity" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cpe#edition
-cpe:edition rdf:type owl:DatatypeProperty ;
-            rdfs:domain cpe:Product ;
-            rdfs:range xsd:string ;
-            rdfs:label "edition" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cpe#language
-cpe:language rdf:type owl:DatatypeProperty ;
-             rdfs:domain cpe:Product ;
-             rdfs:range xsd:string ;
-             rdfs:label "language" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cpe#other
-cpe:other rdf:type owl:DatatypeProperty ;
-          rdfs:range xsd:string ;
-          rdfs:label "other" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cpe#part
-cpe:part rdf:type owl:DatatypeProperty ;
-         rdfs:domain cpe:CPE ;
-         rdfs:range xsd:string ;
-         rdfs:label "part" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cpe#productName
-cpe:productName rdf:type owl:DatatypeProperty ;
-                rdfs:domain cpe:Product ;
-                rdfs:range xsd:string ;
-                rdfs:label "productName" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cpe#softwareEdition
-cpe:softwareEdition rdf:type owl:DatatypeProperty ;
-                    rdfs:domain cpe:Product ;
-                    rdfs:range xsd:string ;
-                    rdfs:label "softwareEdition" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cpe#targetHardware
-cpe:targetHardware rdf:type owl:DatatypeProperty ;
-                   rdfs:domain cpe:Product ;
-                   rdfs:range xsd:string ;
-                   rdfs:label "targetHardware" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cpe#targetSoftware
-cpe:targetSoftware rdf:type owl:DatatypeProperty ;
-                   rdfs:domain cpe:Product ;
-                   rdfs:range xsd:string ;
-                   rdfs:label "targetSoftware" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cpe#update
-cpe:update rdf:type owl:DatatypeProperty ;
-           rdfs:domain cpe:Product ;
-           rdfs:range xsd:string ;
-           rdfs:label "update" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cpe#vendorName
-cpe:vendorName rdf:type owl:DatatypeProperty ;
-               rdfs:domain cpe:Vendor ;
-               rdfs:range xsd:string ;
-               rdfs:label "vendorName" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cpe#version
-cpe:version rdf:type owl:DatatypeProperty ;
-            rdfs:domain cpe:CPE ,
-                        cpe:Product ;
-            rdfs:range xsd:string ;
-            rdfs:label "version" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cve#datePublished
-cve:datePublished rdf:type owl:DatatypeProperty ;
-                  rdfs:domain cve:CVE ;
-                  rdfs:range xsd:dateTime ;
-                  rdfs:label "datePublished" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cve#description
-cve:description rdf:type owl:DatatypeProperty ;
-                rdfs:domain cve:CVE ;
-                rdfs:range xsd:string ;
-                rdfs:label "description" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cve#id
-cve:id rdf:type owl:DatatypeProperty ;
-       rdfs:domain cve:CVE ;
-       rdfs:range xsd:string ;
-       rdfs:label "id" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cve#reference
-cve:reference rdf:type owl:DatatypeProperty ;
-              rdfs:domain cve:CVE ;
-              rdfs:range xsd:string ;
-              rdfs:label "reference" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cve#referenceSource
-cve:referenceSource rdf:type owl:DatatypeProperty ;
-                    rdfs:domain cve:Reference ;
-                    rdfs:range xsd:string ;
-                    rdfs:label "referenceSource" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cve#referenceType
-cve:referenceType rdf:type owl:DatatypeProperty ;
-                  rdfs:domain cve:Reference ;
-                  rdfs:range xsd:string ;
-                  rdfs:label "referenceType" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cve#referenceUrl
-cve:referenceUrl rdf:type owl:DatatypeProperty ;
-                 rdfs:domain cve:Reference ;
-                 rdfs:range xsd:string ;
-                 rdfs:label "referenceUrl" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cvss#accessComplexity
-cvss:accessComplexity rdf:type owl:DatatypeProperty ;
-                      rdfs:domain cvss:CVSSBaseMetricV2 ;
-                      rdfs:range xsd:string ;
-                      rdfs:label "accessComplexity" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cvss#accessVector
-cvss:accessVector rdf:type owl:DatatypeProperty ;
-                  rdfs:domain cvss:CVSSBaseMetricV2 ;
-                  rdfs:range xsd:string ;
-                  rdfs:label "accessVector" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cvss#attackComplexity
-cvss:attackComplexity rdf:type owl:DatatypeProperty ;
-                      rdfs:domain cvss:CVSSBaseMetricV3 ;
-                      rdfs:range xsd:string ;
-                      rdfs:label "attackComplexity" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cvss#attackVector
-cvss:attackVector rdf:type owl:DatatypeProperty ;
-                  rdfs:domain cvss:CVSSBaseMetricV3 ;
-                  rdfs:range xsd:string ;
-                  rdfs:label "attackVector" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cvss#authentication
-cvss:authentication rdf:type owl:DatatypeProperty ;
-                    rdfs:domain cvss:CVSSBaseMetricV2 ;
-                    rdfs:range xsd:string ;
-                    rdfs:label "authentication" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cvss#availabilityImpact
-cvss:availabilityImpact rdf:type owl:DatatypeProperty ;
-                        rdfs:domain cvss:CVSSBaseMetric ;
-                        rdfs:range xsd:string ;
-                        rdfs:label "availabilityImpact" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cvss#baseScore
-cvss:baseScore rdf:type owl:DatatypeProperty ;
-               rdfs:domain cvss:CVSSBaseMetric ;
-               rdfs:range xsd:decimal ;
-               rdfs:label "baseScore" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cvss#confidentialityImpact
-cvss:confidentialityImpact rdf:type owl:DatatypeProperty ;
-                           rdfs:domain cvss:CVSSBaseMetric ;
-                           rdfs:range xsd:string ;
-                           rdfs:label "confidentialityImpact" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cvss#exploitabilityScore
-cvss:exploitabilityScore rdf:type owl:DatatypeProperty ;
-                         rdfs:domain cvss:CVSSBaseMetric ;
-                         rdfs:range xsd:decimal ;
-                         rdfs:label "exploitabilityScore" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cvss#impactScore
-cvss:impactScore rdf:type owl:DatatypeProperty ;
-                 rdfs:domain cvss:CVSSBaseMetric ;
-                 rdfs:range xsd:decimal ;
-                 rdfs:label "impactScore" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cvss#integrityImpact
-cvss:integrityImpact rdf:type owl:DatatypeProperty ;
-                     rdfs:domain cvss:CVSSBaseMetric ;
-                     rdfs:range xsd:string ;
-                     rdfs:label "integrityImpact" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cvss#privilegesRequired
-cvss:privilegesRequired rdf:type owl:DatatypeProperty ;
-                        rdfs:domain cvss:CVSSBaseMetricV3 ;
-                        rdfs:range xsd:string ;
-                        rdfs:label "privilegesRequired" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cvss#scope
-cvss:scope rdf:type owl:DatatypeProperty ;
-           rdfs:domain cvss:CVSSBaseMetricV3 ;
-           rdfs:range xsd:string ;
-           rdfs:label "scope" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cvss#userInteraction
-cvss:userInteraction rdf:type owl:DatatypeProperty ;
-                     rdfs:domain cvss:CVSSBaseMetricV3 ;
-                     rdfs:range xsd:string ;
-                     rdfs:label "userInteraction" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cvss#vectorString
-cvss:vectorString rdf:type owl:DatatypeProperty ;
-                  rdfs:domain cvss:CVSSBaseMetric ;
-                  rdfs:range xsd:string ;
-                  rdfs:label "vectorString" .
-
-
 ###  http://w3id.org/sepses/vocab/ref/cwe#abstraction
 cwe:abstraction rdf:type owl:DatatypeProperty ;
                 rdfs:domain cwe:CWE ;
@@ -555,23 +159,30 @@ cwe:abstraction rdf:type owl:DatatypeProperty ;
 
 ###  http://w3id.org/sepses/vocab/ref/cwe#applicablePlatformLanguage
 cwe:applicablePlatformLanguage rdf:type owl:DatatypeProperty ;
-                               rdfs:domain cwe:AplicablePlatform ;
+                               rdfs:domain cwe:ApplicablePlatform ;
                                rdfs:range xsd:string ;
                                rdfs:label "applicablePlatformLanguage" .
 
 
 ###  http://w3id.org/sepses/vocab/ref/cwe#applicablePlatformParadigm
 cwe:applicablePlatformParadigm rdf:type owl:DatatypeProperty ;
-                               rdfs:domain cwe:AplicablePlatform ;
+                               rdfs:domain cwe:ApplicablePlatform ;
                                rdfs:range xsd:string ;
                                rdfs:label "applicablePlatformParadigm" .
 
 
 ###  http://w3id.org/sepses/vocab/ref/cwe#applicablePlatformTechnology
 cwe:applicablePlatformTechnology rdf:type owl:DatatypeProperty ;
-                                 rdfs:domain cwe:AplicablePlatform ;
+                                 rdfs:domain cwe:ApplicablePlatform ;
                                  rdfs:range xsd:string ;
                                  rdfs:label "applicablePlatformTechnology" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#backgroundDetail
+cwe:backgroundDetail rdf:type owl:DatatypeProperty ;
+                     rdfs:domain cwe:CWE ;
+                     rdfs:range xsd:string ;
+                     rdfs:label "backgroundDetail" .
 
 
 ###  http://w3id.org/sepses/vocab/ref/cwe#consequenceImpact
@@ -595,13 +206,6 @@ cwe:consequenceScope rdf:type owl:DatatypeProperty ;
                      rdfs:label "consequenceScope" .
 
 
-###  http://w3id.org/sepses/vocab/ref/cwe#description
-cwe:description rdf:type owl:DatatypeProperty ;
-                rdfs:domain cwe:CWE ;
-                rdfs:range xsd:string ;
-                rdfs:label "description" .
-
-
 ###  http://w3id.org/sepses/vocab/ref/cwe#detectionDescription
 cwe:detectionDescription rdf:type owl:DatatypeProperty ;
                          rdfs:domain cwe:DetectionMethod ;
@@ -614,6 +218,13 @@ cwe:detectionEffectiveness rdf:type owl:DatatypeProperty ;
                            rdfs:domain cwe:DetectionMethod ;
                            rdfs:range xsd:string ;
                            rdfs:label "detectionEffectiveness" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#detectionEffectivenessNote
+cwe:detectionEffectivenessNote rdf:type owl:DatatypeProperty ;
+                               rdfs:domain cwe:DetectionMethod ;
+                               rdfs:range xsd:string ;
+                               rdfs:label "detectionEffectiveness" .
 
 
 ###  http://w3id.org/sepses/vocab/ref/cwe#detectionMethod
@@ -630,13 +241,6 @@ cwe:extendedDescription rdf:type owl:DatatypeProperty ;
                         rdfs:label "extendedDescription" .
 
 
-###  http://w3id.org/sepses/vocab/ref/cwe#id
-cwe:id rdf:type owl:DatatypeProperty ;
-       rdfs:domain cwe:CWE ;
-       rdfs:range xsd:string ;
-       rdfs:label "id" .
-
-
 ###  http://w3id.org/sepses/vocab/ref/cwe#likelihoodOfExploit
 cwe:likelihoodOfExploit rdf:type owl:DatatypeProperty ;
                         rdfs:domain cwe:CWE ;
@@ -644,11 +248,32 @@ cwe:likelihoodOfExploit rdf:type owl:DatatypeProperty ;
                         rdfs:label "likelihoodOfExploit" .
 
 
+###  http://w3id.org/sepses/vocab/ref/cwe#mappingUsage
+cwe:mappingUsage rdf:type owl:DatatypeProperty ;
+                 rdfs:domain cwe:CWE ;
+                 rdfs:range xsd:string ;
+                 rdfs:label "mappingUsage" .
+
+
 ###  http://w3id.org/sepses/vocab/ref/cwe#mitigationDescription
 cwe:mitigationDescription rdf:type owl:DatatypeProperty ;
                           rdfs:domain cwe:PotentialMitigation ;
                           rdfs:range xsd:string ;
                           rdfs:label "mitigationDescription" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#mitigationEffectiveness
+cwe:mitigationEffectiveness rdf:type owl:DatatypeProperty ;
+                            rdfs:domain cwe:PotentialMitigation ;
+                            rdfs:range xsd:string ;
+                            rdfs:label "mitigationEffectiveness" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#mitigationEffectivenessNote
+cwe:mitigationEffectivenessNote rdf:type owl:DatatypeProperty ;
+                                rdfs:domain cwe:PotentialMitigation ;
+                                rdfs:range xsd:string ;
+                                rdfs:label "mitigationEffectivenessNote" .
 
 
 ###  http://w3id.org/sepses/vocab/ref/cwe#mitigationPhase
@@ -672,11 +297,95 @@ cwe:modeOfIntroductionNotePhase rdf:type owl:DatatypeProperty ;
                                 rdfs:label "modeOfIntroductionNotePhase" .
 
 
-###  http://w3id.org/sepses/vocab/ref/cwe#name
-cwe:name rdf:type owl:DatatypeProperty ;
-         rdfs:domain cwe:CWE ;
-         rdfs:range xsd:string ;
-         rdfs:label "name" .
+###  http://w3id.org/sepses/vocab/ref/cwe#modeOfIntroductionPhase
+cwe:modeOfIntroductionPhase rdf:type owl:DatatypeProperty ;
+                            rdfs:domain cwe:ModeOfIntroduction ;
+                            rdfs:range xsd:string ;
+                            rdfs:label "modeOfIntroductionPhase" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#modificationComment
+cwe:modificationComment rdf:type owl:DatatypeProperty ;
+                        rdfs:domain cwe:ModificationHistory ;
+                        rdfs:range xsd:string ;
+                        rdfs:label "modificationComment" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#modificationDate
+cwe:modificationDate rdf:type owl:DatatypeProperty ;
+                     rdfs:domain cwe:ModificationHistory ;
+                     rdfs:range xsd:string ;
+                     rdfs:label "modificationDate" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#modificationName
+cwe:modificationName rdf:type owl:DatatypeProperty ;
+                     rdfs:domain cwe:ModificationHistory ;
+                     rdfs:range xsd:string ;
+                     rdfs:label "modificationName" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#modificationOrganization
+cwe:modificationOrganization rdf:type owl:DatatypeProperty ;
+                             rdfs:domain cwe:ModificationHistory ;
+                             rdfs:range xsd:string ;
+                             rdfs:label "modificationName" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#referenceAuthor
+cwe:referenceAuthor rdf:type owl:DatatypeProperty ;
+                    rdfs:domain cwe:Reference ;
+                    rdfs:range xsd:string ;
+                    rdfs:label "referenceAuthor" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#referenceEdition
+cwe:referenceEdition rdf:type owl:DatatypeProperty ;
+                     rdfs:domain cwe:Reference ;
+                     rdfs:range xsd:integer ;
+                     rdfs:label "referenceEdition" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#referencePublicationDay
+cwe:referencePublicationDay rdf:type owl:DatatypeProperty ;
+                            rdfs:domain cwe:Reference ;
+                            rdfs:range xsd:integer ;
+                            rdfs:label "referencePublicationDay" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#referencePublicationMonth
+cwe:referencePublicationMonth rdf:type owl:DatatypeProperty ;
+                              rdfs:domain cwe:Reference ;
+                              rdfs:range xsd:integer ;
+                              rdfs:label "referencePublicationMonth" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#referencePublicationYear
+cwe:referencePublicationYear rdf:type owl:DatatypeProperty ;
+                             rdfs:domain cwe:Reference ;
+                             rdfs:range xsd:integer ;
+                             rdfs:label "referencePublicationYear" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#referencePublisher
+cwe:referencePublisher rdf:type owl:DatatypeProperty ;
+                       rdfs:domain cwe:Reference ;
+                       rdfs:range xsd:string ;
+                       rdfs:label "referencePublisher" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#referenceTitle
+cwe:referenceTitle rdf:type owl:DatatypeProperty ;
+                   rdfs:domain cwe:Reference ;
+                   rdfs:range xsd:string ;
+                   rdfs:label "referenceTitle" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#referenceUrl
+cwe:referenceUrl rdf:type owl:DatatypeProperty ;
+                 rdfs:domain cwe:Reference ;
+                 rdfs:range xsd:string ;
+                 rdfs:label "referenceUrl" .
 
 
 ###  http://w3id.org/sepses/vocab/ref/cwe#relatedCWE
@@ -719,6 +428,27 @@ cwe:structure rdf:type owl:DatatypeProperty ;
               rdfs:label "structure" .
 
 
+###  http://w3id.org/sepses/vocab/ref/cwe#submissionDate
+cwe:submissionDate rdf:type owl:DatatypeProperty ;
+                   rdfs:domain cwe:CWE ;
+                   rdfs:range xsd:string ;
+                   rdfs:label "submissionDate" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#submissionName
+cwe:submissionName rdf:type owl:DatatypeProperty ;
+                   rdfs:domain cwe:CWE ;
+                   rdfs:range xsd:string ;
+                   rdfs:label "submissionName" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#submissionOrganization
+cwe:submissionOrganization rdf:type owl:DatatypeProperty ;
+                           rdfs:domain cwe:CWE ;
+                           rdfs:range xsd:string ;
+                           rdfs:label "submissionOrganization" .
+
+
 ###  http://w3id.org/sepses/vocab/ref/cwe#weaknessOrdinality
 cwe:weaknessOrdinality rdf:type owl:DatatypeProperty ;
                        rdfs:domain cwe:CWE ;
@@ -736,111 +466,10 @@ capec:CAPEC rdf:type owl:Class ;
             rdfs:label "CAPEC" .
 
 
-###  http://w3id.org/sepses/vocab/ref/capec#Consequence
-capec:Consequence rdf:type owl:Class ;
-                  rdfs:subClassOf owl:Thing ;
-                  rdfs:label "Consequence" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#ExecutionFlow
-capec:ExecutionFlow rdf:type owl:Class ;
-                    rdfs:subClassOf owl:Thing ;
-                    rdfs:label "ExecutionFlow" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#Mitigation
-capec:Mitigation rdf:type owl:Class ;
-                 rdfs:subClassOf owl:Thing ;
-                 rdfs:label "Mitigation" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#RelatedAttackPattern
-capec:RelatedAttackPattern rdf:type owl:Class ;
-                           rdfs:subClassOf owl:Thing ;
-                           rdfs:label "RelatedAttackPattern" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#RelatedWeakness
-capec:RelatedWeakness rdf:type owl:Class ;
-                      rdfs:subClassOf owl:Thing ;
-                      rdfs:label "RelatedWeakness" .
-
-
-###  http://w3id.org/sepses/vocab/ref/capec#SkillRequired
-capec:SkillRequired rdf:type owl:Class ;
-                    rdfs:subClassOf owl:Thing ;
-                    rdfs:label "SkillRequired" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cpe#CPE
-cpe:CPE rdf:type owl:Class ;
-        rdfs:subClassOf owl:Thing ;
-        rdfs:label "CPE" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cpe#LogicalTest
-cpe:LogicalTest rdf:type owl:Class ;
-                rdfs:subClassOf owl:Thing ;
-                rdfs:label "LogicalTest" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cpe#Product
-cpe:Product rdf:type owl:Class ;
-            rdfs:subClassOf owl:Thing ;
-            rdfs:label "Product" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cpe#Vendor
-cpe:Vendor rdf:type owl:Class ;
-           rdfs:subClassOf owl:Thing ;
-           rdfs:label "Vendor" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cve#CVE
-cve:CVE rdf:type owl:Class ;
-        rdfs:subClassOf owl:Thing ;
-        rdfs:label "CVE" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cve#Reference
-cve:Reference rdf:type owl:Class ;
-              rdfs:subClassOf owl:Thing ;
-              rdfs:label "Reference" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cve#Vulnerability
-cve:Vulnerability rdf:type owl:Class ;
-                  rdfs:subClassOf owl:Thing ;
-                  rdfs:label "Vulnerability" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cvss#CVSS
-cvss:CVSS rdf:type owl:Class ;
-          rdfs:subClassOf owl:Thing ;
-          rdfs:label "CVSS" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cvss#CVSSBaseMetric
-cvss:CVSSBaseMetric rdf:type owl:Class ;
-                    rdfs:subClassOf cvss:CVSS .
-
-
-###  http://w3id.org/sepses/vocab/ref/cvss#CVSSBaseMetricV2
-cvss:CVSSBaseMetricV2 rdf:type owl:Class ;
-                      rdfs:subClassOf cvss:CVSSBaseMetric ;
-                      rdfs:label "CVSS2BaseMetric" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cvss#CVSSBaseMetricV3
-cvss:CVSSBaseMetricV3 rdf:type owl:Class ;
-                      rdfs:subClassOf cvss:CVSSBaseMetric ;
-                      rdfs:label "CVSS3BaseMetric" .
-
-
-###  http://w3id.org/sepses/vocab/ref/cwe#AplicablePlatform
-cwe:AplicablePlatform rdf:type owl:Class ;
-                      rdfs:subClassOf owl:Thing ;
-                      rdfs:label "AplicablePlatform" .
+###  http://w3id.org/sepses/vocab/ref/cwe#ApplicablePlatform
+cwe:ApplicablePlatform rdf:type owl:Class ;
+                       rdfs:subClassOf owl:Thing ;
+                       rdfs:label "ApplicablePlatform" .
 
 
 ###  http://w3id.org/sepses/vocab/ref/cwe#CWE
@@ -867,10 +496,22 @@ cwe:ModeOfIntroduction rdf:type owl:Class ;
                        rdfs:label "ModeOfIntroduction" .
 
 
+###  http://w3id.org/sepses/vocab/ref/cwe#ModificationHistory
+cwe:ModificationHistory rdf:type owl:Class ;
+                        rdfs:subClassOf owl:Thing ;
+                        rdfs:label "ModificationHistory" .
+
+
 ###  http://w3id.org/sepses/vocab/ref/cwe#PotentialMitigation
 cwe:PotentialMitigation rdf:type owl:Class ;
                         rdfs:subClassOf owl:Thing ;
                         rdfs:label "PotentialMitigation" .
+
+
+###  http://w3id.org/sepses/vocab/ref/cwe#Reference
+cwe:Reference rdf:type owl:Class ;
+              rdfs:subClassOf owl:Thing ;
+              rdfs:label "Reference" .
 
 
 ###  http://w3id.org/sepses/vocab/ref/cwe#RelatedWeakness
@@ -879,4 +520,10 @@ cwe:RelatedWeakness rdf:type owl:Class ;
                     rdfs:label "RelatedWeakness" .
 
 
-###  Generated by the OWL API (version 4.5.6.2018-09-06T00:27:41Z) https://github.com/owlcs/owlapi
+###  http://w3id.org/sepses/vocab/ref/cwe#SubmissionHistory
+cwe:SubmissionHistory rdf:type owl:Class ;
+                      rdfs:subClassOf owl:Thing ;
+                      rdfs:label "SubmissionHistory" .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi

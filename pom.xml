@@ -122,7 +122,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <carml.version>0.2.3</carml.version>
+        <carml.version>0.3.2</carml.version>
         <jena.version>3.9.0</jena.version>
         <jena.schemagen.version>3.0.1</jena.schemagen.version>
     </properties>

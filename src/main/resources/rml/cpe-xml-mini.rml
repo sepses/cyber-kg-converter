@@ -5,6 +5,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterm: <http://purl.org/dc/terms/> .
 @prefix cpe: <http://w3id.org/sepses/vocab/ref/cpe#> .
 
 <#CPEMapping>
@@ -27,12 +28,12 @@
         rr:objectMap [ rr:template "http://w3id.org/sepses/vocab/ref/cpe#CPE" ];
     ];
     rr:predicateObjectMap [
-        rr:predicate cpe:title;
-        rr:objectMap [ carml:multiReference "title" ];
+        rr:predicate dcterm:title;
+        rr:objectMap [ rml:reference "title" ];
         rr:datatype xsd:string ;
     ];
     rr:predicateObjectMap [
-        rr:predicate cpe:id;
+        rr:predicate dcterm:identifier;
         rr:objectMap [ rml:reference "@name" ];
         rr:datatype xsd:string ;
     ];
@@ -55,7 +56,7 @@
     ];
     rr:predicateObjectMap [
         rr:predicate cpe:hasReference;
-        rr:objectMap [ carml:multiReference "references/reference/@href" ]
+        rr:objectMap [ rml:reference "references/reference/@href" ]
     ];
 .
 

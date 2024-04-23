@@ -52,12 +52,12 @@
         rr:objectMap [ rr:template "http://w3id.org/sepses/vocab/ref/capec#CAPEC" ];
     ];
     rr:predicateObjectMap [
-        rr:predicate capec:id;
+        rr:predicate dcterm:identifier;
         rr:objectMap [ rml:reference "@ID" ];
         rr:datatype xsd:string ;
     ];
     rr:predicateObjectMap [
-        rr:predicate capec:name;
+        rr:predicate dcterm:title;
         rr:objectMap [ rml:reference  "@Name" ];
         rr:datatype xsd:string ;
     ];
@@ -91,15 +91,15 @@
     ];
     rr:predicateObjectMap [
         rr:predicate capec:indicator;
-        rr:objectMap [ carml:multiReference "Indicators/Indicator" ];
+        rr:objectMap [ rml:reference "Indicators/Indicator" ];
     ];
     rr:predicateObjectMap [
         rr:predicate capec:prerequisite;
-        rr:objectMap [ carml:multiReference "Prerequisites/Prerequisite" ; ];
+        rr:objectMap [ rml:reference "Prerequisites/Prerequisite" ; ];
     ];
     rr:predicateObjectMap [
         rr:predicate capec:resourceRequired;
-        rr:objectMap [ carml:multiReference "Resources_Required/Resource" ; ];
+        rr:objectMap [ rml:reference "Resources_Required/Resource" ; ];
     ];
     rr:predicateObjectMap [
         rr:predicate capec:hasSubmissionHistory;
@@ -107,15 +107,15 @@
     ];
     rr:predicateObjectMap [
         rr:predicate capec:mitigation;
-        rr:objectMap [ carml:multiReference "Mitigations/Mitigation" ; ];
+        rr:objectMap [ rml:reference "Mitigations/Mitigation" ; ];
     ];
     rr:predicateObjectMap [
         rr:predicate capec:hasRelatedWeakness;
-        rr:objectMap [ carml:multiTemplate "http://w3id.org/sepses/resource/cwe/CWE-{Related_Weaknesses/Related_Weakness/@CWE_ID}" ; ];
+        rr:objectMap [ rr:template "http://w3id.org/sepses/resource/cwe/CWE-{Related_Weaknesses/Related_Weakness/@CWE_ID}" ; ];
     ];
     rr:predicateObjectMap [
         rr:predicate capec:hasReference;
-        rr:objectMap [ carml:multiTemplate "http://w3id.org/sepses/resource/capec/reference/{References/Reference/@External_Reference_ID}" ];
+        rr:objectMap [ rr:template "http://w3id.org/sepses/resource/capec/reference/{References/Reference/@External_Reference_ID}" ];
         rr:datatype xsd:string ;
     ];
 .
@@ -196,7 +196,7 @@
         rr:template "http://w3id.org/sepses/resource/capec/skillRequired/{concat(./../../@ID,string-length())}";
     ] ;
 	rr:predicateObjectMap [
-        rr:predicate capec:isSkillRequiredFor ;
+        rr:predicate capec:isSkillRequiredOf ;
         rr:objectMap [ rr:template "http://w3id.org/sepses/resource/capec/CAPEC-{./../../@ID}" ];
     ];
     rr:predicateObjectMap [
@@ -270,15 +270,15 @@
     ];
     rr:predicateObjectMap [
         rr:predicate capec:consequenceScope;
-        rr:objectMap [ carml:multiReference "Scope" ];
+        rr:objectMap [ rml:reference "Scope" ];
     ];
     rr:predicateObjectMap [
         rr:predicate capec:consequenceImpact;
-        rr:objectMap [ carml:multiReference "Impact" ];
+        rr:objectMap [ rml:reference "Impact" ];
     ];
     rr:predicateObjectMap [
         rr:predicate capec:consequenceNote;
-        rr:objectMap [ carml:multiReference "Note" ];
+        rr:objectMap [ rml:reference "Note" ];
     ];
 .
 
@@ -307,15 +307,15 @@
     ];
     rr:predicateObjectMap [
         rr:predicate capec:attackStepPhase;
-        rr:objectMap [ carml:multiReference "Phase" ];
+        rr:objectMap [ rml:reference "Phase" ];
     ];
     rr:predicateObjectMap [
         rr:predicate capec:attackStepDescription;
-        rr:objectMap [ carml:multiReference "Description" ];
+        rr:objectMap [ rml:reference "Description" ];
     ];
     rr:predicateObjectMap [
         rr:predicate capec:attackStepTechnique;
-        rr:objectMap [ carml:multiReference "Technique" ];
+        rr:objectMap [ rml:reference "Technique" ];
     ];
 .
 
@@ -333,12 +333,12 @@
     ] ;
     rr:predicateObjectMap [
         rr:predicate capec:referenceAuthor;
-        rr:objectMap [ carml:multiReference "Author" ];
+        rr:objectMap [ rml:reference "Author" ];
         rr:datatype xsd:string ;
     ];
     rr:predicateObjectMap [
         rr:predicate capec:referenceTitle;
-        rr:objectMap [ carml:multiReference "Title" ];
+        rr:objectMap [ rml:reference "Title" ];
         rr:datatype xsd:string ;
     ];
     rr:predicateObjectMap [

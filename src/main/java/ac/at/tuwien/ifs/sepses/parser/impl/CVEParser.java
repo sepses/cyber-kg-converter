@@ -85,7 +85,8 @@ public class CVEParser implements Parser {
         } else {
             // ** if CVE not yet initialized
             if (!Utility.checkIsGraphNotEmpty(sparqlEndpoint, namegraph, CVE.CVE)) {
-                // ** iterate through the years
+              
+        	// ** iterate through the years
                 for (int i = startYear; i <= endYear; i++) {
                     // inject year
                     cveUrlYear = urlCVE.replace("modified", String.valueOf(i));

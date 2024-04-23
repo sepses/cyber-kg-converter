@@ -96,9 +96,7 @@ public class CWEParser implements Parser {
     @Override public Model getModelFromLastUpdate() throws IOException {
         Model model = null;
 
-        // timer
-        long start = System.currentTimeMillis() / 1000;
-        long end;
+      
 
         //===========================================
         // Step 1 - Downloading CWE resource from the internet...
@@ -123,7 +121,7 @@ public class CWEParser implements Parser {
         Path path = Paths.get(CWEXML);
         String content = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
         content =
-                content.replaceAll("xmlns=\"http://cwe.mitre.org/cwe-6\"", "xmlns:1=\"http://cwe.mitre.org/cwe-6\"");
+                content.replaceAll("xmlns=\"http://cwe.mitre.org/cwe-7\"", "xmlns:c=\"http://cwe.mitre.org/cwe-7\"");
         Files.write(path, content.getBytes(StandardCharsets.UTF_8));
         log.info("... done!");
 
@@ -131,6 +129,10 @@ public class CWEParser implements Parser {
         log.info("Checking updates from " + sparqlEndpoint + " using graphname " + namegraph);
         boolean cat = Utility.checkIsUpToDate(XMLParser.Parse(CWEXML, rmlMetaModel), sparqlEndpoint, namegraph,
                 CWE.WEAKNESS_CATALOG);
+         //boolean cat=false
+        // timer
+        long start = System.currentTimeMillis() / 1000;
+        long end;
         if (cat) {
             log.info("CWE is up-to-date...! ");
             model = ModelFactory.createDefaultModel();

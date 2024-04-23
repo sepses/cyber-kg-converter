@@ -28,11 +28,11 @@ ssr:CWEValidator
                     ] ;
     sh:property     [ sh:maxCount  1 ;
                       sh:minCount  1 ;
-                      sh:path      cwe:id
+                      sh:path      dcterm:identifier
                     ] ;
     sh:property     [ sh:maxCount  1 ;
                       sh:minCount  1 ;
-                      sh:path      cwe:name
+                      sh:path      dcterm:title
                     ] ;
     sh:property     [ sh:maxCount  1 ;
                       sh:minCount  1 ;

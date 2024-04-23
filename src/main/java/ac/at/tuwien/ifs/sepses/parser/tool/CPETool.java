@@ -20,7 +20,7 @@ public class CPETool {
      * @return additional triples for CPE model
      */
     public static Model generateAdditionalTriples(Model CPEModel) {
-
+    	log.info("updating correct CPE links");
         //query to cpeModel
         Model additionalCPEModel = ModelFactory.createDefaultModel();
 
@@ -36,7 +36,7 @@ public class CPETool {
             String cpe23s = cpe23.toString();
             Resource resource = additionalCPEModel.createResource(s.toString());
 
-            String cpe1 = cpe23s.substring(0, cpe23s.indexOf(":"));
+//            String cpe1 = cpe23s.substring(0, cpe23s.indexOf(":"));
             String cpe1a = cpe23s.substring(cpe23s.indexOf(":") + 1, cpe23s.length());
             String cpe2 = cpe1a.substring(0, cpe1a.indexOf(":"));
             String cpe2a = cpe1a.substring(cpe1a.indexOf(":") + 1, cpe1a.length());
@@ -60,8 +60,15 @@ public class CPETool {
             String cpe11a = cpe10a.substring(cpe10a.indexOf(":") + 1, cpe10a.length());
             String cpe12 = cpe11a.substring(0, cpe11a.indexOf(":"));
 
+            
+            Resource vendor = CPEModel.createResource(CPE.NS_INSTANCE+"vendor/"+cpe4.replaceAll("[:*\\\\()<>\"\'^|]", ""));
+            Resource product = CPEModel.createResource(CPE.NS_INSTANCE+"product/"+cpe5.replaceAll("[:*\\\\()<>\"\'^|]", ""));
+
+            
             resource.addProperty(CPE.CPE_VERSION, cpe2);
             resource.addProperty(CPE.PART, cpe3);
+            resource.addProperty(CPE.HAS_VENDOR, vendor);
+            resource.addProperty(CPE.HAS_PRODUCT, product);
             resource.addProperty(CPE.VERSION, cpe6);
             resource.addProperty(CPE.UPDATE, cpe7);
             resource.addProperty(CPE.EDITION, cpe8);
