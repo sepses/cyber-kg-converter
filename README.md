@@ -7,15 +7,18 @@ SEPSES-CSKG is a cybersecurity knowledge graph that integrates and links critica
 ## Vocabularies
 Several vocabularies are developed to represent the SEPSES-CSKG knowledge graphs, as follows:
 
-| Ontology   | Prefix | Link                                              |
-|------------|--------|---------------------------------------------------|
-| ATT&CK     | attack | [http://w3id.org/sepses/vocab/ref/attack](http://w3id.org/sepses/vocab/ref/attack) |
-| ICSAdvisory| icsa   | [http://w3id.org/sepses/vocab/ref/icsa](http://w3id.org/sepses/vocab/ref/icsa)     |
-| CVE        | cve    | [http://w3id.org/sepses/vocab/ref/cve](http://w3id.org/sepses/vocab/ref/cve)         |
-| CPE        | cpe    | [http://w3id.org/sepses/vocab/ref/cpe](http://w3id.org/sepses/vocab/ref/cpe)         |
-| CVSS       | cvss   | [http://w3id.org/sepses/vocab/ref/cvss](http://w3id.org/sepses/vocab/ref/cvss)       |
-| CWE        | cwe    | [http://w3id.org/sepses/vocab/ref/cwe](http://w3id.org/sepses/vocab/ref/cwe)         |
-| CAPEC      | capec  | [http://w3id.org/sepses/vocab/ref/capec](http://w3id.org/sepses/vocab/ref/capec)     |
+# Ontology Links
+
+| Ontology   | Prefix | Link                                                                                       |
+|------------|--------|--------------------------------------------------------------------------------------------|
+| ATT&CK     | attack | <a href="http://w3id.org/sepses/vocab/ref/attack" target="_blank">http://w3id.org/sepses/vocab/ref/attack</a> |
+| ICSAdvisory| icsa   | <a href="http://w3id.org/sepses/vocab/ref/icsa" target="_blank">http://w3id.org/sepses/vocab/ref/icsa</a>     |
+| CVE        | cve    | <a href="http://w3id.org/sepses/vocab/ref/cve" target="_blank">http://w3id.org/sepses/vocab/ref/cve</a>         |
+| CPE        | cpe    | <a href="http://w3id.org/sepses/vocab/ref/cpe" target="_blank">http://w3id.org/sepses/vocab/ref/cpe</a>         |
+| CVSS       | cvss   | <a href="http://w3id.org/sepses/vocab/ref/cvss" target="_blank">http://w3id.org/sepses/vocab/ref/cvss</a>       |
+| CWE        | cwe    | <a href="http://w3id.org/sepses/vocab/ref/cwe" target="_blank">http://w3id.org/sepses/vocab/ref/cwe</a>         |
+| CAPEC      | capec  | <a href="http://w3id.org/sepses/vocab/ref/capec" target="_blank">http://w3id.org/sepses/vocab/ref/capec</a>     |
+
 
 
 ## Installation
