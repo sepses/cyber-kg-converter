@@ -7,8 +7,6 @@ SEPSES-CSKG is a cybersecurity knowledge graph that integrates and links critica
 ## Vocabularies
 Several vocabularies are developed to represent the SEPSES-CSKG knowledge graphs, as follows:
 
-# Ontology Links
-
 | Ontology   | Prefix | Link                                                                                   |
 |------------|--------|----------------------------------------------------------------------------------------|
 | ATT&CK     | attack | <a href="http://w3id.org/sepses/vocab/ref/attack" target="_blank">http://w3id.org/sepses/vocab/ref/attack</a> |
