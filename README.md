@@ -7,8 +7,10 @@ SEPSES-CSKG is a cybersecurity knowledge graph that integrates and links critica
 ## Vocabularies
 Several vocabularies are developed to represent the SEPSES-CSKG knowledge graphs, as follows:
 
-| Ontology   | Prefix | Link                                                                                       |
-|------------|--------|--------------------------------------------------------------------------------------------|
+# Ontology Links
+
+| Ontology   | Prefix | Link                                                                                   |
+|------------|--------|----------------------------------------------------------------------------------------|
 | ATT&CK     | attack | <a href="http://w3id.org/sepses/vocab/ref/attack" target="_blank">http://w3id.org/sepses/vocab/ref/attack</a> |
 | ICSAdvisory| icsa   | <a href="http://w3id.org/sepses/vocab/ref/icsa" target="_blank">http://w3id.org/sepses/vocab/ref/icsa</a>     |
 | CVE        | cve    | <a href="http://w3id.org/sepses/vocab/ref/cve" target="_blank">http://w3id.org/sepses/vocab/ref/cve</a>         |
@@ -16,7 +18,6 @@ Several vocabularies are developed to represent the SEPSES-CSKG knowledge graphs
 | CVSS       | cvss   | <a href="http://w3id.org/sepses/vocab/ref/cvss" target="_blank">http://w3id.org/sepses/vocab/ref/cvss</a>       |
 | CWE        | cwe    | <a href="http://w3id.org/sepses/vocab/ref/cwe" target="_blank">http://w3id.org/sepses/vocab/ref/cwe</a>         |
 | CAPEC      | capec  | <a href="http://w3id.org/sepses/vocab/ref/capec" target="_blank">http://w3id.org/sepses/vocab/ref/capec</a>     |
-
 
 
 ## Installation
