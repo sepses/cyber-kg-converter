@@ -1,11 +1,8 @@
-# The SEPSES Cyber-KB Engine (v2.1.0)
+# The SEPSES-CSKG Engine (v2.1.0)
 
-SEPSES-CSKG is a cybersecurity knowledge graph that integrates and links critical information such as vulnerabilities, weaknesses and attack patterns from various publicly available sources. The Knowledge Graph is continuously updated to reflect changes in various data sources used as inputs, i.e., CAPEC, CPE, CVE, CVSS, and CWE. In the following, you can find available resources, vocabularies, as well as reports on the updates of the Knowledge Graph.
+SEPSES-CSKG is a cybersecurity knowledge graph that integrates and links critical information such as vulnerabilities, weaknesses and attack patterns from various publicly available sources. The Knowledge Graph is continuously updated to reflect changes in various data sources used as inputs, i.e., CAPEC, CPE, CVE, CVSS, and CWE. This engine is designed as a RDF generation mechanism from several CyberSecurity resources. In our server, we add additional bash command to run it continuously, but we didn't provide the script here.
 
 **New!** in Version 2.1.0, several additional resources for <u>Industrial Control System Cybersecurity (ICS-Sec)</u> are included, i.e., MITRE ATT&CK (Enterprise and ICS) and ICSA (Industrial Control System Advisory).
-
-This engine is designed as a RDF generation mechanism from several CyberSecurity resources.
-In our server, we add additional bash command to run it continuously, but we didn't provide the script here.
 
 ## Vocabularies
 Several vocabularies are developed to represent the SEPSES-CSKG knowledge graphs, as follows:
@@ -42,7 +39,7 @@ The following steps are required to run the engine:
 * run `mvn install -DskipTests=true` to build the application
     * optionally, you can also run the tests (without the `-DskipTests=true`) to run checks of extracted data against a set of SHACL constraints to make sure that the conversion for each source is correctly defined
 * run `java -jar target/cyber-kb-<version>-jar-with-dependencies.jar -p <type-of-source>` 
-    * replace `<type-of-source>` with one of the following: capec, cwe, cve, cpe)
+    * replace `<type-of-source>` with one of the following: capec, cwe, cve, cat, icsa )
     * replace `<version>` with the version of the Cyber-KB
     * (optional) you can also add `-v` as parameter to activate SHACL constraint checking 
         * Note: this option may add a significant time to the process (especially for CPE)
