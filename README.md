@@ -1,14 +1,41 @@
-# The SEPSES Cyber-KB Engine (v1.1.0)
+# The SEPSES Cyber-KB Engine (v2.1.0)
+
+SEPSES-CSKG is a cybersecurity knowledge graph that integrates and links critical information such as vulnerabilities, weaknesses and attack patterns from various publicly available sources. The Knowledge Graph is continuously updated to reflect changes in various data sources used as inputs, i.e., CAPEC, CPE, CVE, CVSS, and CWE. In the following, you can find available resources, vocabularies, as well as reports on the updates of the Knowledge Graph.
+
+**New!** in Version 2.1.0, several additional resources for <u>Industrial Control System Cybersecurity (ICS-Sec)</u> are included, i.e., MITRE ATT&CK (Enterprise and ICS) and ICSA (Industrial Control System Advisory).
 
 This engine is designed as a RDF generation mechanism from several CyberSecurity resources.
 In our server, we add additional bash command to run it continuously, but we didn't provide the script here.
 
+## Vocabularies
+Several vocabularies are developed to represent the SEPSES-CSKG knowledge graphs, as follows:
+
+| Ontology   | Prefix | Link                                              |
+|------------|--------|---------------------------------------------------|
+| ATT&CK     | attack | [http://w3id.org/sepses/vocab/ref/attack](http://w3id.org/sepses/vocab/ref/attack) |
+| ICSAdvisory| icsa   | [http://w3id.org/sepses/vocab/ref/icsa](http://w3id.org/sepses/vocab/ref/icsa)     |
+| CVE        | cve    | [http://w3id.org/sepses/vocab/ref/cve](http://w3id.org/sepses/vocab/ref/cve)         |
+| CPE        | cpe    | [http://w3id.org/sepses/vocab/ref/cpe](http://w3id.org/sepses/vocab/ref/cpe)         |
+| CVSS       | cvss   | [http://w3id.org/sepses/vocab/ref/cvss](http://w3id.org/sepses/vocab/ref/cvss)       |
+| CWE        | cwe    | [http://w3id.org/sepses/vocab/ref/cwe](http://w3id.org/sepses/vocab/ref/cwe)         |
+| CAPEC      | capec  | [http://w3id.org/sepses/vocab/ref/capec](http://w3id.org/sepses/vocab/ref/capec)     |
+
+
+## Installation
+
+### Requirements
+
 To run this prototype, the prerequisite is that you have a JDK 8+ and Maven installed in your computer.
+
+### Configuration
 Additionally, the config.properties is build for local Jena fuseki installation. Make sure that: 
 * the `config.properties` is available (and adjust it if necessary; especially with regards to the triplestore/fuseki installation)
 * you have an empty repo called 'sepses' in your fuseki/virtuoso installation
     * you can also run it without storing the data to triplestore using "dummy" as storage
     * currently still need an active sparql endpoint (TODO: to fix this).
+
+
+### Run the Code
 
 The following steps are required to run the engine: 
 * run `mvn clean` to build the required jar files from the `lib` folder
@@ -28,6 +55,11 @@ The prototype will then
 We have tried and tested it in OSX (Intel i7@3,1GHz, OSX Mojave, 16GB RAM). 
 The benchmark result (excluding SHACL check) is available in the following [link](https://github.com/sepses/cyber-kg-converter/blob/master/doc/benchmark.png)
 
+## Access Services
+
 Example queries are now added (`example-queries.txt`), which can be tested in our [SPARQL endpoint](https://w3id.org/sepses/sparql).
+
+Other interface beyond SPARQL are also provided, such as [Linked Data Interface](https://sepses.ifs.tuwien.ac.at/index.php/cyber-kg/), [Triple Pattern Fragment](http://ldf-server.sepses.ifs.tuwien.ac.at/) and [Dump-files](https://sepses.ifs.tuwien.ac.at/index.php/datasets/)   (in .turtle and .HDT).
+
 
 @SEPSES team
