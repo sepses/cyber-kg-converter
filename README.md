@@ -2,17 +2,16 @@
 
 SEPSES-CSKG is a cybersecurity knowledge graph that integrates and links critical information such as vulnerabilities, weaknesses and attack patterns from various publicly available sources. The Knowledge Graph is continuously updated to reflect changes in various data sources used as inputs, i.e., CAPEC, CPE, CVE, CVSS, and CWE. This engine is designed as a RDF generation mechanism from several CyberSecurity resources. In our server, we add additional bash command to run it continuously, but we didn't provide the script here.
 
-<span style="color:red">**New!**</span> in Version 2.1.0, several additional resources for <u>Industrial Control System Cybersecurity (ICS-Sec)</u> are included, i.e., MITRE ATT&CK (Enterprise and ICS) and ICSA (Industrial Control System Advisory).
+## New: ISC-SEC KG
+<span style="color:red">**New!**</span> Several additional resources for <u>Industrial Control System Cybersecurity (ICS-Sec)</u> has been included, i.e., MITRE ATT&CK (Enterprise and ICS) and ICSA (Industrial Control System Advisory).  Detail information can be found <a href="https://github.com/sepses/ics-sec-kg"> here</a>.
 
 ## Vocabularies
 Several vocabularies are developed to represent the SEPSES-CSKG knowledge graphs, as follows:
 
 | Prefix | Description                               | Link                                                                                   |
 |--------|-------------------------------------------|----------------------------------------------------------------------------------------|
-| attack | MITRE ATT&CK Framework                    | <a href="http://w3id.org/sepses/vocab/ref/attack" target="_blank">http://w3id.org/sepses/vocab/ref/attack</a> |
 | capec  | Common Attack Pattern Enumeration and Classification (CAPEC) | <a href="http://w3id.org/sepses/vocab/ref/capec" target="_blank">http://w3id.org/sepses/vocab/ref/capec</a>     |
 | cwe    | Common Weakness Enumeration (CWE)         | <a href="http://w3id.org/sepses/vocab/ref/cwe" target="_blank">http://w3id.org/sepses/vocab/ref/cwe</a>         |
-| icsa   | Industrial Control System (ICS) Advisory  | <a href="http://w3id.org/sepses/vocab/ref/icsa" target="_blank">http://w3id.org/sepses/vocab/ref/icsa</a>     |
 | cve    | Common Vulnerabilities and Exposures (CVE) | <a href="http://w3id.org/sepses/vocab/ref/cve" target="_blank">http://w3id.org/sepses/vocab/ref/cve</a>         |
 | cvss   | Common Vulnerability Scoring System (CVSS)| <a href="http://w3id.org/sepses/vocab/ref/cvss" target="_blank">http://w3id.org/sepses/vocab/ref/cvss</a>       |
 | cpe    | Common Platform Enumeration (CPE)         | <a href="http://w3id.org/sepses/vocab/ref/cpe" target="_blank">http://w3id.org/sepses/vocab/ref/cpe</a>         |
@@ -56,7 +55,8 @@ The benchmark result (excluding SHACL check) is available in the following [link
 
 Example queries are now added (`example-queries.txt`), which can be tested in our [SPARQL endpoint](https://w3id.org/sepses/sparql).
 
-Other interface beyond SPARQL are also provided, such as [Linked Data Interface](https://sepses.ifs.tuwien.ac.at/index.php/cyber-kg/), [Triple Pattern Fragment](http://ldf-server.sepses.ifs.tuwien.ac.at/) and [Dump-files](https://sepses.ifs.tuwien.ac.at/index.php/datasets/)   (in .turtle and .HDT).
+Other interface beyond SPARQL are also provided, such as [Linked Data Interface](https://sepses.ifs.tuwien.ac.at/resource/cve/CVE-2018-4449) (example),  [Triple Pattern Fragment](http://ldf-server.sepses.ifs.tuwien.ac.at/) and [Dump-files](https://sepses.ifs.tuwien.ac.at/index.php/datasets/)   (in .turtle and .HDT).
 
+## License
 
-@SEPSES team
+The ECS-SEC KG Engine is written by SEPSES team and released under the [MIT license](http://opensource.org/licenses/MIT).
