@@ -2,7 +2,6 @@ package ac.at.tuwien.ifs.sepses.storage.impl;
 
 import ac.at.tuwien.ifs.sepses.storage.Storage;
 import ac.at.tuwien.ifs.sepses.storage.tool.StorageHelper;
-import com.sun.javafx.PlatformUtil;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,8 +31,9 @@ public enum FusekiStorage implements Storage {
 
         try {
             log.info("storing " + filename + " started");
-            if (PlatformUtil.isWindows())
+            if (System.getProperty("os.name").toLowerCase().contains("win")) {
                 filename = filename.replaceAll("/", "\\");
+            }
             String command = "s-post " + endpoint + " " + namegraph + " " + filename;
             Process process = Runtime.getRuntime().exec(command);
             InputStream is = process.getInputStream();
@@ -60,8 +60,9 @@ public enum FusekiStorage implements Storage {
 
         try {
             log.info("storing " + file + " started");
-            if (PlatformUtil.isWindows())
-                file = file.replaceAll("/", "\\");
+            if (System.getProperty("os.name").toLowerCase().contains("win")) {
+                filename = filename.replaceAll("/", "\\");
+            }
             String command = "s-put " + endpoint + " " + namegraph + " " + file;
             Process process = Runtime.getRuntime().exec(command);
             InputStream is = process.getInputStream();
