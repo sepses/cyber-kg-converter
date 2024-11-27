@@ -61,7 +61,7 @@ public enum FusekiStorage implements Storage {
         try {
             log.info("storing " + file + " started");
             if (System.getProperty("os.name").toLowerCase().contains("win")) {
-                filename = filename.replaceAll("/", "\\");
+                file = file.replaceAll("/", "\\");
             }
             String command = "s-put " + endpoint + " " + namegraph + " " + file;
             Process process = Runtime.getRuntime().exec(command);
